@@ -1,13 +1,10 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'server_GUI.ui'
-#
-# Created by: PyQt4 UI code generator 4.11.4
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt4 import QtCore, QtGui
+import sys,time
+import socket
+from threading import Thread
 
+
+"""---------------------------------------------------------------------------------------------------"""
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -46,11 +43,33 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "TCP Server", None))
         self.start_server_btn.setText(_translate("Form", "Start TCP Server", None))
         self.terminate_server_btn.setText(_translate("Form", "Terminate TCP Server", None))
-        """------------------------------------------------------------------------------"""
+"""---------------------------------------------------------------------------------------------------"""
         self.start_server_btn.clicked.connect(self.start_TCP_server)
 
     def start_TCP_server(self):
-        print ("TCP server started...")
+        print ("TCP server listening to port " + port)
+        print ("Waiting for clients...)
+        host = '127.0.0.1'
+        port = 5000
+
+        s = socket.socket()
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        s.bind((host, port))
+
+        s.listen(1)
+        c, addr = s.accept()
+
+        print("Connection from: " + str(addr))
+
+        while True:
+            data = c.recv(1024).decode('utf-8')
+            if not data:
+                break
+            print("From connected user: " + data)
+            data = data.upper()
+            print("Sending: " + data)
+            c.send(data.encode('utf-8'))
+        c.close()
 
 
 if __name__ == "__main__":
