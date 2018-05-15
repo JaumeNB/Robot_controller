@@ -43,12 +43,12 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "TCP Server", None))
         self.start_server_btn.setText(_translate("Form", "Start TCP Server", None))
         self.terminate_server_btn.setText(_translate("Form", "Terminate TCP Server", None))
-"""---------------------------------------------------------------------------------------------------"""
+        """---------------------------------------------------------------------------------------------------"""
         self.start_server_btn.clicked.connect(self.start_TCP_server)
 
     def start_TCP_server(self):
         print ("TCP server listening to port " + port)
-        print ("Waiting for clients...)
+        print ("Waiting for clients...")
         host = '127.0.0.1'
         port = 5000
 
