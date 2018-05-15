@@ -1,5 +1,5 @@
 from PyQt4 import QtCore, QtGui
-import sys,time
+import sys, time, datetime
 import socket
 from threading import Thread
 
@@ -47,14 +47,17 @@ class Ui_Form(object):
         self.start_server_btn.clicked.connect(self.start_TCP_server)
 
     def start_TCP_server(self):
-        print ("TCP server listening to port " + port)
-        print ("Waiting for clients...")
         host = '127.0.0.1'
         port = 5000
+        print ("TCP server listening to port " + str(port))
+        print ("Waiting for clients...")
 
         s = socket.socket()
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind((host, port))
+        try:
+            s.bind((host, port))
+        except socket.error as e:
+            print (str(e))
 
         s.listen(1)
         c, addr = s.accept()
@@ -62,14 +65,26 @@ class Ui_Form(object):
         print("Connection from: " + str(addr))
 
         while True:
-            data = c.recv(1024).decode('utf-8')
-            if not data:
+
+            try:
+                data = c.recv(1024).decode('utf-8')
+                if not data:
+                    break
+                print("\nData received: " + data + "at " + datetime.datetime.now().strftime("%H:%M:%S"))
+                reply = "\nData transmited successfully: " + data + "at " + datetime.datetime.now().strftime("%H:%M:%S")
+                c.send(reply.encode('utf-8'))
+
+            except KeyboardInterrupt:
+                print ("Server stopped due to KeyboardInterrupt")
                 break
-            print("From connected user: " + data)
-            data = data.upper()
-            print("Sending: " + data)
-            c.send(data.encode('utf-8'))
+
+            except UnicodeDecodeError as e:
+                print (str(e))
+                break
+
         c.close()
+        s.shutdown(2)
+        s.close()
 
 
 if __name__ == "__main__":
