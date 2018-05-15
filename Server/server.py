@@ -47,8 +47,8 @@ class Ui_Form(object):
         self.start_server_btn.clicked.connect(self.start_TCP_server)
 
     def start_TCP_server(self):
-        host = '127.0.0.1'
-        port = 5000
+        host = ''
+        port = 12345
         print ("TCP server listening to port " + str(port))
         print ("Waiting for clients...")
 
