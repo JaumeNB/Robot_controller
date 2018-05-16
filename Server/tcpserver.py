@@ -4,6 +4,8 @@ import threading
 from commands import Commands
 from controller import Controller
 
+c = Controller()
+
 class TcpServer(threading.Thread):
     """ Simple socket server that listens to one single client. """
 
@@ -100,12 +102,12 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #set the direction in which motors will spin
-                        Controller.writeBlock(Controller.MOTOR_LEFT_DIR,0)
-                        Controller.writeBlock(Controller.MOTOR_RIGHT_DIR,0)
+                        c.writeBlock(c.MOTOR_LEFT_DIR,0)
+                        c.writeBlock(c.MOTOR_RIGHT_DIR,0)
                         #increase power (PWM) supplied to the motor
                         for i in range(0,1000,10):
-                            c.writeBlock(Controller.MOTOR_LEFT,i)
-                            c.writeBlock(Controller.MOTOR_RIGHT,i)
+                            c.writeBlock(c.MOTOR_LEFT,i)
+                            c.writeBlock(c.MOTOR_RIGHT,i)
                             time.sleep(0.005)
 
                     elif Commands.CMD_BACKWARD[1:] in data_command:
@@ -113,20 +115,20 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #set the direction in which motors will spin
-                        Controller.writeBlock(Controller.MOTOR_LEFT_DIR,1)
-                        Controller.writeBlock(Controller.MOTOR_RIGHT_DIR,1)
+                        c.writeBlock(c.MOTOR_LEFT_DIR,1)
+                        c.writeBlock(c.MOTOR_RIGHT_DIR,1)
                         #increase power (PWM) supplied to the motor
                         for i in range(0,1000,10):
-                            c.writeBlock(Controller.MOTOR_LEFT,i)
-                            c.writeBlock(Controller.MOTOR_RIGHT,i)
+                            c.writeBlock(c.MOTOR_LEFT,i)
+                            c.writeBlock(c.MOTOR_RIGHT,i)
                             time.sleep(0.005)
 
                     elif Commands.CMD_STOP[1:] in data_command:
 
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        c.writeBlock(Controller.MOTOR_LEFT,0)
-                        c.writeBlock(Controller.MOTOR_RIGHT,0)
+                        c.writeBlock(c.MOTOR_LEFT,0)
+                        c.writeBlock(c.MOTOR_RIGHT,0)
 
 
 

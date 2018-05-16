@@ -3,7 +3,7 @@ import sys, time, datetime
 
 class TcpClient():
 
-    def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024):
+    def __init__(self, host = '192.168.1.3', port = 12345, buf_size = 1024):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = host
         self.port = port
