@@ -1,2 +1,3 @@
 # Robot_controller
-TCP server and client to control a robot with PyQt GUI and multi-threading
+TCP server and client to control a robot with a PyQt GUI, multithreading
+and sockets.
