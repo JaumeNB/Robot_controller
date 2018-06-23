@@ -53,6 +53,21 @@ class Main(QWidget, Ui_Form):
             print "Failed to send data", e
 
 
+    def keyPressEvent(self,event):
+        if event.key() == Qt.Key_Up:
+            try:
+                self.tcp_client.send_data(Commands.CMD_FORWARD)
+            except Exception, e:
+                print "Failed to send data", e
+
+    def keyReleaseEvent (self, event):
+        if event.key() == Qt.Key_Up:
+            try:
+                self.tcp_client.send_data(Commands.CMD_STOP)
+            except Exception, e:
+                print "Failed to send data", e
+
+
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     dlg = Main()
