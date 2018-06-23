@@ -1,4 +1,6 @@
 from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 from PyQt4.QtCore import pyqtSignature
 from PyQt4.QtGui import QWidget
 import sys, time, datetime
@@ -54,18 +56,41 @@ class Main(QWidget, Ui_Form):
 
 
     def keyPressEvent(self,event):
-        if event.key() == Qt.Key_Up:
-            try:
-                self.tcp_client.send_data(Commands.CMD_FORWARD)
-            except Exception, e:
-                print "Failed to send data", e
 
-    def keyReleaseEvent (self, event):
-        if event.key() == Qt.Key_Up:
-            try:
+        if event.key() == Qt.Key_R:
+            self.tcp_client.send_data(Commands.CMD_RGB_R)
+        elif event.key() == Qt.Key_G:
+            self.tcp_client.send_data(Commands.CMD_RGB_G)
+        elif event.key() == Qt.Key_B:
+            self.tcp_client.send_data(Commands.CMD_RGB_B)
+
+        if event.isAutoRepeat():
+            pass
+
+        else :
+            print "You Pressed Key : ", event.key(), event.text()
+            if event.key() == Qt.Key_I:
+                self.tcp_client.send_data(Commands.CMD_FORWARD)
+            elif event.key() == Qt.Key_K:
+                self.tcp_client.send_data(Commands.CMD_BACKWARD)
+            elif event.key() == Qt.Key_J:
+                self.tcp_client.send_data(Commands.CMD_TURN_LEFT)
+            elif event.key() == Qt.Key_L:
+                self.tcp_client.send_data(Commands.CMD_TURN_RIGHT)
+
+    def keyReleaseEvent(self, event):
+
+        if event.isAutoRepeat():
+            pass
+
+        else:
+
+            print "You Released Key : ", event.key()
+
+            if event.key() == Qt.Key_I or event.key() == Qt.Key_K :
                 self.tcp_client.send_data(Commands.CMD_STOP)
-            except Exception, e:
-                print "Failed to send data", e
+            elif event.key() == Qt.Key_J or event.key() == Qt.Key_L:
+                self.tcp_client.send_data(Commands.CMD_TURN_CENTER)
 
 
 if __name__ == "__main__":

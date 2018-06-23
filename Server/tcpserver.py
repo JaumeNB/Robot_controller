@@ -130,6 +130,30 @@ class TcpServer(threading.Thread):
                         c.writeBlock(c.MOTOR_LEFT,0)
                         c.writeBlock(c.MOTOR_RIGHT,0)
 
+                    elif Commands.CMD_RGB_B[1:]  in data_command:
+                        if c.Is_BLUE_LED_State_True is True:
+                            c.Is_BLUE_LED_State_True = False
+                            c.writeReg(c.BLUE_LED,0)
+                        elif c.Is_BLUE_LED_State_True is False:
+                            c.Is_BLUE_LED_State_True = True
+                            c.writeReg(c.BLUE_LED,1)
+
+                    elif Commands.CMD_RGB_R[1:]  in data_command:
+                        if c.Is_RED_LED_State_True is True:
+                            c.Is_RED_LED_State_True = False
+                            c.writeReg(c.RED_LED,0)
+                        elif c.Is_RED_LED_State_True is False:
+                            c.Is_RED_LED_State_True = True
+                            c.writeReg(c.RED_LED,1)
+
+                    elif Commands.CMD_RGB_G[1:]  in data_command:
+                        if c.Is_GREEN_LED_State_True is True:
+                            c.Is_GREEN_LED_State_True = False
+                            c.writeReg(c.GREEN_LED,0)
+                        elif c.Is_GREEN_LED_State_True is False:
+                            c.Is_GREEN_LED_State_True = True
+                            c.writeReg(c.GREEN_LED,1)
+
 
 
 def main():
