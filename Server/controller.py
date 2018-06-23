@@ -20,8 +20,8 @@ class Controller:
     BLUE_LED = 10                       #BLUE LED
     GREEN_LED = 11                      #GREEN LED
     Is_RED_LED_State_True = False       #RED LED state
-	Is_BLUE_LED_State_True = False      #BLUE LED state
-	Is_GREEN_LED_State_True = False     #GREEN LED state
+    Is_BLUE_LED_State_True = False      #BLUE LED state
+    Is_GREEN_LED_State_True = False     #GREEN LED state
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):
