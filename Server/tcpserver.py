@@ -169,7 +169,7 @@ class TcpServer(threading.Thread):
                             c.turn_green_led_on()
 
                     """BLUE LED"""
-                elif Commands.CMD_RGB_B[1:] in data_command:
+                    elif Commands.CMD_RGB_B[1:] in data_command:
 
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
