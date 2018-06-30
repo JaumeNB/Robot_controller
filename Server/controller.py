@@ -7,7 +7,7 @@ from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 class Controller(QObject):
 
-    moved = pyqtSignal(int)
+    moved = pyqtSignal()
 
     """CLASS ATTRIBUTES"""
     #COMMANDS
@@ -27,6 +27,7 @@ class Controller(QObject):
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):
+        QObject.__init__(self)
         self.address = 0x18                 #address of the I2C device
     	self.bus=smbus.SMBus(1)             #initialize bus
 
@@ -45,6 +46,7 @@ class Controller(QObject):
         if self.CURRENT_DIRECTION > 60:
             #increase direction tilt towards right
             self.change_direction(self.CURRENT_DIRECTION-10)
+            self.moved.emit()
             #set the direction in which motors will spin
             self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
         else:
