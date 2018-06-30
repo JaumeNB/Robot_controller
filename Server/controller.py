@@ -37,6 +37,18 @@ class Controller:
         except Exception,e:
 	    print Exception,"I2C Error :",e
 
+    def turn_led_off(self):
+        #turn off red led
+        self.writeBlock(self.RED_LED, 0)
+        #turn off blue led
+        self.writeBlock(self.BLUE_LED, 0)
+        #turn off green led
+        self.writeBlock(self.GREEN_LED, 0)
+
+    def turn_red_led_on(self):
+        #turn on red led
+        self.writeBlock(self.RED_LED, 1)
+
 """----------------------FUNCTIONS---------------------------"""
 
 def blink(controller, led):
@@ -78,17 +90,7 @@ def rotate_servo(controller, servo):
         controller.writeBlock(command,numMap(i,0,180,500,2500))
         time.sleep(0.005)
 
-def turn_led_off(controller):
-    #turn off red led
-    controller.writeBlock(controller.RED_LED, 0)
-    #turn off blue led
-    controller.writeBlock(controller.BLUE_LED, 0)
-    #turn off green led
-    controller.writeBlock(controller.GREEN_LED, 0)
 
-def turn_red_led_on(controller):
-    #turn on red led
-    controller.writeBlock(controller.RED_LED, 1)
 
 
 """----------------------MAIN PROGRAM---------------------------"""
