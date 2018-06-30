@@ -18,6 +18,8 @@ class Main(QWidget, Ui_Form):
         QWidget.__init__(self, parent)
         self.setupUi(self)
 
+    """---------------PyQt BUTTON LISTENERS-----------------------"""
+    #connect button pressed
     @pyqtSignature("")
     def on_connect_btn_pressed(self):
         try:
@@ -26,6 +28,7 @@ class Main(QWidget, Ui_Form):
             print "Connect to server Faild!: Server IP is right? Server is opend?", e
         print "Connecttion Successful !"
 
+    #forward button pressed
     @pyqtSignature("")
     def on_forward_btn_pressed(self):
         try:
@@ -33,6 +36,7 @@ class Main(QWidget, Ui_Form):
         except Exception, e:
             print "Failed to send data", e
 
+    #forward button released
     @pyqtSignature("")
     def on_forward_btn_released(self):
         try:
@@ -40,6 +44,7 @@ class Main(QWidget, Ui_Form):
         except Exception, e:
             print "Failed to send data", e
 
+    #backward button pressed
     @pyqtSignature("")
     def on_backward_btn_pressed(self):
         try:
@@ -47,10 +52,19 @@ class Main(QWidget, Ui_Form):
         except Exception, e:
             print "Failed to send data", e
 
+    #backward button released
     @pyqtSignature("")
     def on_backward_btn_released(self):
         try:
             self.tcp_client.send_data(Commands.CMD_STOP)
+        except Exception, e:
+            print "Failed to send data", e
+
+    #red led button released
+    @pyqtSignature("")
+    def on_red_btn_pressed(self):
+        try:
+            self.tcp_client.send_data(Commands.CMD_RGB_R)
         except Exception, e:
             print "Failed to send data", e
 
