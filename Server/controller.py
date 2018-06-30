@@ -54,8 +54,8 @@ class Controller():
 
 			self.bus.write_byte(self.address,command+1)
 			d = self.bus.read_byte_data(self.address,command+1)
-			#print i,a,b,c,d
-			#'''
+			print i,a,b,c,d
+
 			if(a[0] == c and c < self.SONIC_MAX_HIGH_BYTE ): #and b[0] == d
 				return c<<8 | d
 			else:
@@ -249,8 +249,8 @@ if __name__ == '__main__':
         #test the ultrasonic sensor
         if sys.argv[1] == "ULTRASONIC":
 			while True:
-				print "Sonic: ",getSonic()
-				time.sleep(0.1)
+				print "Sonic: ", getSonic()
+				time.sleep(0.5)
 
     except KeyboardInterrupt:
         print 'Interrupted'
