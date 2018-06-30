@@ -149,7 +149,7 @@ class TcpServer(threading.Thread):
                             #turn on red led
                             c.turn_red_led_on()
 
-                    """GREEN LED"""
+                    #GREEN LED
                     elif Commands.CMD_RGB_G[1:] in data_command:
 
                         #print command and timestamp
@@ -168,7 +168,7 @@ class TcpServer(threading.Thread):
                             #turn on red led
                             c.turn_green_led_on()
 
-                    """BLUE LED"""
+                    #BLUE LED
                     elif Commands.CMD_RGB_B[1:] in data_command:
 
                         #print command and timestamp
