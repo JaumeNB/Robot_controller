@@ -136,13 +136,13 @@ class TcpServer(threading.Thread):
                             #set red led state to false (off)
                             c.RED_LED_ON = False
                             #turn all leds off
-                            c.turn_led_off(c)
+                            c.turn_led_off()
                         #if red led is off, turn on
                         elif c.RED_LED_ON is False:
                             #set red led state to true (on)
                             c.RED_LED_ON = True
                             #turn on red led
-                            c.turn_red_led_on(c)
+                            c.turn_red_led_on()
 
 def main():
     server = TcpServer()
