@@ -27,22 +27,8 @@ class Controller(QObject):
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):
-        # Initialize the PunchingBag as a QObject
-        QObject.__init__(self)
         self.address = 0x18                 #address of the I2C device
     	self.bus=smbus.SMBus(1)             #initialize bus
-
-    """GETTERS & SETTERS"""
-    @property
-    def current_direction(self):
-        return self.CURRENT_DIRECTION
-
-    @CURRENT_DIRECTION.setter
-    def change_direction(self, new_current_direction):
-        self.CURRENT_DIRECTION = new_current_direction
-        # After the center is moved, emit the
-        # moved signal with the new coordinates
-        self.moved.emit(new_current_direction)
 
     """INSTANCE METHODS"""
     def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
@@ -63,6 +49,7 @@ class Controller(QObject):
             self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
         else:
             print ("You reach the direction limit, change direction towards left")
+
     #TURNS DIRECTION TO THE LEFT
     def turn_left(self):
         #check if reached limit
@@ -73,6 +60,7 @@ class Controller(QObject):
             self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
         else:
             print ("You reach the direction limit, change direction towards right")
+
     #TURNS LED OFF
     def turn_led_off(self):
         #turn OFF red led

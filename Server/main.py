@@ -33,11 +33,6 @@ class Main(QWidget, Ui_Form):
     def on_red_btn_pressed(self):
         self.red_btn.setBackground(QtGui.QColor('red'))
 
-    # A slot for the "resized" signal, accepting the radius
-    @pyqtSlot(int)
-    def on_moved(r):
-        print('Circle was resized to radius %s.' % r)
-
 
 
 if __name__ == "__main__":

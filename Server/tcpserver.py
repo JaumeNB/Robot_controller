@@ -4,12 +4,12 @@ import threading
 from commands import Commands
 from controller import Controller
 
-c = Controller()
 
-c.moved.connect(on_moved)
 
 class TcpServer(threading.Thread):
     """ Simple socket server that listens to one single client. """
+
+    c = Controller()
 
     def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024):
         threading.Thread.__init__(self)
@@ -159,9 +159,6 @@ class TcpServer(threading.Thread):
 
                         #turn red led ON
                         c.turn_red_led_on()
-
-                        #turn sever ui red_btn red
-
 
                     #GREEN LED
                     elif Commands.CMD_RGB_G[1:] in data_command:
