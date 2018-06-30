@@ -14,14 +14,14 @@ class Controller:
     MOTOR_LEFT = 4                      #LEFT WHEEL MOTOR POWER
     MOTOR_RIGHT = 5                     #RIGHT WHEEL MOTOR POWER
     MOTOR_LEFT_DIR = 6                  #LEFT MOTOR DIRECTION
-    MOTOR_RIGHT_DIR = 7                 #RIGHT MOTOR DIRECTION
+    MOTOR_RrIGHT_DIR = 7                 #RIGHT MOTOR DIRECTION
     BUZZER = 8                          #BUZZER
     RED_LED = 9                         #RED LED
     BLUE_LED = 10                       #BLUE LED
     GREEN_LED = 11                      #GREEN LED
-    Is_RED_LED_State_True = False       #RED LED state
-    Is_BLUE_LED_State_True = False      #BLUE LED state
-    Is_GREEN_LED_State_True = False     #GREEN LED state
+    RED_LED_ON = False                  #RED LED state
+    BLUE_LED_ON = False                 #BLUE LED state
+    GREEN_LED_ON = False                #GREEN LED state
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):
@@ -77,6 +77,18 @@ def rotate_servo(controller, servo):
     for i in range(end_angle,center_angle,-1):
         controller.writeBlock(command,numMap(i,0,180,500,2500))
         time.sleep(0.005)
+
+def turn_led_off(controller):
+    #turn off red led
+    controller.writeBlock(controller.RED_LED, 0)
+    #turn off blue led
+    controller.writeBlock(controller.BLUE_LED, 0)
+    #turn off green led
+    controller.writeBlock(controller.GREEN_LED, 0)
+
+def turn_red_led_on(controller):
+    #turn on red led
+    controller.writeBlock(controller.RED_LED, 1)
 
 
 """----------------------MAIN PROGRAM---------------------------"""

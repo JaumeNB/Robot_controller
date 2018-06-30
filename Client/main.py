@@ -54,7 +54,7 @@ class Main(QWidget, Ui_Form):
         except Exception, e:
             print "Failed to send data", e
 
-
+    """--------------------KEYBOARD COMMANDS----------------------"""
     def keyPressEvent(self,event):
 
         if event.key() == Qt.Key_R:
