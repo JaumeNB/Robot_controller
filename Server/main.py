@@ -20,9 +20,7 @@ class Main(QWidget, Ui_Form):
 
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
-    @pyqtSlot(int)
-    def on_moved(x):
-        self.red_btn.setText(x)
+
 
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
@@ -43,7 +41,11 @@ class Main(QWidget, Ui_Form):
 
 
 if __name__ == "__main__":
+
     app = QtGui.QApplication(sys.argv)
     dlg = Main()
+    @pyqtSlot(int)
+    def on_moved(x):
+        dlg.red_btn.setText(x)
     dlg.show()
     sys.exit(app.exec_())
