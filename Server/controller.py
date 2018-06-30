@@ -134,6 +134,11 @@ class Controller():
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
 
+    def getSonic(self):
+    		SonicEchoTime = self.readBlock(self.CMD_SONIC)
+    		distance = SonicEchoTime * 17.0 / 1000.0
+    		return distance
+
     """STATIC METHODS"""
     @staticmethod
     #MAPS VALUE FROM ONE RANGE TO ANOTHER RANGE
@@ -183,10 +188,7 @@ def rotate_servo(controller, servo):
         controller.writeBlock(command,numMap(i,0,180,500,2500))
         time.sleep(0.005)
 
-def getSonic(self):
-		SonicEchoTime = c.readBlock(c.CMD_SONIC)
-		distance = SonicEchoTime * 17.0 / 1000.0
-		return distance
+
 
 
 
