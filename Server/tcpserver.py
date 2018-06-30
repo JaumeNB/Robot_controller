@@ -130,6 +130,7 @@ class TcpServer(threading.Thread):
                         c.writeBlock(c.MOTOR_LEFT,0)
                         c.writeBlock(c.MOTOR_RIGHT,0)
 
+                    """RED LED"""
                     elif Commands.CMD_RGB_R[1:] in data_command:
 
                         #print command and timestamp
@@ -147,6 +148,44 @@ class TcpServer(threading.Thread):
                             c.RED_LED_ON = True
                             #turn on red led
                             c.turn_red_led_on()
+
+                    """GREEN LED"""
+                    elif Commands.CMD_RGB_G[1:] in data_command:
+
+                        #print command and timestamp
+                        print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+
+                        #if red led is on, turn off
+                        if c.GREEN_LED_ON is True:
+                            #set red led state to false (off)
+                            c.GREEN_LED_ON = False
+                            #turn all leds off
+                            c.turn_led_off()
+                        #if red led is off, turn on
+                        elif c.GREEN_LED_ON is False:
+                            #set red led state to true (on)
+                            c.GREEN_LED_ON = True
+                            #turn on red led
+                            c.turn_green_led_on()
+
+                    """BLUE LED"""
+                elif Commands.CMD_RGB_B[1:] in data_command:
+
+                        #print command and timestamp
+                        print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+
+                        #if red led is on, turn off
+                        if c.BLUE_LED_ON is True:
+                            #set red led state to false (off)
+                            c.BLUE_LED_ON = False
+                            #turn all leds off
+                            c.turn_led_off()
+                        #if red led is off, turn on
+                        elif c.BLUE_LED_ON is False:
+                            #set red led state to true (on)
+                            c.BLUE_LED_ON = True
+                            #turn on red led
+                            c.turn_blue_led_on()
 
 def main():
     server = TcpServer()

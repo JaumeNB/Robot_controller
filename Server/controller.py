@@ -49,6 +49,14 @@ class Controller:
         #turn on red led
         self.writeBlock(self.RED_LED, 0)
 
+    def turn_green_led_on(self):
+        #turn on red led
+        self.writeBlock(self.GREEN_LED, 0)
+
+    def turn_blue_led_on(self):
+        #turn on red led
+        self.writeBlock(self.BLUE_LED, 0)
+
 """----------------------FUNCTIONS---------------------------"""
 
 def blink(controller, led):
