@@ -134,6 +134,14 @@ class TcpServer(threading.Thread):
                         #turn to the right the direction
                         c.turn_right()
 
+                    #TURN LEFT
+                    elif Commands.CMD_TURN_LEFT[1:] in data_command:
+
+                        print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+
+                        #turn to the right the direction
+                        c.turn_left()
+
                     #STOP
                     elif Commands.CMD_STOP[1:] in data_command:
 

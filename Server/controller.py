@@ -20,7 +20,7 @@ class Controller:
     BLUE_LED = 10                       #BLUE LED
     GREEN_LED = 11                      #GREEN LED
     #STATE
-    CURRENT_DIRECTION = 0               #TILT OF DIRECTION ON BOTH WHEELS
+    CURRENT_DIRECTION = 90               #TILT OF DIRECTION ON BOTH WHEELS
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):
@@ -42,6 +42,14 @@ class Controller:
         self.CURRENT_DIRECTION += 10
         #set the direction in which motors will spin
         self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
+
+    #TURNS DIRECTION TO THE LEFT
+    def turn_left(self):
+        #increase direction tilt towards right
+        self.CURRENT_DIRECTION -= 10
+        #set the direction in which motors will spin
+        self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
+
     #TURNS LED OFF
     def turn_led_off(self):
         #turn OFF red led
