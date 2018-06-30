@@ -24,11 +24,9 @@ class Main(QWidget, Ui_Form):
     def on_start_server_btn_pressed(self):
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
         #using for loop to avoid error raised by starting same thread
-        for i in range(1):
-            t = TcpServer()
-            t.setDaemon(True)
-            t.start()
-            t.c.moved.connect(on_moved)
+        t = TcpServer()
+        t.setDaemon(True)
+        t.c.moved.connect(on_moved)
 
 
     @pyqtSignature("")
