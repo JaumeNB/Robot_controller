@@ -55,6 +55,7 @@ class Main(QWidget, Ui_Form):
             print "Failed to send data", e
 
     """--------------------KEYBOARD COMMANDS----------------------"""
+    #PRESS A KEY
     def keyPressEvent(self,event):
 
         #print key pressed
@@ -88,19 +89,16 @@ class Main(QWidget, Ui_Form):
         elif event.key() == Qt.Key_Space:
             self.tcp_client.send_data(Commands.CMD_TURN_STOP)
 
+    #RELEASE A KEY
     def keyReleaseEvent(self, event):
 
         if event.isAutoRepeat():
             pass
-
         else:
-
             print "You Released Key : ", event.key()
 
-            if event.key() == Qt.Key_I or event.key() == Qt.Key_K :
-                self.tcp_client.send_data(Commands.CMD_STOP)
-            elif event.key() == Qt.Key_J or event.key() == Qt.Key_L:
-                self.tcp_client.send_data(Commands.CMD_TURN_CENTER)
+            #if event.key() == Qt.Key_I or event.key() == Qt.Key_K :
+                #self.tcp_client.send_data(Commands.CMD_STOP)
 
 
 if __name__ == "__main__":
