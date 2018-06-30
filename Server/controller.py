@@ -45,7 +45,7 @@ class Controller(QObject):
         #check if reached limit
         if self.CURRENT_DIRECTION > 60:
             #increase direction tilt towards right
-            self.change_direction(self.CURRENT_DIRECTION-10)
+            self.CURRENT_DIRECTION -= 10
             self.moved.emit()
             #set the direction in which motors will spin
             self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
