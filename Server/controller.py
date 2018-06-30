@@ -23,7 +23,7 @@ class Controller:
     """CLASS CONSTRUCTOR"""
     def __init__(self):
         self.address = 0x18             #address of the I2C device
-	self.bus=smbus.SMBus(1)         #initialize bus
+	self.bus=smbus.SMBus(1)             #initialize bus
 
     """CLASS METHODS"""
     def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
@@ -34,7 +34,7 @@ class Controller:
         except Exception,e:
 	    print Exception,"I2C Error :",e
 
-    """TURNS LED OFF"""
+    #TURNS LED OFF
     def turn_led_off(self):
         #turn OFF red led
         self.writeBlock(self.RED_LED, 1)
@@ -43,7 +43,7 @@ class Controller:
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
 
-    """TURNS RED LED ON AND TURNS OFF OTHERS"""
+    #TURNS RED LED ON AND TURNS OFF OTHERS
     def turn_red_led_on(self):
         #turn ON red led
         self.writeBlock(self.RED_LED, 0)
@@ -52,7 +52,7 @@ class Controller:
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
 
-    """TURNS GREEN LED ON AND TURNS OFF OTHERS"""
+    #TURNS GREEN LED ON AND TURNS OFF OTHERS
     def turn_green_led_on(self):
         #turn OFF red led
         self.writeBlock(self.RED_LED, 1)
@@ -61,7 +61,7 @@ class Controller:
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
 
-    """TURNS BLUE LED ON AND TURNS OFF OTHERS"""
+    #TURNS BLUE LED ON AND TURNS OFF OTHERS
     def turn_blue_led_on(self):
         #turn OFF red led
         self.writeBlock(self.RED_LED, 1)

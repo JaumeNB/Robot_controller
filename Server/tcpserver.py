@@ -89,6 +89,7 @@ class TcpServer(threading.Thread):
                 if not data:
                     break
 
+                print data
                 data_array = data.split(">")
 
                 for data_command in data_array:
