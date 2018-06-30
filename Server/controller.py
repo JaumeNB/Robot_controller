@@ -39,7 +39,7 @@ class Controller:
     #TURNS DIRECTION TO THE RIGHT
     def turn_right(self):
         #check if reached limit
-        if self.CURRENT_DIRECTION > 0:
+        if self.CURRENT_DIRECTION > 60:
             #increase direction tilt towards right
             self.CURRENT_DIRECTION -= 10
             #set the direction in which motors will spin
@@ -49,7 +49,7 @@ class Controller:
     #TURNS DIRECTION TO THE LEFT
     def turn_left(self):
         #check if reached limit
-        if self.CURRENT_DIRECTION < 180:
+        if self.CURRENT_DIRECTION < 140:
             #increase direction tilt towards right
             self.CURRENT_DIRECTION += 10
             #set the direction in which motors will spin
