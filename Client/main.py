@@ -87,7 +87,7 @@ class Main(QWidget, Ui_Form):
             self.tcp_client.send_data(Commands.CMD_TURN_RIGHT)
         #M: stop
         elif event.key() == Qt.Key_M:
-            self.tcp_client.send_data(Commands.CMD_TURN_STOP)
+            self.tcp_client.send_data(Commands.CMD_STOP)
 
     #RELEASE A KEY
     def keyReleaseEvent(self, event):
