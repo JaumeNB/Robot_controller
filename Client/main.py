@@ -18,7 +18,7 @@ class Main(QWidget, Ui_Form):
         QWidget.__init__(self, parent)
         self.setupUi(self)
 
-    """---------------PyQt BUTTON LISTENERS-----------------------"""
+    """---------------PyQt BUTTON LISTENERS---------------------"""
     #connect button pressed
     @pyqtSignature("")
     def on_connect_btn_pressed(self):

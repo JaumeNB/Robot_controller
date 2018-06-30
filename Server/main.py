@@ -14,6 +14,7 @@ class Main(QWidget, Ui_Form):
         QWidget.__init__(self, parent)
         self.setupUi(self)
 
+    """---------------PyQt BUTTON LISTENERS---------------------"""
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
@@ -22,6 +23,7 @@ class Main(QWidget, Ui_Form):
             t = TcpServer()
             t.setDaemon(True)
             t.start()
+
 
 
 if __name__ == "__main__":

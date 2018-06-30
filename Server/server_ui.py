@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'client_GUI.ui'
+# Form implementation generated from reading ui file 'server_GUI.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -28,6 +28,18 @@ class Ui_Form(object):
         Form.resize(400, 300)
         self.verticalLayout = QtGui.QVBoxLayout(Form)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.red_btn = QtGui.QPushButton(Form)
+        self.red_btn.setObjectName(_fromUtf8("red_btn"))
+        self.horizontalLayout_2.addWidget(self.red_btn)
+        self.green_btn = QtGui.QPushButton(Form)
+        self.green_btn.setObjectName(_fromUtf8("green_btn"))
+        self.horizontalLayout_2.addWidget(self.green_btn)
+        self.blue_btn = QtGui.QPushButton(Form)
+        self.blue_btn.setObjectName(_fromUtf8("blue_btn"))
+        self.horizontalLayout_2.addWidget(self.blue_btn)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setSpacing(45)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -41,7 +53,11 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "TCP Server", None))
+        self.red_btn.setText(_translate("Form", "Red LED", None))
+        self.green_btn.setText(_translate("Form", "Green Led", None))
+        self.blue_btn.setText(_translate("Form", "Blue LED", None))
         self.start_server_btn.setText(_translate("Form", "Start TCP Server", None))
+
 
 if __name__ == "__main__":
     import sys
@@ -51,3 +67,4 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
+
