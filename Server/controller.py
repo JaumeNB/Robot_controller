@@ -184,7 +184,7 @@ def rotate_servo(controller, servo):
         time.sleep(0.005)
 
 def getSonic(self):
-		SonicEchoTime = c.readReg(c.CMD_SONIC)
+		SonicEchoTime = c.readBlock(c.CMD_SONIC)
 		distance = SonicEchoTime * 17.0 / 1000.0
 		return distance
 
