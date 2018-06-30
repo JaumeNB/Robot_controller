@@ -129,24 +129,10 @@ class TcpServer(threading.Thread):
                     #TURN RIGHT
                     elif Commands.CMD_TURN_RIGHT[1:] in data_command:
 
-                        #increase direction tilt towards right
-                        c.CURRENT_DIRECTION += 10
-
                         print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        #set the direction in which motors will spin
-                        c.writeBlock(c.SERVO_1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
-
-                    #TURN LEFT
-                    elif Commands.CMD_TURN_LEFT[1:] in data_command:
-
-                        #increase direction tilt towards right
-                        c.CURRENT_DIRECTION -= 10
-
-                        print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
-                        #set the direction in which motors will spin
-                        c.writeBlock(c.SERVO_1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
+                        #turn to the right the direction
+                        c.turn_right()
 
                     #STOP
                     elif Commands.CMD_STOP[1:] in data_command:

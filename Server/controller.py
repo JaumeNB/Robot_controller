@@ -27,7 +27,7 @@ class Controller:
         self.address = 0x18             #address of the I2C device
 	self.bus=smbus.SMBus(1)             #initialize bus
 
-    """CLASS METHODS"""
+    """INSTANCE METHODS"""
     def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
         try:
             #data sent to address, first byte of data is a command. Other bytes are transformed for correct data processing
@@ -36,6 +36,12 @@ class Controller:
         except Exception,e:
 	    print Exception,"I2C Error :",e
 
+    #TURNS DIRECTION TO THE RIGHT
+    def turn_right(self):
+        #increase direction tilt towards right
+        self.CURRENT_DIRECTION += 10
+        #set the direction in which motors will spin
+        self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
     #TURNS LED OFF
     def turn_led_off(self):
         #turn OFF red led
@@ -71,6 +77,13 @@ class Controller:
         self.writeBlock(self.BLUE_LED, 0)
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
+
+    """STATIC METHODS"""
+    @staticmethod
+    #MAPS VALUE FROM ONE RANGE TO ANOTHER RANGE
+    def numMap(value,fromLow,fromHigh,toLow,toHigh):
+        #map a value from a range to another range
+        return (toHigh-toLow)*(value-fromLow) / (fromHigh-fromLow) + toLow
 
 """----------------------FUNCTIONS---------------------------"""
 
