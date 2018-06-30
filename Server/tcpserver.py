@@ -4,14 +4,11 @@ import threading
 from commands import Commands
 from controller import Controller
 
-from main import Main
-
-
 class TcpServer(threading.Thread):
     """ Simple socket server that listens to one single client. """
 
     c = Controller()
-    c.moved.connect(Main.on_moved)
+    
 
     def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024):
         threading.Thread.__init__(self)

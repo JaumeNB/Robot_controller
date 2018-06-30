@@ -28,6 +28,7 @@ class Main(QWidget, Ui_Form):
             t = TcpServer()
             t.setDaemon(True)
             t.start()
+            t.c.moved.connect(on_moved)
 
 
     @pyqtSignature("")
