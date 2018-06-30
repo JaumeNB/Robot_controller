@@ -130,7 +130,7 @@ class TcpServer(threading.Thread):
                         c.writeBlock(c.MOTOR_LEFT,0)
                         c.writeBlock(c.MOTOR_RIGHT,0)
 
-                    elif Commands.CMD_RGB_B[1:]  in data_command:
+                    elif Commands.CMD_RGB_B[1:] in data_command:
                         if c.Is_BLUE_LED_State_True is True:
                             c.Is_BLUE_LED_State_True = False
                             c.writeBlock(c.BLUE_LED,0)
@@ -148,8 +148,10 @@ class TcpServer(threading.Thread):
                             c.turn_led_off(c)
                         #if red led is off, turn on
                         elif c.Red_Led_On is False:
+                            #set red led state to true (on)
                             c.Red_Led_On = True
-                            c.writeBlock(c.RED_LED,1)
+                            #turn on red led
+                            c.turn_red_led_on(c)
 
                     elif Commands.CMD_RGB_G[1:] in data_command:
                         if c.Is_GREEN_LED_State_True is True:
