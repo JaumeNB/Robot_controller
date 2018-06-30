@@ -135,7 +135,7 @@ class TcpServer(threading.Thread):
                         print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #set the direction in which motors will spin
-                        c.writeBlock(mdev.CMD_SERVO1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
+                        c.writeBlock(c.SERVO_1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
 
                     #TURN LEFT
                     elif Commands.CMD_TURN_LEFT[1:] in data_command:
@@ -146,7 +146,7 @@ class TcpServer(threading.Thread):
                         print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #set the direction in which motors will spin
-                        c.writeBlock(mdev.CMD_SERVO1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
+                        c.writeBlock(c.SERVO_1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
 
                     #STOP
                     elif Commands.CMD_STOP[1:] in data_command:
