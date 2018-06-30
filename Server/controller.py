@@ -19,6 +19,8 @@ class Controller:
     RED_LED = 9                         #RED LED
     BLUE_LED = 10                       #BLUE LED
     GREEN_LED = 11                      #GREEN LED
+    #STATE
+    CURRENT_DIRECTION = 0               #TILT OF DIRECTION ON BOTH WHEELS
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):

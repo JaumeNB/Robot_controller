@@ -98,6 +98,7 @@ class TcpServer(threading.Thread):
 
                         continue
 
+                    #GO BACKWARDS
                     if Commands.CMD_FORWARD[1:] in data_command:
 
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
@@ -111,6 +112,7 @@ class TcpServer(threading.Thread):
                             c.writeBlock(c.MOTOR_RIGHT,i)
                             time.sleep(0.005)
 
+                    #GO FORWARD
                     elif Commands.CMD_BACKWARD[1:] in data_command:
 
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
@@ -124,6 +126,29 @@ class TcpServer(threading.Thread):
                             c.writeBlock(c.MOTOR_RIGHT,i)
                             time.sleep(0.005)
 
+                    #TURN RIGHT
+                    elif Commands.CMD_TURN_RIGHT[1:] in data_command:
+
+                        #increase direction tilt towards right
+                        c.CURRENT_DIRECTION += 10
+
+                        print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+
+                        #set the direction in which motors will spin
+                        c.writeBlock(mdev.CMD_SERVO1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
+
+                    #TURN LEFT
+                elif Commands.CMD_TURN_LEFT[1:] in data_command:
+
+                        #increase direction tilt towards right
+                        c.CURRENT_DIRECTION -= 10
+
+                        print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+
+                        #set the direction in which motors will spin
+                        c.writeBlock(mdev.CMD_SERVO1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
+
+                    #STOP
                     elif Commands.CMD_STOP[1:] in data_command:
 
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
