@@ -37,7 +37,7 @@ class Main(QWidget, Ui_Form):
 
     @pyqtSlot(int)
     def on_moved(x):
-        print('Circle was moved to' + x)
+        self.red_btn.setText(x)
 
 
 
