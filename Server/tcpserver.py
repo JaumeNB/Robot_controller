@@ -138,7 +138,7 @@ class TcpServer(threading.Thread):
                         c.writeBlock(mdev.CMD_SERVO1,numMap(c.CURRENT_DIRECTION,0,180,500,2500))
 
                     #TURN LEFT
-                elif Commands.CMD_TURN_LEFT[1:] in data_command:
+                    elif Commands.CMD_TURN_LEFT[1:] in data_command:
 
                         #increase direction tilt towards right
                         c.CURRENT_DIRECTION -= 10
