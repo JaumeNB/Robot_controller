@@ -249,7 +249,7 @@ if __name__ == '__main__':
         #test the ultrasonic sensor
         if sys.argv[1] == "ULTRASONIC":
 			while True:
-				print "Sonic: ",c.getSonic()
+				print "Sonic: ",getSonic()
 				time.sleep(0.1)
 
     except KeyboardInterrupt:
