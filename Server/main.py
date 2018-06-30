@@ -20,6 +20,10 @@ class Main(QWidget, Ui_Form):
 
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
+    @pyqtSlot(int)
+    def on_moved(x):
+        self.red_btn.setText(x)
+
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
@@ -34,9 +38,7 @@ class Main(QWidget, Ui_Form):
         self.red_btn.setStyleSheet("background-color: red")
         self.red_btn.setText('RED')
 
-    @pyqtSlot(int)
-    def on_moved(x):
-        self.red_btn.setText(x)
+
 
 
 
