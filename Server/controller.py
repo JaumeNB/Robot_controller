@@ -41,8 +41,8 @@ class Controller(QObject):
     def __init__(self):
         # Initialize the PunchingBag as a QObject
         QObject.__init__(self)
-        self.address = 0x18                 #address of the I2C device
-	    self.bus=smbus.SMBus(1)             #initialize bus
+    self.address = 0x18                 #address of the I2C device
+	self.bus=smbus.SMBus(1)             #initialize bus
 
     """INSTANCE METHODS"""
     def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
