@@ -37,6 +37,7 @@ class Controller:
         except Exception,e:
 	    print Exception,"I2C Error :",e
 
+    """TURNS LED OFF"""
     def turn_led_off(self):
         #turn off red led
         self.writeBlock(self.RED_LED, 1)
@@ -45,16 +46,19 @@ class Controller:
         #turn off green led
         self.writeBlock(self.GREEN_LED, 1)
 
+    """TURNS RED LED ON/OFF"""
     def turn_red_led_on(self):
         #turn on red led
         self.writeBlock(self.RED_LED, 0)
 
+    """TURNS GREEN LED ON/OFF"""
     def turn_green_led_on(self):
-        #turn on red led
+        #turn on green led
         self.writeBlock(self.GREEN_LED, 0)
 
+    """TURNS BLUE LED ON/OFF"""
     def turn_blue_led_on(self):
-        #turn on red led
+        #turn on blue led
         self.writeBlock(self.BLUE_LED, 0)
 
 """----------------------FUNCTIONS---------------------------"""
