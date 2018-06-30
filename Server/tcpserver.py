@@ -105,12 +105,12 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #set the direction in which motors will spin
-                        c.writeBlock(c.MOTOR_LEFT_DIR,0)
-                        c.writeBlock(c.MOTOR_RIGHT_DIR,0)
+                        self.c.writeBlock(self.c.MOTOR_LEFT_DIR,0)
+                        self.c.writeBlock(self.c.MOTOR_RIGHT_DIR,0)
                         #increase power (PWM) supplied to the motor (0-1024)
                         for i in range(0,500,10):
-                            c.writeBlock(c.MOTOR_LEFT,i)
-                            c.writeBlock(c.MOTOR_RIGHT,i)
+                            self.c.writeBlock(self.c.MOTOR_LEFT,i)
+                            self.c.writeBlock(self.c.MOTOR_RIGHT,i)
                             time.sleep(0.005)
 
                     #GO FORWARD
@@ -119,37 +119,37 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #set the direction in which motors will spin
-                        c.writeBlock(c.MOTOR_LEFT_DIR,1)
-                        c.writeBlock(c.MOTOR_RIGHT_DIR,1)
+                        self.c.writeBlock(self.c.MOTOR_LEFT_DIR,1)
+                        self.c.writeBlock(self.c.MOTOR_RIGHT_DIR,1)
                         #increase power (PWM) supplied to the motor
                         for i in range(0,500,10):
-                            c.writeBlock(c.MOTOR_LEFT,i)
-                            c.writeBlock(c.MOTOR_RIGHT,i)
+                            self.c.writeBlock(self.c.MOTOR_LEFT,i)
+                            self.c.writeBlock(self.c.MOTOR_RIGHT,i)
                             time.sleep(0.005)
 
                     #TURN RIGHT
                     elif Commands.CMD_TURN_RIGHT[1:] in data_command:
 
-                        print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        print data_command + " " + str(self.c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #turn to the right the direction
-                        c.turn_right()
+                        self.c.turn_right()
 
                     #TURN LEFT
                     elif Commands.CMD_TURN_LEFT[1:] in data_command:
 
-                        print data_command + " " + str(c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        print data_command + " " + str(self.c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #turn to the right the direction
-                        c.turn_left()
+                        self.c.turn_left()
 
                     #STOP
                     elif Commands.CMD_STOP[1:] in data_command:
 
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        c.writeBlock(c.MOTOR_LEFT,0)
-                        c.writeBlock(c.MOTOR_RIGHT,0)
+                        self.c.writeBlock(self.c.MOTOR_LEFT,0)
+                        self.c.writeBlock(self.c.MOTOR_RIGHT,0)
 
                     #RED LED
                     elif Commands.CMD_RGB_R[1:] in data_command:
@@ -158,7 +158,7 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #turn red led ON
-                        c.turn_red_led_on()
+                        self.c.turn_red_led_on()
 
                     #GREEN LED
                     elif Commands.CMD_RGB_G[1:] in data_command:
@@ -167,7 +167,7 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #turn green led ON
-                        c.turn_green_led_on()
+                        self.c.turn_green_led_on()
 
                     #BLUE LED
                     elif Commands.CMD_RGB_B[1:] in data_command:
@@ -176,7 +176,7 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #turn blue led ON
-                        c.turn_blue_led_on()
+                        self.c.turn_blue_led_on()
 
                     #OFF LED
                     elif Commands.CMD_RGB_OFF[1:] in data_command:
@@ -185,7 +185,7 @@ class TcpServer(threading.Thread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #turn blue led ON
-                        c.turn_led_off()
+                        self.c.turn_led_off()
 
 def main():
     server = TcpServer()
