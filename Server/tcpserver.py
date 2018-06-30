@@ -4,6 +4,7 @@ import threading
 from commands import Commands
 from controller import Controller
 
+from main import Main.on_moved
 
 
 class TcpServer(threading.Thread):
