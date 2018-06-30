@@ -46,7 +46,7 @@ class Main(QWidget, Ui_Form):
 
     #backward button pressed
     @pyqtSignature("")
-    def on_backward_btn_pressed(self):
+    def on_backwards_btn_pressed(self):
         try:
             self.tcp_client.send_data(Commands.CMD_BACKWARD)
         except Exception, e:
@@ -54,7 +54,7 @@ class Main(QWidget, Ui_Form):
 
     #backward button released
     @pyqtSignature("")
-    def on_backward_btn_released(self):
+    def on_backwards_btn_released(self):
         try:
             self.tcp_client.send_data(Commands.CMD_STOP)
         except Exception, e:
@@ -65,6 +65,22 @@ class Main(QWidget, Ui_Form):
     def on_red_btn_pressed(self):
         try:
             self.tcp_client.send_data(Commands.CMD_RGB_R)
+        except Exception, e:
+            print "Failed to send data", e
+
+    #green led button released
+    @pyqtSignature("")
+    def on_green_btn_pressed(self):
+        try:
+            self.tcp_client.send_data(Commands.CMD_RGB_G)
+        except Exception, e:
+            print "Failed to send data", e
+
+    #blue led button released
+    @pyqtSignature("")
+    def on_blue_btn_pressed(self):
+        try:
+            self.tcp_client.send_data(Commands.CMD_RGB_B)
         except Exception, e:
             print "Failed to send data", e
 
