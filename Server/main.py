@@ -31,7 +31,8 @@ class Main(QWidget, Ui_Form):
 
     @pyqtSignature("")
     def on_red_btn_pressed(self):
-        self.red_btn.setBackground(QtGui.QColor('red'))
+        self.red_btn.setStyleSheet("background-color: red")
+        self.red_btn.setText('RED')
 
 
 
