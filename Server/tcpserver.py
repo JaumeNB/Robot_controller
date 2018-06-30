@@ -8,7 +8,6 @@ class TcpServer(threading.Thread):
     """ Simple socket server that listens to one single client. """
 
     c = Controller()
-    
 
     def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024):
         threading.Thread.__init__(self)

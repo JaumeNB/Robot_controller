@@ -6,7 +6,6 @@ import socket
 import threading
 from tcpserver import TcpServer
 from server_ui import Ui_Form
-from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 
 class Main(QWidget, Ui_Form):
@@ -20,32 +19,17 @@ class Main(QWidget, Ui_Form):
 
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
-
-
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
         #using for loop to avoid error raised by starting same thread
-        t = TcpServer()
-        t.setDaemon(True)
-        t.c.moved.connect(on_moved)
-
-
-    @pyqtSignature("")
-    def on_red_btn_pressed(self):
-        self.red_btn.setStyleSheet("background-color: red")
-        self.red_btn.setText('RED')
-
-
-
-
+        for i in range(1):
+            t = TcpServer()
+            t.setDaemon(True)
+            t.start()
 
 if __name__ == "__main__":
-
     app = QtGui.QApplication(sys.argv)
     dlg = Main()
-    @pyqtSlot(int)
-    def on_moved(x):
-        dlg.red_btn.setText(x)
     dlg.show()
     sys.exit(app.exec_())
