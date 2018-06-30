@@ -85,8 +85,8 @@ class Main(QWidget, Ui_Form):
         #L: turn right
         elif event.key() == Qt.Key_L:
             self.tcp_client.send_data(Commands.CMD_TURN_RIGHT)
-        #SPACE: stop
-        elif event.key() == Qt.Key_Space:
+        #M: stop
+        elif event.key() == Qt.Key_M:
             self.tcp_client.send_data(Commands.CMD_TURN_STOP)
 
     #RELEASE A KEY
