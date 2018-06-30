@@ -105,8 +105,8 @@ class TcpServer(threading.Thread):
                         #set the direction in which motors will spin
                         c.writeBlock(c.MOTOR_LEFT_DIR,0)
                         c.writeBlock(c.MOTOR_RIGHT_DIR,0)
-                        #increase power (PWM) supplied to the motor
-                        for i in range(0,1000,10):
+                        #increase power (PWM) supplied to the motor (0-1024)
+                        for i in range(0,500,10):
                             c.writeBlock(c.MOTOR_LEFT,i)
                             c.writeBlock(c.MOTOR_RIGHT,i)
                             time.sleep(0.005)

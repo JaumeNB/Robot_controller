@@ -57,6 +57,9 @@ class Main(QWidget, Ui_Form):
     """--------------------KEYBOARD COMMANDS----------------------"""
     def keyPressEvent(self,event):
 
+        #print key pressed
+        print "You Pressed Key : ", event.key(), event.text()
+
         #R: turn ON red led
         if event.key() == Qt.Key_R:
             self.tcp_client.send_data(Commands.CMD_RGB_R)
@@ -69,20 +72,21 @@ class Main(QWidget, Ui_Form):
         #O: turn OFF led
         elif event.key() == Qt.Key_O:
             self.tcp_client.send_data(Commands.CMD_RGB_OFF)
-
-        if event.isAutoRepeat():
-            pass
-
-        else :
-            print "You Pressed Key : ", event.key(), event.text()
-            if event.key() == Qt.Key_I:
-                self.tcp_client.send_data(Commands.CMD_FORWARD)
-            elif event.key() == Qt.Key_K:
-                self.tcp_client.send_data(Commands.CMD_BACKWARD)
-            elif event.key() == Qt.Key_J:
-                self.tcp_client.send_data(Commands.CMD_TURN_LEFT)
-            elif event.key() == Qt.Key_L:
-                self.tcp_client.send_data(Commands.CMD_TURN_RIGHT)
+        #I: go forward
+        elif event.key() == Qt.Key_I:
+            self.tcp_client.send_data(Commands.CMD_FORWARD)
+        #K: go backwards
+        elif event.key() == Qt.Key_K:
+            self.tcp_client.send_data(Commands.CMD_BACKWARD)
+        #J: turn left
+        elif event.key() == Qt.Key_J:
+            self.tcp_client.send_data(Commands.CMD_TURN_LEFT)
+        #L: turn right
+        elif event.key() == Qt.Key_L:
+            self.tcp_client.send_data(Commands.CMD_TURN_RIGHT)
+        #SPACE: stop
+        elif event.key() == Qt.Key_Space:
+            self.tcp_client.send_data(Commands.CMD_TURN_STOP)
 
     def keyReleaseEvent(self, event):
 

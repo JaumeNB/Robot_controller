@@ -56,19 +56,19 @@ class Controller:
     def turn_green_led_on(self):
         #turn OFF red led
         self.writeBlock(self.RED_LED, 1)
-        #turn ON blue led
-        self.writeBlock(self.BLUE_LED, 0)
-        #turn OFF green led
-        self.writeBlock(self.GREEN_LED, 1)
+        #turn OFF blue led
+        self.writeBlock(self.BLUE_LED, 1)
+        #turn ON green led
+        self.writeBlock(self.GREEN_LED, 0)
 
     #TURNS BLUE LED ON AND TURNS OFF OTHERS
     def turn_blue_led_on(self):
         #turn OFF red led
         self.writeBlock(self.RED_LED, 1)
-        #turn OFF blue led
-        self.writeBlock(self.BLUE_LED, 1)
-        #turn ON green led
-        self.writeBlock(self.GREEN_LED, 0)
+        #turn ON blue led
+        self.writeBlock(self.BLUE_LED, 0)
+        #turn OFF green led
+        self.writeBlock(self.GREEN_LED, 1)
 
 """----------------------FUNCTIONS---------------------------"""
 
