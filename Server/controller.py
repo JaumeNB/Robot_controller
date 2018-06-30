@@ -71,10 +71,10 @@ class Controller():
 			else :
 				continue
 			'''
-		return 0
 	    time.sleep(0.001)
         except Exception,e:
 	    print Exception,"I2C Error :",e
+    return 0
 
     #TURNS DIRECTION TO THE RIGHT
     def turn_right(self):
