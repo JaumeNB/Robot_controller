@@ -44,7 +44,7 @@ class Controller():
         try:
             for i in range(0,10,1):
 			self.bus.write_i2c_block_data(self.address,command,[data>>8,data&0xff])
-			result = self.bus.read_i2c_block_data(self.address,command,1)
+			result = float(self.bus.read_i2c_block_data(self.address,command,1))
             return result
 
 	    time.sleep(0.001)
