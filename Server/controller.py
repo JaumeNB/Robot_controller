@@ -38,18 +38,24 @@ class Controller:
 
     #TURNS DIRECTION TO THE RIGHT
     def turn_right(self):
-        #increase direction tilt towards right
-        self.CURRENT_DIRECTION += 10
-        #set the direction in which motors will spin
-        self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
-
+        #check if reached limit
+        if self.CURRENT_DIRECTION > 0:
+            #increase direction tilt towards right
+            self.CURRENT_DIRECTION -= 10
+            #set the direction in which motors will spin
+            self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
+        else:
+            print ("You reach the direction limit, change direction towards left")
     #TURNS DIRECTION TO THE LEFT
     def turn_left(self):
-        #increase direction tilt towards right
-        self.CURRENT_DIRECTION -= 10
-        #set the direction in which motors will spin
-        self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
-
+        #check if reached limit
+        if self.CURRENT_DIRECTION < 180:
+            #increase direction tilt towards right
+            self.CURRENT_DIRECTION += 10
+            #set the direction in which motors will spin
+            self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
+        else:
+            print ("You reach the direction limit, change direction towards right")
     #TURNS LED OFF
     def turn_led_off(self):
         #turn OFF red led
