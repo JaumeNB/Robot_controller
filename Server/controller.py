@@ -5,7 +5,7 @@ from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 """----------------------CLASS CONTROLLER---------------------------"""
 
-class Controller(QObject):
+class Controller():
 
     """CLASS ATTRIBUTES"""
     #COMMANDS
@@ -25,7 +25,6 @@ class Controller(QObject):
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):
-        QObject.__init__(self)
         self.address = 0x18                 #address of the I2C device
     	self.bus=smbus.SMBus(1)             #initialize bus
 
@@ -153,7 +152,8 @@ def rotate_servo(controller, servo):
 if __name__ == '__main__':
 
     #Create an instance of the class controller
-    c = controller()
+    c = Controller()
+
     #sys.argv allows to execute python scripts with arguments (e.g. python control.py RED_LED)
     try:
 
