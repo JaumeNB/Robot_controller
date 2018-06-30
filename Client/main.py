@@ -57,12 +57,18 @@ class Main(QWidget, Ui_Form):
     """--------------------KEYBOARD COMMANDS----------------------"""
     def keyPressEvent(self,event):
 
+        #R: turn ON red led
         if event.key() == Qt.Key_R:
             self.tcp_client.send_data(Commands.CMD_RGB_R)
+        #G: turn ON green led
         elif event.key() == Qt.Key_G:
             self.tcp_client.send_data(Commands.CMD_RGB_G)
+        #B: turn ON blue led
         elif event.key() == Qt.Key_B:
             self.tcp_client.send_data(Commands.CMD_RGB_B)
+        #O: turn OFF led
+        elif event.key() == Qt.Key_O:
+            self.tcp_client.send_data(Commands.CMD_RGB_OFF)
 
         if event.isAutoRepeat():
             pass

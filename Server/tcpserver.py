@@ -136,18 +136,8 @@ class TcpServer(threading.Thread):
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        #if red led is on, turn off
-                        if c.RED_LED_ON is True:
-                            #set red led state to false (off)
-                            c.RED_LED_ON = False
-                            #turn all leds off
-                            c.turn_led_off()
-                        #if red led is off, turn on
-                        elif c.RED_LED_ON is False:
-                            #set red led state to true (on)
-                            c.RED_LED_ON = True
-                            #turn on red led
-                            c.turn_red_led_on()
+                        #turn red led ON
+                        c.turn_red_led_on()
 
                     #GREEN LED
                     elif Commands.CMD_RGB_G[1:] in data_command:
@@ -155,18 +145,8 @@ class TcpServer(threading.Thread):
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        #if red led is on, turn off
-                        if c.GREEN_LED_ON is True:
-                            #set red led state to false (off)
-                            c.GREEN_LED_ON = False
-                            #turn all leds off
-                            c.turn_led_off()
-                        #if red led is off, turn on
-                        elif c.GREEN_LED_ON is False:
-                            #set red led state to true (on)
-                            c.GREEN_LED_ON = True
-                            #turn on red led
-                            c.turn_green_led_on()
+                        #turn green led ON
+                        c.turn_green_led_on()
 
                     #BLUE LED
                     elif Commands.CMD_RGB_B[1:] in data_command:
@@ -174,18 +154,17 @@ class TcpServer(threading.Thread):
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        #if red led is on, turn off
-                        if c.BLUE_LED_ON is True:
-                            #set red led state to false (off)
-                            c.BLUE_LED_ON = False
-                            #turn all leds off
-                            c.turn_led_off()
-                        #if red led is off, turn on
-                        elif c.BLUE_LED_ON is False:
-                            #set red led state to true (on)
-                            c.BLUE_LED_ON = True
-                            #turn on red led
-                            c.turn_blue_led_on()
+                        #turn blue led ON
+                        c.turn_blue_led_on()
+
+                    #OFF LED
+                elif Commands.CMD_RGB_OFF[1:] in data_command:
+
+                        #print command and timestamp
+                        print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+
+                        #turn blue led ON
+                        c.turn_led_off()
 
 def main():
     server = TcpServer()

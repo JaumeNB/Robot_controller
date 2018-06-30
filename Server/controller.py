@@ -19,9 +19,6 @@ class Controller:
     RED_LED = 9                         #RED LED
     BLUE_LED = 10                       #BLUE LED
     GREEN_LED = 11                      #GREEN LED
-    RED_LED_ON = False                  #RED LED state
-    BLUE_LED_ON = False                 #BLUE LED state
-    GREEN_LED_ON = False                #GREEN LED state
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):

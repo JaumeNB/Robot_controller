@@ -10,6 +10,7 @@ class Commands:
     CMD_RGB_R = ">RGB Red"
     CMD_RGB_G = ">RGB Green"
     CMD_RGB_B = ">RGB Blue"
+    CMD_RGB_OFF = ">RGB Off"
 
     CMD_BUZZER_ALARM = ">Buzzer Alarm"
     CMD_BUZZER_STOP = ">Buzzer Stop"
