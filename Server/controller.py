@@ -43,38 +43,13 @@ class Controller():
     def readBlock(self,command):  #reads data in blocks up to 16 bytes per block
         try:
             for i in range(0,10,1):
-			self.bus.write_i2c_block_data(self.address,command,[0])
-			a = self.bus.read_i2c_block_data(self.address,command,1)
+			self.bus.write_i2c_block_data(self.address,command,[data>>8,data&0xff])
+			result = self.bus.read_i2c_block_data(self.address,command,1)
 
-			self.bus.write_byte(self.address,command+1)
-			b = self.bus.read_i2c_block_data(self.address,command+1,1)
-
-			self.bus.write_byte(self.address,command)
-			c = self.bus.read_byte_data(self.address,command)
-
-			self.bus.write_byte(self.address,command+1)
-			d = self.bus.read_byte_data(self.address,command+1)
-			print i,a,b,c,d
-
-			if(a[0] == c and c < self.SONIC_MAX_HIGH_BYTE ): #and b[0] == d
-				return c<<8 | d
-			else:
-				continue
-			#'''
-			'''
-			if (a[0] == c and c < self.SONIC_MAX_HIGH_BYTE) :
-				return c<<8 | d
-			elif (a[0] > c and c < self.SONIC_MAX_HIGH_BYTE) :
-				return c<<8 | d
-			elif (a[0] < c and a[0] < self.SONIC_MAX_HIGH_BYTE) :
-				return a[0]<<8 | b[0]
-			else :
-				continue
-			'''
 	    time.sleep(0.001)
         except Exception,e:
 	    print Exception,"I2C Error :",e
-        return 0
+        return result
 
     #TURNS DIRECTION TO THE RIGHT
     def turn_right(self):
