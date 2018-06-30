@@ -10,9 +10,13 @@ from server_ui import Ui_Form
 
 class Main(QWidget, Ui_Form):
 
+
+
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         self.setupUi(self)
+
+
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     @pyqtSignature("")
@@ -23,6 +27,16 @@ class Main(QWidget, Ui_Form):
             t = TcpServer()
             t.setDaemon(True)
             t.start()
+
+
+    @pyqtSignature("")
+    def on_red_btn_pressed(self):
+        self.red_btn.setBackground(QtGui.QColor('red'))
+
+    # A slot for the "resized" signal, accepting the radius
+    @pyqtSlot(int)
+    def on_moved(r):
+        print('Circle was resized to radius %s.' % r)
 
 
 

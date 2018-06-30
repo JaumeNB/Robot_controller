@@ -67,6 +67,8 @@ class Main(QWidget, Ui_Form):
             self.tcp_client.send_data(Commands.CMD_RGB_R)
         except Exception, e:
             print "Failed to send data", e
+        self.red_btn.setStyleSheet("background-color: red")
+        self.red_btn.setText('RED')
 
     #green led button released
     @pyqtSignature("")

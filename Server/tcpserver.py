@@ -3,8 +3,10 @@ import sys, time, datetime
 import threading
 from commands import Commands
 from controller import Controller
-from server_ui import ui
+
 c = Controller()
+
+c.moved.connect(on_moved)
 
 class TcpServer(threading.Thread):
     """ Simple socket server that listens to one single client. """
@@ -159,7 +161,7 @@ class TcpServer(threading.Thread):
                         c.turn_red_led_on()
 
                         #turn sever ui red_btn red
-                        ui.red_btn.setStyleSheet("background-color: red");
+
 
                     #GREEN LED
                     elif Commands.CMD_RGB_G[1:] in data_command:

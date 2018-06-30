@@ -1,10 +1,13 @@
 import smbus
 import time
 import sys
+from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 """----------------------CLASS CONTROLLER---------------------------"""
 
-class Controller:
+class Controller(QObject):
+
+    moved = pyqtSignal(int)
 
     """CLASS ATTRIBUTES"""
     #COMMANDS
@@ -22,10 +25,24 @@ class Controller:
     #STATE
     CURRENT_DIRECTION = 90               #TILT OF DIRECTION ON BOTH WHEELS
 
+    """GETTERS & SETTERS"""
+    @property
+    def current_direction(self):
+        return self.CURRENT_DIRECTION
+
+    @CURRENT_DIRECTION.setter
+    def change_direction(self, new_current_direction):
+        self.CURRENT_DIRECTION = new_current_direction
+        # After the center is moved, emit the
+        # moved signal with the new coordinates
+        self.moved.emit(new_current_direction)
+
     """CLASS CONSTRUCTOR"""
     def __init__(self):
-        self.address = 0x18             #address of the I2C device
-	self.bus=smbus.SMBus(1)             #initialize bus
+        # Initialize the PunchingBag as a QObject
+        QObject.__init__(self)
+        self.address = 0x18                 #address of the I2C device
+	    self.bus=smbus.SMBus(1)             #initialize bus
 
     """INSTANCE METHODS"""
     def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
@@ -41,7 +58,7 @@ class Controller:
         #check if reached limit
         if self.CURRENT_DIRECTION > 60:
             #increase direction tilt towards right
-            self.CURRENT_DIRECTION -= 10
+            self.change_direction(self.CURRENT_DIRECTION-10)
             #set the direction in which motors will spin
             self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
         else:
@@ -98,6 +115,7 @@ class Controller:
     def numMap(value,fromLow,fromHigh,toLow,toHigh):
         #map a value from a range to another range
         return (toHigh-toLow)*(value-fromLow) / (fromHigh-fromLow) + toLow
+
 
 """----------------------FUNCTIONS---------------------------"""
 
