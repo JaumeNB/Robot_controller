@@ -7,7 +7,7 @@ from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 class Controller(QObject):
 
-    moved = pyqtSignal()
+    moved = pyqtSignal(int)
 
     """CLASS ATTRIBUTES"""
     #COMMANDS
@@ -46,7 +46,7 @@ class Controller(QObject):
         if self.CURRENT_DIRECTION > 60:
             #increase direction tilt towards right
             self.CURRENT_DIRECTION -= 10
-            self.moved.emit()
+            self.moved.emit(self.CURRENT_DIRECTION)
             #set the direction in which motors will spin
             self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
         else:

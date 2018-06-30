@@ -35,9 +35,9 @@ class Main(QWidget, Ui_Form):
         self.red_btn.setStyleSheet("background-color: red")
         self.red_btn.setText('RED')
 
-    @pyqtSlot()
-    def on_moved():
-        print('Circle was moved to')
+    @pyqtSlot(int)
+    def on_moved(x):
+        print('Circle was moved to' + x)
 
 
 
