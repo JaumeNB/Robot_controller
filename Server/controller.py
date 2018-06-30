@@ -14,7 +14,7 @@ class Controller:
     MOTOR_LEFT = 4                      #LEFT WHEEL MOTOR POWER
     MOTOR_RIGHT = 5                     #RIGHT WHEEL MOTOR POWER
     MOTOR_LEFT_DIR = 6                  #LEFT MOTOR DIRECTION
-    MOTOR_RrIGHT_DIR = 7                 #RIGHT MOTOR DIRECTION
+    MOTOR_RIGHT_DIR = 7                 #RIGHT MOTOR DIRECTION
     BUZZER = 8                          #BUZZER
     RED_LED = 9                         #RED LED
     BLUE_LED = 10                       #BLUE LED
