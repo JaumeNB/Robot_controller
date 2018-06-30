@@ -25,6 +25,13 @@ class Controller(QObject):
     #STATE
     CURRENT_DIRECTION = 90               #TILT OF DIRECTION ON BOTH WHEELS
 
+    """CLASS CONSTRUCTOR"""
+    def __init__(self):
+        # Initialize the PunchingBag as a QObject
+        QObject.__init__(self)
+        self.address = 0x18                 #address of the I2C device
+    	self.bus=smbus.SMBus(1)             #initialize bus
+
     """GETTERS & SETTERS"""
     @property
     def current_direction(self):
@@ -36,13 +43,6 @@ class Controller(QObject):
         # After the center is moved, emit the
         # moved signal with the new coordinates
         self.moved.emit(new_current_direction)
-
-    """CLASS CONSTRUCTOR"""
-    def __init__(self):
-        # Initialize the PunchingBag as a QObject
-        QObject.__init__(self)
-    self.address = 0x18                 #address of the I2C device
-	self.bus=smbus.SMBus(1)             #initialize bus
 
     """INSTANCE METHODS"""
     def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
