@@ -20,8 +20,11 @@ class Controller():
     RED_LED = 9                         #RED LED
     BLUE_LED = 10                       #BLUE LED
     GREEN_LED = 11                      #GREEN LED
+    CMD_SONIC = 12                      #ULTRASONIC SENSOR
     #STATE
     CURRENT_DIRECTION = 90               #TILT OF DIRECTION ON BOTH WHEELS
+    #CONSTANTS
+    SONIC_MAX_HIGH_BYTE = 50
 
     """CLASS CONSTRUCTOR"""
     def __init__(self):
@@ -33,6 +36,42 @@ class Controller():
         try:
             #data sent to address, first byte of data is a command. Other bytes are transformed for correct data processing
             self.bus.write_i2c_block_data(self.address,command,[data>>8,data&0xff])
+	    time.sleep(0.001)
+        except Exception,e:
+	    print Exception,"I2C Error :",e
+
+    def readBlock(self,command):  #reads data in blocks up to 16 bytes per block
+        try:
+            for i in range(0,10,1):
+			self.bus.write_i2c_block_data(self.address,command,[0])
+			a = self.bus.read_i2c_block_data(self.address,command,1)
+
+			self.bus.write_byte(self.address,command+1)
+			b = self.bus.read_i2c_block_data(self.address,command+1,1)
+
+			self.bus.write_byte(self.address,command)
+			c = self.bus.read_byte_data(self.address,command)
+
+			self.bus.write_byte(self.address,command+1)
+			d = self.bus.read_byte_data(self.address,command+1)
+			#print i,a,b,c,d
+			#'''
+			if(a[0] == c and c < self.SONIC_MAX_HIGH_BYTE ): #and b[0] == d
+				return c<<8 | d
+			else:
+				continue
+			#'''
+			'''
+			if (a[0] == c and c < self.SONIC_MAX_HIGH_BYTE) :
+				return c<<8 | d
+			elif (a[0] > c and c < self.SONIC_MAX_HIGH_BYTE) :
+				return c<<8 | d
+			elif (a[0] < c and a[0] < self.SONIC_MAX_HIGH_BYTE) :
+				return a[0]<<8 | b[0]
+			else :
+				continue
+			'''
+		return 0
 	    time.sleep(0.001)
         except Exception,e:
 	    print Exception,"I2C Error :",e
@@ -144,6 +183,11 @@ def rotate_servo(controller, servo):
         controller.writeBlock(command,numMap(i,0,180,500,2500))
         time.sleep(0.005)
 
+def getSonic(self):
+		SonicEchoTime = c.readReg(c.CMD_SONIC)
+		distance = SonicEchoTime * 17.0 / 1000.0
+		return distance
+
 
 
 
@@ -155,6 +199,7 @@ if __name__ == '__main__':
     c = Controller()
 
     #sys.argv allows to execute python scripts with arguments (e.g. python control.py RED_LED)
+    #example: python controller.py SERVO_1
     try:
 
         #test the leds
@@ -181,25 +226,31 @@ if __name__ == '__main__':
 	    time.sleep(1)
 	    c.writeBlock(c.BUZZER,0)
 
-	#testing the motors
-	if sys.argv[1] == "MOTOR_RIGHT" or sys.argv[1] == "MOTOR_LEFT":
-            #get the power command for the motor (left or right)
-            power_command = getattr(controller, sys.argv[1])
-            #go backward (0) and forward (1)
-            for x in range (0,2):
-                #get the direction command for the motor (left or right)
-                direction_command = getattr(controller, sys.argv[1] + "_DIR")
-                #set the direction in which motor will spin
-                c.writeBlock(direction_command,x)
-                #increase power (PWM) supplied to the motor
-                for i in range(0,1000,10):
-                    c.writeBlock(power_command,i)
-                    time.sleep(0.005)
-                time.sleep(1)
-                #decrease power (PWM) supplied to the motor
-                for i in range(1000,0,-10):
-                    c.writeBlock(power_command,i)
-                    time.sleep(0.005)
+    	#testing the motors
+    	if sys.argv[1] == "MOTOR_RIGHT" or sys.argv[1] == "MOTOR_LEFT":
+                #get the power command for the motor (left or right)
+                power_command = getattr(controller, sys.argv[1])
+                #go backward (0) and forward (1)
+                for x in range (0,2):
+                    #get the direction command for the motor (left or right)
+                    direction_command = getattr(controller, sys.argv[1] + "_DIR")
+                    #set the direction in which motor will spin
+                    c.writeBlock(direction_command,x)
+                    #increase power (PWM) supplied to the motor
+                    for i in range(0,1000,10):
+                        c.writeBlock(power_command,i)
+                        time.sleep(0.005)
+                    time.sleep(1)
+                    #decrease power (PWM) supplied to the motor
+                    for i in range(1000,0,-10):
+                        c.writeBlock(power_command,i)
+                        time.sleep(0.005)
+
+        #test the ultrasonic sensor
+        if sys.argv[1] == "ULTRASONIC":
+			while True:
+				print "Sonic: ",c.getSonic()
+				time.sleep(0.1)
 
     except KeyboardInterrupt:
         print 'Interrupted'
