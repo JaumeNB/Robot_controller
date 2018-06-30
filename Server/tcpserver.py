@@ -3,8 +3,7 @@ import sys, time, datetime
 import threading
 from commands import Commands
 from controller import Controller
-from server_ui import Ui_Form as ui
-
+from server_ui import ui
 c = Controller()
 
 class TcpServer(threading.Thread):
