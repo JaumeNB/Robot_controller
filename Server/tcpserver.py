@@ -133,7 +133,7 @@ class TcpServer(threading.Thread):
                     elif Commands.CMD_RGB_R[1:] in data_command:
 
                         #print command and timestamp
-                        print data_command + " to " + rc.RED_LED_ON  + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        print data_command + " to " + c.RED_LED_ON  + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #if red led is on, turn off
                         if c.RED_LED_ON is True:
