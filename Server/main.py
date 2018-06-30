@@ -6,6 +6,7 @@ import socket
 import threading
 from tcpserver import TcpServer
 from server_ui import Ui_Form
+from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 
 class Main(QWidget, Ui_Form):
