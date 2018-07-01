@@ -41,20 +41,20 @@ class Main(QWidget, Ui_Form):
         #check how many threads are active and a description
         threads = threading.enumerate()
 
-        list_threads = []
+        threads_string
 
         for thread in threads:
             string_thread = str(thread)
             thread_separated = string_thread.split('(')
-            list_threads.append(thread_separated[0] + '\n')
+            threads_string += thread_separated[0] + '\n')
 
         self.threads_lcd.display(threading.active_count())
-        self.threads_text.setText(str(list_threads))
+        self.threads_text.setText(threads_string)
 
     @pyqtSignature("")
     def on_ultrasonic_btn_pressed(self):
         #check how many threads are active and a description
-        self.threads_lcd.display(self.c.ULTRASONIC_SENSOR)
+        self.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
 
 
 if __name__ == "__main__":
