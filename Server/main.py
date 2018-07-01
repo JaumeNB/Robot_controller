@@ -32,7 +32,7 @@ class Main(QWidget, Ui_Form):
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
         #using for loop to avoid error raised by starting same thread
         for i in range(1):
-            a = Arduino(self.c)
+            a = Arduino(self.c, self)
             a.setDaemon(True)
             a.start()
 
@@ -46,7 +46,7 @@ class Main(QWidget, Ui_Form):
         for thread in threads:
             string_thread = str(thread)
             thread_separated = string_thread.split('(')
-            threads_string.append(thread_separated[0] + '\n')
+            threads_string.append(thread_separated[0][1:] + '\n')
 
         self.threads_lcd.display(threading.active_count())
         self.threads_text.setText(''.join(threads_string))
