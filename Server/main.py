@@ -32,18 +32,30 @@ class Main(QWidget, Ui_Form):
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
         #using for loop to avoid error raised by starting same thread
         for i in range(1):
-            a = Arduino()
+            a = Arduino(self.c)
             a.setDaemon(True)
             a.start()
 
     @pyqtSignature("")
     def on_thread_btn_pressed(self):
         #check how many threads are active and a description
-        print (threading.enumerate())
-        print (threading.active_count())
+        threads = threading.enumerate()
+
+        list_threads[]
+
+        for thread in threads:
+            string_thread = str(thread)
+            thread_separated = string_thread.split('(')
+            list_threads.append(thread_separated)
 
         self.threads_lcd.display(threading.active_count())
-        self.threads_text.setText(str(threading.enumerate()))
+        self.threads_text.setText(list_threads)
+
+    @pyqtSignature("")
+    def on_ultrasonic_btn_pressed(self):
+        #check how many threads are active and a description
+        self.threads_lcd.display(self.c.ULTRASONIC_SENSOR)
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

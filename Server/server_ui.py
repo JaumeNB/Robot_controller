@@ -40,6 +40,15 @@ class Ui_Form(object):
         self.threads_lcd.setObjectName(_fromUtf8("threads_lcd"))
         self.horizontalLayout_2.addWidget(self.threads_lcd)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.ultrasonic_btn = QtGui.QPushButton(Form)
+        self.ultrasonic_btn.setObjectName(_fromUtf8("ultrasonic_btn"))
+        self.horizontalLayout_3.addWidget(self.ultrasonic_btn)
+        self.ultrasonic_lcd = QtGui.QLCDNumber(Form)
+        self.ultrasonic_lcd.setObjectName(_fromUtf8("ultrasonic_lcd"))
+        self.horizontalLayout_3.addWidget(self.ultrasonic_lcd)
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setSpacing(45)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -58,6 +67,7 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "TCP Server", None))
         self.thread_btn.setText(_translate("Form", "Threads", None))
         self.threads_text.setText(_translate("Form", "TextLabel", None))
+        self.ultrasonic_btn.setText(_translate("Form", "Ultrasonic sensor", None))
         self.start_server_btn.setText(_translate("Form", "Start TCP Server", None))
         self.arduino_btn.setText(_translate("Form", "Start Arduino Thread", None))
 
@@ -70,3 +80,4 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
+

@@ -5,15 +5,16 @@ import threading
 import sys
 
 class Arduino(threading.Thread):
-    def __init__(self):
+    def __init__(self, c):
         threading.Thread.__init__(self)
         self.ser = serial.Serial("/dev/ttyACM0",9600)  #change ACM number as found from ls /dev/tty/ACM*
         self.ser.baudrate=9600
+        self.c = c
 
     def run (self):
         while True:
             read_ser = self.ser.readline()
-            print(read_ser)
+            self.c.ULTRASONIC_SENSOR = float(read_ser)
 
 def Main():
     ard = Arduino()

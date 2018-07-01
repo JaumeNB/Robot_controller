@@ -21,8 +21,10 @@ class Controller():
     BLUE_LED = 10                       #BLUE LED
     GREEN_LED = 11                      #GREEN LED
     CMD_SONIC = 12                      #ULTRASONIC SENSOR
-    #STATE
+    #ACTUATORS STATUS
     CURRENT_DIRECTION = 90               #TILT OF DIRECTION ON BOTH WHEELS
+    #SENSOR STATUS
+    ULTRASONIC_SENSOR = 100
     #CONSTANTS
     SONIC_MAX_HIGH_BYTE = 50
 
