@@ -15,8 +15,14 @@ class Arduino(threading.Thread):
 
         while True:
             read_ser = self.ser.readline()
-            self.c.ULTRASONIC_SENSOR = float(read_ser)
-            self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+
+            try:
+                read_ser = int(read_ser)
+                self.c.ULTRASONIC_SENSOR = float(read_ser)
+                self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+
+            except ValueError as e:
+                print "error: " + read_ser
 
             #Safety prevention for collision
             if read_ser < 20 and self.c.SAFETY == False:
@@ -26,8 +32,14 @@ class Arduino(threading.Thread):
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()
-                    self.c.ULTRASONIC_SENSOR = float(read_ser)
-                    self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+
+                    try:
+                        read_ser = int(read_ser)
+                        self.c.ULTRASONIC_SENSOR = float(read_ser)
+                        self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+
+                    except ValueError as e:
+                        print "error: " + read_ser
 
                     if read_ser >= 20:
                         self.c.SAFETY = False
