@@ -29,6 +29,7 @@ class Arduino(threading.Thread):
                 self.c.SAFETY = True
                 self.c.stop(self.c.SAFETY)
                 self.c.turn_red_led_on()
+                self.f.red_label.setStyleSheet("background-color: red")
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()
@@ -44,6 +45,7 @@ class Arduino(threading.Thread):
                     if read_ser >= 30:
                         self.c.SAFETY = False
                         self.c.turn_led_off()
+                        self.f.red_label.setStyleSheet("background-color: white")
                         print "No danger of collision"
 
 def Main():
