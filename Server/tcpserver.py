@@ -2,16 +2,12 @@ import socket
 import sys, time, datetime
 import threading
 from commands import Commands
-from controller import Controller
 
 #Simple socket server that listens to one single client
 #inherits from threading to be able to be executed on extra thread
 class TcpServer(threading.Thread):
 
-    #start an instance of a controller object
-    c = Controller()
-
-    def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024):
+    def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024, c):
         threading.Thread.__init__(self)
         """ Initialize the server with a host and port to listen to. """
         # Create a TCP/IP socket
@@ -29,6 +25,8 @@ class TcpServer(threading.Thread):
         self.port = port
         #buffer size
         self.buf_size = buf_size
+        #controller object
+        self.c = c
 
     def close(self):
         """ Close the server socket. """
