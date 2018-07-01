@@ -20,7 +20,7 @@ class Main(QWidget, Ui_Form):
         self.c = Controller()
 
     def add(self, text):
-        print ('it works' + text)
+        self.f.red_label.setStyleSheet(text)
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     #START TCP SERVER THREAD
