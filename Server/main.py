@@ -59,7 +59,7 @@ class Main(QWidget, Ui_Form):
         #show number of active threads
         self.threads_lcd.display(threading.active_count())
         #show thread name
-        self.threads_text.setText(''.join(threads_string))
+        self.threads_label.setText(''.join(threads_string))
 
 
 if __name__ == "__main__":

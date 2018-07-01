@@ -120,7 +120,7 @@ class Controller():
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
 
-        self.f.red_btn.setStyleSheet("background-color: red")
+        self.f.red_label.setStyleSheet("background-color: red")
 
     #TURNS GREEN LED ON AND TURNS OFF OTHERS
     def turn_green_led_on(self):
