@@ -41,7 +41,7 @@ class Main(QWidget, Ui_Form):
         #check how many threads are active and a description
         threads = threading.enumerate()
 
-        list_threads[]
+        list_threads = []
 
         for thread in threads:
             string_thread = str(thread)
