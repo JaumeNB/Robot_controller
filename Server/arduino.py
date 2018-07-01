@@ -21,7 +21,6 @@ class Arduino(threading.Thread):
 
             #Safety prevention for collision
             if read_ser < 20 and self.c.SAFETY == False:
-                safety = True
                 self.c.SAFETY = True
                 self.c.stop(safety)
                 self.c.turn_red_led_on()
@@ -32,7 +31,7 @@ class Arduino(threading.Thread):
                     self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
 
                     if read_ser >= 20:
-                        self.c.SAFETY == False
+                        self.c.SAFETY = False
                         print "No danger of collision"
 
 def Main():
