@@ -10,7 +10,7 @@ class Arduino():
 
     def run(self):
 
-        safety = false
+        safety = False
 
         while True:
             read_ser = self.ser.readline()
