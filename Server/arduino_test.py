@@ -18,8 +18,9 @@ class Arduino():
                 read_ser = self.ser.readline()
                 read_ser = int(read_ser)
                 print read_ser
-            except:
-                print "error"
+
+            except ValueError as e:
+                print "error: " + e + " : " + str(read_ser)
 
             #Safety prevention for collision
             if read_ser < 20 and safety == False:
@@ -27,12 +28,14 @@ class Arduino():
                 print "safety stop"
 
                 while safety == True:
+                    
                     try:
                         read_ser = self.ser.readline()
                         read_ser = int(read_ser)
                         print read_ser
-                    except:
-                        print "error"
+
+                    except ValueError as e:
+                        print "error: " + e + " : " + str(read_ser)
 
                     if read_ser >= 20:
                         safety = False
