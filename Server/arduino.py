@@ -41,7 +41,7 @@ class Arduino(threading.Thread):
                     except ValueError as e:
                         print "error: " + read_ser
 
-                    if read_ser >= 40:
+                    if read_ser >= 60:
                         self.c.SAFETY = False
                         self.c.turn_led_off()
                         print "No danger of collision"
