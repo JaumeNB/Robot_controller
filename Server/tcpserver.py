@@ -109,17 +109,13 @@ class TcpServer(threading.Thread):
 
                     #GO BACKWARDS
                     if Commands.CMD_FORWARD[1:] in data_command:
-
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
                         #move forward
                         self.c.forward()
 
                     #GO FORWARD
                     elif Commands.CMD_BACKWARD[1:] in data_command:
-
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
                         #set the direction in which motors will spin
                         self.c.writeBlock(self.c.MOTOR_LEFT_DIR,1)
                         self.c.writeBlock(self.c.MOTOR_RIGHT_DIR,1)
@@ -131,7 +127,6 @@ class TcpServer(threading.Thread):
 
                     #TURN RIGHT
                     elif Commands.CMD_TURN_RIGHT[1:] in data_command:
-
                         print data_command + " " + str(self.c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
                         #turn to the right the direction

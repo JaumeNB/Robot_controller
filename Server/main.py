@@ -17,7 +17,7 @@ class Main(QWidget, Ui_Form):
         #method to setup the UI, defined in server_ui.py
         self.setupUi(self)
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
-        self.c = Controller()
+        self.c = Controller(self)
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     #START TCP SERVER THREAD

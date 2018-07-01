@@ -19,7 +19,7 @@
      <item>
       <widget class="QPushButton" name="thread_btn">
        <property name="text">
-        <string>Threads</string>
+        <string>See active threads</string>
        </property>
       </widget>
      </item>
@@ -38,14 +38,60 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QPushButton" name="ultrasonic_btn">
-       <property name="text">
-        <string>Ultrasonic sensor</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Led Status</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>RED</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>GREEN</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>BLUE</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QLCDNumber" name="ultrasonic_lcd"/>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Ultrasonic sensor</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="ultrasonic_lcd"/>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -57,7 +103,7 @@
      <item>
       <widget class="QPushButton" name="start_server_btn">
        <property name="text">
-        <string>Start TCP Server</string>
+        <string>Start TCP Server Thread</string>
        </property>
       </widget>
      </item>

@@ -30,9 +30,10 @@ class Controller():
     SONIC_MAX_HIGH_BYTE = 50
 
     """CLASS CONSTRUCTOR"""
-    def __init__(self):
+    def __init__(self, f):
         self.address = 0x18                 #address of the I2C device
     	self.bus=smbus.SMBus(1)             #initialize bus
+        self.f = f                          #form object to interact with GUI
 
     """INSTANCE METHODS"""
     def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
@@ -98,6 +99,9 @@ class Controller():
         else:
             print ("You reach the direction limit, change direction towards right")
 
+    def set_ultrasonic(self, distance):
+        self.ULTRASONIC_SENSOR = distance
+
     #TURNS LED OFF
     def turn_led_off(self):
         #turn OFF red led
@@ -115,6 +119,8 @@ class Controller():
         self.writeBlock(self.BLUE_LED, 1)
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
+
+        self.f.red_btn.setStyleSheet("background-color: red")
 
     #TURNS GREEN LED ON AND TURNS OFF OTHERS
     def turn_green_led_on(self):
