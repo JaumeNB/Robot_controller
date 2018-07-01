@@ -24,6 +24,8 @@ class Controller():
     CURRENT_DIRECTION = 90               #TILT OF DIRECTION ON BOTH WHEELS
     #SENSOR STATUS
     ULTRASONIC_SENSOR = 100
+    #ROBOT STATUS
+    SAFETY = False
     #CONSTANTS
     SONIC_MAX_HIGH_BYTE = 50
 
@@ -52,12 +54,27 @@ class Controller():
         except Exception,e:
 	    print Exception,"I2C Error :",e
 
+    #FORWARD
+    def forward(self):
+        if self.SAFETY == False:
+            #set the direction in which motors will spin
+            self.writeBlock(self.MOTOR_LEFT_DIR,0)
+            self.writeBlock(self.MOTOR_RIGHT_DIR,0)
+            #increase power (PWM) supplied to the motor (0-1024)
+            for i in range(0,500,10):
+                self.writeBlock(self.MOTOR_LEFT,i)
+                self.writeBlock(self.MOTOR_RIGHT,i)
+                time.sleep(0.005)
+        else:
+            print ("You can't go forward, object may cause collision")
+
+
     #STOP
     def stop(self, safety = False):
         if safety:
             print "SAFETY STOP at " + datetime.datetime.now().strftime("%H:%M:%S")
-        self.c.writeBlock(self.c.MOTOR_LEFT,0)
-        self.c.writeBlock(self.c.MOTOR_RIGHT,0)
+        self.writeBlock(self.MOTOR_LEFT,0)
+        self.writeBlock(self.MOTOR_RIGHT,0)
 
     #TURNS DIRECTION TO THE RIGHT
     def turn_right(self):

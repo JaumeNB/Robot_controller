@@ -112,14 +112,8 @@ class TcpServer(threading.Thread):
 
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        #set the direction in which motors will spin
-                        self.c.writeBlock(self.c.MOTOR_LEFT_DIR,0)
-                        self.c.writeBlock(self.c.MOTOR_RIGHT_DIR,0)
-                        #increase power (PWM) supplied to the motor (0-1024)
-                        for i in range(0,500,10):
-                            self.c.writeBlock(self.c.MOTOR_LEFT,i)
-                            self.c.writeBlock(self.c.MOTOR_RIGHT,i)
-                            time.sleep(0.005)
+                        #move forward
+                        self.c.forward()
 
                     #GO FORWARD
                     elif Commands.CMD_BACKWARD[1:] in data_command:
