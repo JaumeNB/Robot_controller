@@ -43,6 +43,7 @@ class Arduino(threading.Thread):
 
                     if read_ser >= 20:
                         self.c.SAFETY = False
+                        self.c.turn_led_off()
                         print "No danger of collision"
 
 def Main():
