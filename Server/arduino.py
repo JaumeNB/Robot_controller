@@ -28,7 +28,7 @@ class Arduino(threading.Thread):
             if read_ser < 30 and self.c.SAFETY == False:
                 self.c.SAFETY = True
                 self.c.stop(self.c.SAFETY)
-                self.c.turn_red_led_on()li
+                self.c.turn_red_led_on()
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()
