@@ -1,5 +1,4 @@
 import serial
-import RPi.GPIO as GPIO
 import time
 import threading
 import sys
@@ -12,7 +11,7 @@ class Arduino(threading.Thread):
         self.c = c
         self.f = f
 
-    def run (self):
+    def run(self):
 
         while True:
             read_ser = self.ser.readline()
