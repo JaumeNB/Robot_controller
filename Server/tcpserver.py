@@ -7,7 +7,7 @@ from commands import Commands
 #inherits from threading to be able to be executed on extra thread
 class TcpServer(threading.Thread):
 
-    def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024, c):
+    def __init__(self, c, host = '0.0.0.0', port = 12345, buf_size = 1024):
         threading.Thread.__init__(self)
         """ Initialize the server with a host and port to listen to. """
         # Create a TCP/IP socket
