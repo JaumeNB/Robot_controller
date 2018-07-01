@@ -27,7 +27,7 @@ class Arduino(threading.Thread):
             #Safety prevention for collision
             if read_ser < 20 and self.c.SAFETY == False:
                 self.c.SAFETY = True
-                self.c.stop(safety)
+                self.c.stop(self.c.SAFETY)
                 self.c.turn_red_led_on()
 
                 while self.c.SAFETY == True:
