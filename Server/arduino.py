@@ -12,7 +12,7 @@ class Arduino(threading.Thread):
 
     def run (self):
         while True:
-            read_ser=ser.readline()
+            read_ser = self.ser.readline()
             print(read_ser)
 
 def Main():
