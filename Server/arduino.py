@@ -47,7 +47,7 @@ class Arduino(QThread):
                     if read_ser >= 30:
                         self.c.SAFETY = False
                         self.c.turn_led_off()
-                        self.emit( SIGNAL('update(QString)'), "background-color: red")
+                        self.emit( SIGNAL('update(QString)'), "background-color: white")
                         print "No danger of collision"
 
 def Main():
