@@ -2,11 +2,11 @@ import serial
 import time
 import threading
 import sys
-from PyQt4.QtCore import *
+from PyQt4.QtCore import QThread
 
-class Arduino(QtCore.QThread):
+class Arduino(QThread):
     def __init__(self, c, f):
-        QtCore.QThread.__init__(self)
+        QThread.__init__(self)
         self.ser = serial.Serial("/dev/ttyACM0",9600)  #change ACM number as found from ls /dev/tty/ACM*
         self.ser.baudrate=9600
         self.c = c
