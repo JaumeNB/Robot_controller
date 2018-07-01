@@ -5,6 +5,7 @@ import sys, time, datetime
 import socket
 import threading
 from tcpserver import TcpServer
+from arduino import Arduino
 from server_ui import Ui_Form
 
 
@@ -25,13 +26,22 @@ class Main(QWidget, Ui_Form):
             t.start()
 
     @pyqtSignature("")
+    def on_arduino_btn_pressed(self):
+        #this will start a tcpserver object in a different thread (main thread is gor GUI)
+        #using for loop to avoid error raised by starting same thread
+        for i in range(1):
+            a = Arduino()
+            a.setDaemon(True)
+            a.start()
+
+    @pyqtSignature("")
     def on_thread_btn_pressed(self):
         #check how many threads are active and a description
         print (threading.enumerate())
         print (threading.active_count())
 
         self.threads_lcd.display(threading.active_count())
-        self.threads_text.setText(threading.enumerate())
+        self.threads_text.setText(str(threading.enumerate()))
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
