@@ -2,7 +2,7 @@ import serial
 import time
 import threading
 import sys
-from QtCore import *
+from PyQt4.QtCore import *
 
 class Arduino(QtCore.QThread):
     def __init__(self, c, f):
