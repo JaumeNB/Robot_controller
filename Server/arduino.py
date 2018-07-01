@@ -25,10 +25,10 @@ class Arduino(threading.Thread):
                 print "error: " + read_ser
 
             #Safety prevention for collision
-            if read_ser < 50 and self.c.SAFETY == False:
+            if read_ser < 30 and self.c.SAFETY == False:
                 self.c.SAFETY = True
                 self.c.stop(self.c.SAFETY)
-                self.c.turn_red_led_on()
+                self.c.turn_red_led_on()li
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()
@@ -41,7 +41,7 @@ class Arduino(threading.Thread):
                     except ValueError as e:
                         print "error: " + read_ser
 
-                    if read_ser >= 50:
+                    if read_ser >= 30:
                         self.c.SAFETY = False
                         self.c.turn_led_off()
                         print "No danger of collision"
