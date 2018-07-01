@@ -13,10 +13,18 @@ class Arduino(threading.Thread):
         self.f = f
 
     def run (self):
+
+        safety = False
+
         while True:
             read_ser = self.ser.readline()
             self.c.ULTRASONIC_SENSOR = float(read_ser)
             self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+
+            if read_ser < 20 and !safety:
+                safety = True
+                self.c.stop(safety)
+                self.c.turn_red_led_on()
 
 def Main():
     ard = Arduino()

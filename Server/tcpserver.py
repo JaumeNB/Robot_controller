@@ -156,8 +156,8 @@ class TcpServer(threading.Thread):
 
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
 
-                        self.c.writeBlock(self.c.MOTOR_LEFT,0)
-                        self.c.writeBlock(self.c.MOTOR_RIGHT,0)
+                        #stop
+                        self.c.stop()
 
                     #RED LED
                     elif Commands.CMD_RGB_R[1:] in data_command:

@@ -1,6 +1,5 @@
 import smbus
-import time
-import sys
+import sys, time, datetime
 from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
 """----------------------CLASS CONTROLLER---------------------------"""
@@ -53,6 +52,12 @@ class Controller():
         except Exception,e:
 	    print Exception,"I2C Error :",e
 
+    #STOP
+    def stop(self, safety = False):
+        if safety:
+            print "SAFETY STOP at " + datetime.datetime.now().strftime("%H:%M:%S")
+        self.c.writeBlock(self.c.MOTOR_LEFT,0)
+        self.c.writeBlock(self.c.MOTOR_RIGHT,0)
 
     #TURNS DIRECTION TO THE RIGHT
     def turn_right(self):
