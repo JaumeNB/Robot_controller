@@ -32,7 +32,7 @@ class Arduino(QThread):
                 self.c.stop(self.c.SAFETY)
                 self.c.turn_red_led_on()
                 self.f.red_label.setStyleSheet("background-color: red")
-                self.emit( SIGNAL('update(QString)'))
+                self.emit( SIGNAL('update(QString)'), "from work thread ")
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()

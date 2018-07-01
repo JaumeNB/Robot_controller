@@ -19,8 +19,8 @@ class Main(QWidget, Ui_Form):
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
         self.c = Controller()
 
-    def add(self):
-        print ('it works')
+    def add(self, text):
+        print ('it works' + text)
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     #START TCP SERVER THREAD
