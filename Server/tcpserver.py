@@ -4,9 +4,11 @@ import threading
 from commands import Commands
 from controller import Controller
 
+#Simple socket server that listens to one single client
+#inherits from threading to be able to be executed on extra thread
 class TcpServer(threading.Thread):
-    """ Simple socket server that listens to one single client. """
 
+    #start an instance of a controller object
     c = Controller()
 
     def __init__(self, host = '0.0.0.0', port = 12345, buf_size = 1024):
@@ -25,6 +27,7 @@ class TcpServer(threading.Thread):
         self.host = host
         #port that server will be listening to
         self.port = port
+        #buffer size
         self.buf_size = buf_size
 
     def close(self):
@@ -44,22 +47,27 @@ class TcpServer(threading.Thread):
             self.sock.bind((self.host, self.port))
         except socket.error as e:
             print "Bind Error : ", e
+
         #puts the socket into server mode, The number you give to listen()
         #specifies how many connections can be queued for this socket
         self.sock.listen(1)
 
+        #print socket listening state
         print('Starting socket server (host {}, port {})'.format(self.host, self.port))
 
+        #loop to wait for connection
         while True:
 
+            #wait for connection
             print("Wating for connection ... ")
 
             try:
                 #accept waits for an incoming connection, returning the open connection between
-                #the server and client and the address of the clientself
+                #the server and client and the address of the client
                 #The connection is actually a different socket on another port (assigned by the kernel)
                 self.connection, self.client_address = self.sock.accept()
 
+                #print client connected
                 print('Client {} connected'.format(self.client_address))
 
             except Exception, e:
@@ -76,8 +84,10 @@ class TcpServer(threading.Thread):
 				self.sock.close()
 				break
 
+            #if connection successful, enter second loop where data exchange is done
             while True:
 
+                #receive data
                 try:
                     data = self.connection.recv(self.buf_size).decode('utf-8')
 
@@ -89,8 +99,10 @@ class TcpServer(threading.Thread):
                 if not data:
                     break
 
+                #split data by ">" to get commands
                 data_array = data.split(">")
 
+                #act depending on command received
                 for data_command in data_array:
 
                     if data_command == "":

@@ -10,13 +10,9 @@ from server_ui import Ui_Form
 
 class Main(QWidget, Ui_Form):
 
-
-
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         self.setupUi(self)
-
-
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     @pyqtSignature("")
@@ -27,6 +23,15 @@ class Main(QWidget, Ui_Form):
             t = TcpServer()
             t.setDaemon(True)
             t.start()
+
+    @pyqtSignature("")
+    def on_thread_btn_pressed(self):
+        #check how many threads are active and a description
+        print (threading.enumerate())
+        print (threading.active_count())
+
+        self.threads_lcd.setText(threading.active_count())
+        self.threads_text.setText(threading.enumerate())
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

@@ -17,25 +17,21 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="red_btn">
+      <widget class="QPushButton" name="thread_btn">
        <property name="text">
-        <string>Red LED</string>
+        <string>Threads</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="green_btn">
+      <widget class="QLabel" name="threads_text">
        <property name="text">
-        <string>Green Led</string>
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="blue_btn">
-       <property name="text">
-        <string>Blue LED</string>
-       </property>
-      </widget>
+      <widget class="QLCDNumber" name="threads_lcd"/>
      </item>
     </layout>
    </item>
@@ -48,6 +44,13 @@
       <widget class="QPushButton" name="start_server_btn">
        <property name="text">
         <string>Start TCP Server</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="arduino_btn">
+       <property name="text">
+        <string>Start Arduino Thread</string>
        </property>
       </widget>
      </item>

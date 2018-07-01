@@ -30,15 +30,15 @@ class Ui_Form(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.red_btn = QtGui.QPushButton(Form)
-        self.red_btn.setObjectName(_fromUtf8("red_btn"))
-        self.horizontalLayout_2.addWidget(self.red_btn)
-        self.green_btn = QtGui.QPushButton(Form)
-        self.green_btn.setObjectName(_fromUtf8("green_btn"))
-        self.horizontalLayout_2.addWidget(self.green_btn)
-        self.blue_btn = QtGui.QPushButton(Form)
-        self.blue_btn.setObjectName(_fromUtf8("blue_btn"))
-        self.horizontalLayout_2.addWidget(self.blue_btn)
+        self.thread_btn = QtGui.QPushButton(Form)
+        self.thread_btn.setObjectName(_fromUtf8("thread_btn"))
+        self.horizontalLayout_2.addWidget(self.thread_btn)
+        self.threads_text = QtGui.QLabel(Form)
+        self.threads_text.setObjectName(_fromUtf8("threads_text"))
+        self.horizontalLayout_2.addWidget(self.threads_text)
+        self.threads_lcd = QtGui.QLCDNumber(Form)
+        self.threads_lcd.setObjectName(_fromUtf8("threads_lcd"))
+        self.horizontalLayout_2.addWidget(self.threads_lcd)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setSpacing(45)
@@ -46,6 +46,9 @@ class Ui_Form(object):
         self.start_server_btn = QtGui.QPushButton(Form)
         self.start_server_btn.setObjectName(_fromUtf8("start_server_btn"))
         self.horizontalLayout.addWidget(self.start_server_btn)
+        self.arduino_btn = QtGui.QPushButton(Form)
+        self.arduino_btn.setObjectName(_fromUtf8("arduino_btn"))
+        self.horizontalLayout.addWidget(self.arduino_btn)
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(Form)
@@ -53,10 +56,10 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "TCP Server", None))
-        self.red_btn.setText(_translate("Form", "Red LED", None))
-        self.green_btn.setText(_translate("Form", "Green Led", None))
-        self.blue_btn.setText(_translate("Form", "Blue LED", None))
+        self.thread_btn.setText(_translate("Form", "Threads", None))
+        self.threads_text.setText(_translate("Form", "TextLabel", None))
         self.start_server_btn.setText(_translate("Form", "Start TCP Server", None))
+        self.arduino_btn.setText(_translate("Form", "Start Arduino Thread", None))
 
 
 if __name__ == "__main__":
@@ -67,4 +70,3 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-
