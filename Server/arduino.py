@@ -2,10 +2,11 @@ import serial
 import time
 import threading
 import sys
+from QtCore import *
 
-class Arduino(threading.Thread):
+class Arduino(QtCore.QThread):
     def __init__(self, c, f):
-        threading.Thread.__init__(self)
+        QtCore.QThread.__init__(self)
         self.ser = serial.Serial("/dev/ttyACM0",9600)  #change ACM number as found from ls /dev/tty/ACM*
         self.ser.baudrate=9600
         self.c = c
@@ -21,6 +22,7 @@ class Arduino(threading.Thread):
                 self.c.ULTRASONIC_SENSOR = float(read_ser)
                 self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
 
+
             except ValueError as e:
                 print "error: " + read_ser
 
@@ -30,6 +32,7 @@ class Arduino(threading.Thread):
                 self.c.stop(self.c.SAFETY)
                 self.c.turn_red_led_on()
                 self.f.red_label.setStyleSheet("background-color: red")
+                self.emit( QtCore.SIGNAL('update(QString)'))
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()

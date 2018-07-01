@@ -19,6 +19,9 @@ class Main(QWidget, Ui_Form):
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
         self.c = Controller()
 
+    def add(self):
+        print ('it works')
+
     """---------------PyQt BUTTON LISTENERS---------------------"""
     #START TCP SERVER THREAD
     @pyqtSignature("")
@@ -41,9 +44,9 @@ class Main(QWidget, Ui_Form):
         for i in range(1):
             #pass the controllet object so it can upload the sensor data to the controller instance
             #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
-            a = Arduino(self.c, self)
-            a.setDaemon(True)
-            a.start()
+            self.workThread = Arduino(self.c, self)
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.add )
+            self.workThread.start()
 
     #SHOW NUMBER OF THREADS ACTIVE AND DESCRIPTION
     @pyqtSignature("")
