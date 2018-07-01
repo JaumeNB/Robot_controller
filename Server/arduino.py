@@ -11,7 +11,7 @@ class Arduino(threading.Thread):
         self.ser.baudrate=9600
 
     def run (self):
-        while true:
+        while True:
             read_ser=ser.readline()
             print(read_ser)
 
