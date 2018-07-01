@@ -46,7 +46,7 @@ class Main(QWidget, Ui_Form):
         for thread in threads:
             string_thread = str(thread)
             thread_separated = string_thread.split('(')
-            threads_string += thread_separated[0] + '\n')
+            threads_string += (thread_separated[0] + '\n'))
 
         self.threads_lcd.display(threading.active_count())
         self.threads_text.setText(threads_string)
