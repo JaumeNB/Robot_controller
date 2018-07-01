@@ -30,7 +30,7 @@ class Main(QWidget, Ui_Form):
         print (threading.enumerate())
         print (threading.active_count())
 
-        self.threads_lcd.setText(threading.active_count())
+        self.threads_lcd.display(threading.active_count())
         self.threads_text.setText(threading.enumerate())
 
 if __name__ == "__main__":
