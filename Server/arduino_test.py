@@ -14,7 +14,8 @@ class Arduino():
 
         while True:
             read_ser = self.ser.readline()
-            read_ser = float(read_ser)
+            print(read_ser)
+            delay(200)
 
             #Safety prevention for collision
             if read_ser < 20 and safety == False:
@@ -24,6 +25,7 @@ class Arduino():
                 while safety == True:
                     read_ser = self.ser.readline()
                     read_ser = float(read_ser)
+                    delay(200)
 
                     if read_ser >= 20:
                         safety = False
