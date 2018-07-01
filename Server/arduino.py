@@ -2,7 +2,7 @@ import serial
 import time
 import threading
 import sys
-from PyQt4.QtCore import QThread
+from PyQt4.QtCore import *
 
 class Arduino(QThread):
     def __init__(self, c, f):
@@ -32,7 +32,7 @@ class Arduino(QThread):
                 self.c.stop(self.c.SAFETY)
                 self.c.turn_red_led_on()
                 self.f.red_label.setStyleSheet("background-color: red")
-                self.emit( QtCore.SIGNAL('update(QString)'))
+                self.emit( SIGNAL('update(QString)'))
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()
