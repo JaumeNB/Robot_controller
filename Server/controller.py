@@ -115,7 +115,6 @@ class Controller():
         self.writeBlock(self.BLUE_LED, 1)
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
-        self.emit( SIGNAL('update(QString)'), "background-color: red")
 
     #TURNS GREEN LED ON AND TURNS OFF OTHERS
     def turn_green_led_on(self):
