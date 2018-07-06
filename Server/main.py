@@ -19,8 +19,14 @@ class Main(QWidget, Ui_Form):
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
         self.c = Controller()
 
-    def add(self, text):
+    def change_led_indicator(self, text):
         self.red_label.setStyleSheet(text)
+
+        self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+
+    def update_ultrasonic_lcd(self, text):
+        self.ultrasonic_lcd.display(text)
+
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     #START TCP SERVER THREAD
@@ -32,7 +38,7 @@ class Main(QWidget, Ui_Form):
             #pass controller object as tcp server receives commands to execute functions that will interact with
             #the robot that are defined in the controller
             self.workThread = TcpServer(self.c)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.add )
+            #start thread
             self.workThread.start()
 
     #START ARDUINO SENSING THREAD
@@ -46,9 +52,11 @@ class Main(QWidget, Ui_Form):
             #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
             #using a QThread that will be able to talk to this thread (main one)
             #through signals and slots
-            self.workThread = Arduino(self.c, self)
+            self.workThread = Arduino(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.add )
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.change_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update(ultrasonic)"), self.update_ultrasonic_lcd )
+            #start thread
             self.workThread.start()
 
     #SHOW NUMBER OF THREADS ACTIVE AND DESCRIPTION

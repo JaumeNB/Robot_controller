@@ -8,12 +8,11 @@ from PyQt4.QtCore import *
 #because this thread needs to modify main thread (UI), and therefore
 #PyQt threads (QThreads) are mandatory to use
 class Arduino(QThread):
-    def __init__(self, c, f):
+    def __init__(self, c):
         QThread.__init__(self)
         self.ser = serial.Serial("/dev/ttyACM0",9600)  #change ACM number as found from ls /dev/tty/ACM*
         self.ser.baudrate=9600
         self.c = c
-        self.f = f
 
     def __del__(self):
         self.wait()
@@ -24,9 +23,12 @@ class Arduino(QThread):
             read_ser = self.ser.readline()
 
             try:
+                #read serial (data coming from arduino)
                 read_ser = int(read_ser)
+                #assign distance value to controller object
                 self.c.ULTRASONIC_SENSOR = float(read_ser)
-                self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+                #emit signal to update UI
+                self.emit( SIGNAL('update(ultrasonic)'),self.c.ULTRASONIC_SENSOR)
 
 
             except ValueError as e:
@@ -34,9 +36,13 @@ class Arduino(QThread):
 
             #Safety prevention for collision
             if read_ser < 30 and self.c.SAFETY == False:
+                #safety stop triggered, safety boolean = true
                 self.c.SAFETY = True
+                #send a command stop
                 self.c.stop(self.c.SAFETY)
+                #turn red led on
                 self.c.turn_red_led_on()
+                #emit signal to update UI
                 self.emit( SIGNAL('update(QString)'), "background-color: red")
 
                 while self.c.SAFETY == True:
