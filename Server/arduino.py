@@ -43,7 +43,7 @@ class Arduino(QThread):
                 #turn red led on
                 self.c.turn_red_led_on()
                 #emit signal to update UI
-                self.emit( SIGNAL('update(QString)'), "background-color: red")
+                self.emit( SIGNAL('update(QString)'), "red", "background-color: red")
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()
@@ -63,7 +63,7 @@ class Arduino(QThread):
                         self.c.turn_led_off()
                         #emit signal to main thread (UI) that will trigger a function
                         #that will change the red led dashboard label
-                        self.emit( SIGNAL('update(QString)'), "background-color: white")
+                        self.emit( SIGNAL('update(QString)'), "red", "background-color: white")
                         print "No danger of collision"
 
 def Main():

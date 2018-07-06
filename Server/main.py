@@ -19,8 +19,11 @@ class Main(QWidget, Ui_Form):
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
         self.c = Controller()
 
-    def change_led_indicator(self, text):
-        self.red_label.setStyleSheet(text)
+    def change_led_indicator(self, led, text):
+        if led == "red":
+            self.red_label.setStyleSheet(text)
+        else:
+            self.green_label.setStyleSheet(text)
 
     def update_ultrasonic_lcd(self, text):
         self.ultrasonic_lcd.display(text)
