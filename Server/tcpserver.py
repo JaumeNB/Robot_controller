@@ -2,13 +2,14 @@ import socket
 import sys, time, datetime
 import threading
 from commands import Commands
+from PyQt4.QtCore import *
 
 #Simple socket server that listens to one single client
 #inherits from threading to be able to be executed on extra thread
-class TcpServer(threading.Thread):
+class TcpServer(QThread):
 
     def __init__(self, c, host = '0.0.0.0', port = 12345, buf_size = 1024):
-        threading.Thread.__init__(self)
+        QThread.__init__(self)
         """ Initialize the server with a host and port to listen to. """
         # Create a TCP/IP socket
         #AF_INET specifies the protocol family used for the communication.
@@ -27,6 +28,9 @@ class TcpServer(threading.Thread):
         self.buf_size = buf_size
         #controller object
         self.c = c
+
+    def __del__(self):
+        self.wait()
 
     def close(self):
         """ Close the server socket. """

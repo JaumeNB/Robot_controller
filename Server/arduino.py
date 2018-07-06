@@ -4,6 +4,9 @@ import threading
 import sys
 from PyQt4.QtCore import *
 
+#inhering from QThread instead of threading thread (python thread)
+#because this thread needs to modify main thread (UI), and therefore
+#PyQt threads (QThreads) are mandatory to use
 class Arduino(QThread):
     def __init__(self, c, f):
         QThread.__init__(self)
@@ -11,6 +14,9 @@ class Arduino(QThread):
         self.ser.baudrate=9600
         self.c = c
         self.f = f
+
+    def __del__(self):
+        self.wait()
 
     def run(self):
 
@@ -47,6 +53,8 @@ class Arduino(QThread):
                     if read_ser >= 30:
                         self.c.SAFETY = False
                         self.c.turn_led_off()
+                        #emit signal to main thread (UI) that will trigger a function
+                        #that will change the red led dashboard label
                         self.emit( SIGNAL('update(QString)'), "background-color: white")
                         print "No danger of collision"
 

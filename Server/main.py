@@ -31,9 +31,9 @@ class Main(QWidget, Ui_Form):
         for i in range(1):
             #pass controller object as tcp server receives commands to execute functions that will interact with
             #the robot that are defined in the controller
-            t = TcpServer(self.c)
-            t.setDaemon(True)
-            t.start()
+            self.workThread = TcpServer(self.c)
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.add )
+            self.workThread.start()
 
     #START ARDUINO SENSING THREAD
     @pyqtSignature("")
@@ -44,7 +44,10 @@ class Main(QWidget, Ui_Form):
         for i in range(1):
             #pass the controllet object so it can upload the sensor data to the controller instance
             #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
+            #using a QThread that will be able to talk to this thread (main one)
+            #through signals and slots
             self.workThread = Arduino(self.c, self)
+            #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.add )
             self.workThread.start()
 
