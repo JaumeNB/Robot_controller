@@ -40,7 +40,7 @@ class Main(QWidget, Ui_Form):
             #the robot that are defined in the controller
             self.workThread = TcpServer(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.change_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.change_led_indicator )
             #start thread
             self.workThread.start()
 
@@ -57,7 +57,7 @@ class Main(QWidget, Ui_Form):
             #through signals and slots
             self.workThread = Arduino(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.change_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.change_led_indicator )
             self.connect( self.workThread, QtCore.SIGNAL("update_lcd(QString)"), self.update_ultrasonic_lcd )
             #start thread
             self.workThread.start()

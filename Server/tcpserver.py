@@ -161,7 +161,7 @@ class TcpServer(QThread):
                         #turn red led ON
                         self.c.turn_red_led_on()
 
-                        self.emit( SIGNAL('update(QString)'), "red", "background-color: red")
+                        self.emit( SIGNAL('update(QString, QString)'), "red", "background-color: red")
 
                     #GREEN LED
                     elif Commands.CMD_RGB_G[1:] in data_command:
@@ -172,7 +172,7 @@ class TcpServer(QThread):
                         #turn green led ON
                         self.c.turn_green_led_on()
 
-                        self.emit( SIGNAL('update(QString)'), "green" ,"background-color: green")
+                        self.emit( SIGNAL('update(QString, QString)'), "green" ,"background-color: green")
 
                     #BLUE LED
                     elif Commands.CMD_RGB_B[1:] in data_command:
