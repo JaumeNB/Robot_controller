@@ -51,7 +51,7 @@ class Arduino(QThread):
                     try:
                         read_ser = int(read_ser)
                         self.c.ULTRASONIC_SENSOR = float(read_ser)
-                        self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
+                        self.f.ultrasonic_lcd.display(str(self.c.ULTRASONIC_SENSOR))
 
                     except ValueError as e:
                         print "error: " + read_ser
