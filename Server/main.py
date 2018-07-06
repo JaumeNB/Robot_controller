@@ -36,6 +36,8 @@ class Main(QWidget, Ui_Form):
             #pass controller object as tcp server receives commands to execute functions that will interact with
             #the robot that are defined in the controller
             self.workThread = TcpServer(self.c)
+            #connect signal (emit in this workthread) and slot (function add)
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.change_led_indicator )
             #start thread
             self.workThread.start()
 
