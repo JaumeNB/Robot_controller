@@ -28,7 +28,7 @@ class Arduino(QThread):
                 #assign distance value to controller object
                 self.c.ULTRASONIC_SENSOR = float(read_ser)
                 #emit signal to update UI
-                self.emit( SIGNAL('update(ultrasonic)'),self.c.ULTRASONIC_SENSOR)
+                self.emit( SIGNAL('update_lcd(QString)'),self.c.ULTRASONIC_SENSOR)
 
 
             except ValueError as e:

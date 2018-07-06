@@ -22,8 +22,6 @@ class Main(QWidget, Ui_Form):
     def change_led_indicator(self, text):
         self.red_label.setStyleSheet(text)
 
-        self.f.ultrasonic_lcd.display(self.c.ULTRASONIC_SENSOR)
-
     def update_ultrasonic_lcd(self, text):
         self.ultrasonic_lcd.display(text)
 
@@ -55,7 +53,7 @@ class Main(QWidget, Ui_Form):
             self.workThread = Arduino(self.c)
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update(QString)"), self.change_led_indicator )
-            self.connect( self.workThread, QtCore.SIGNAL("update(ultrasonic)"), self.update_ultrasonic_lcd )
+            self.connect( self.workThread, QtCore.SIGNAL("update_lcd(QString)"), self.update_ultrasonic_lcd )
             #start thread
             self.workThread.start()
 
