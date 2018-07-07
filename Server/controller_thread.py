@@ -19,9 +19,8 @@ class Controller_Thread(QThread):
 
         while True:
 
-            try:
-                #emit signal to update UI
-                self.emit( SIGNAL('update_orientation_lcd(QString)'),str(self.c.ULTRASONIC_ORIENTATION))
+            #emit signal to update UI
+            self.emit( SIGNAL('update_orientation_lcd(QString)'),str(self.c.ULTRASONIC_ORIENTATION))
 
 def Main():
     ard = Controller_Thread()
