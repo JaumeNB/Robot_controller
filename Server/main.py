@@ -12,15 +12,6 @@ from controller import Controller
 #PYQT USER INTERFACE ==> MAIN THREAD
 class Main(QWidget, Ui_Form):
 
-    """---------------CLASS CONSTRUCTOR---------------------"""
-    def __init__(self, parent=None):
-        QWidget.__init__(self, parent)
-        #method to setup the UI, defined in server_ui.py
-        self.setupUi(self)
-        #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
-        self.c = Controller()
-        start_arduino_thread()
-
     """---------------INSTANCE METHODS---------------------"""
 
     """SLOT FUNCTIONS"""
@@ -79,6 +70,15 @@ class Main(QWidget, Ui_Form):
             self.connect( self.workThread, QtCore.SIGNAL("update_lcd(QString)"), self.update_ultrasonic_lcd )
             #start thread
             self.workThread.start()
+
+    """---------------CLASS CONSTRUCTOR---------------------"""
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+        #method to setup the UI, defined in server_ui.py
+        self.setupUi(self)
+        #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
+        self.c = Controller()
+        self.start_arduino_thread()
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
