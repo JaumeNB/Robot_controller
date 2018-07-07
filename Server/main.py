@@ -55,6 +55,7 @@ class Main(QWidget, Ui_Form):
             self.workThread = TcpServer(self.c)
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update_orientation_lcd(QString)"), self.update_orientation_lcd )
             #start thread
             self.workThread.start()
 
@@ -78,7 +79,7 @@ class Main(QWidget, Ui_Form):
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
             self.connect( self.workThread, QtCore.SIGNAL("update_distance_lcd(QString)"), self.update_distance_lcd )
-            self.connect( self.workThread, QtCore.SIGNAL("update_orientation_lcd(QString)"), self.update_orientation_lcd )
+
             #start thread
             self.workThread.start()
 
