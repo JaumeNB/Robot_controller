@@ -69,7 +69,7 @@ class Main(QWidget, Ui_Form):
             #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
             #using a QThread that will be able to talk to this thread (main one)
             #through signals and slots
-            self.workThread = Arduino(self.c)
+            self.workThread = Arduino_Thread(self.c)
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
             self.connect( self.workThread, QtCore.SIGNAL("update_distance_lcd(QString)"), self.update_distance_lcd )
