@@ -104,7 +104,7 @@ class Main(QWidget, Ui_Form):
         #start arduino thread
         self.start_arduino_thread()
         #start controller thread
-        self.start_controller_thread()
+        #self.start_controller_thread()
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
