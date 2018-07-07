@@ -22,11 +22,11 @@ class Main(QWidget, Ui_Form):
     def change_led_indicator(self, led, text):
         if led == "red":
             self.red_label.setStyleSheet(text)
-        elif led == "green"
+        elif led == "green":
             self.green_label.setStyleSheet(text)
-        elif led == "blue"
+        elif led == "blue":
             self.blue_label.setStyleSheet(text)
-        elif led == "off"
+        elif led == "off":
             self.red_label.setStyleSheet(text)
             self.green_label.setStyleSheet(text)
             self.blue_label.setStyleSheet(text)
