@@ -58,6 +58,12 @@ class Main(QWidget, Ui_Form):
             #start thread
             self.workThread.start()
 
+    #START TCP SERVER THREAD
+    @pyqtSignature("")
+    def on_pushButton_pressed(self):
+        self.start_controller_thread()
+
+
     """THREAD FUNCTIONS"""
     #START ARDUINO SENSING THREAD
     def start_arduino_thread(self):
@@ -104,7 +110,7 @@ class Main(QWidget, Ui_Form):
         #start arduino thread
         self.start_arduino_thread()
         #start controller thread
-        self.start_controller_thread()
+        #self.start_controller_thread()
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
