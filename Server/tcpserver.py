@@ -147,52 +147,46 @@ class TcpServer(QThread):
                     #STOP
                     elif Commands.CMD_STOP[1:] in data_command:
 
+                        #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
                         #stop
                         self.c.stop()
 
                     #RED LED
                     elif Commands.CMD_RGB_R[1:] in data_command:
-
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
                         #turn red led ON
                         self.c.turn_red_led_on()
-
+                        #update server UI
                         self.emit( SIGNAL('update(QString, QString)'), "red", "background-color: red")
 
                     #GREEN LED
                     elif Commands.CMD_RGB_G[1:] in data_command:
-
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
                         #turn green led ON
                         self.c.turn_green_led_on()
-
+                        #update server UI
                         self.emit( SIGNAL('update(QString, QString)'), "green" ,"background-color: green")
 
                     #BLUE LED
                     elif Commands.CMD_RGB_B[1:] in data_command:
-
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
                         #turn blue led ON
                         self.c.turn_blue_led_on()
+                        #update server UI
+                        self.emit( SIGNAL('update(QString, QString)'), "blue" ,"background-color: blue")
 
                     #OFF LED
                     elif Commands.CMD_RGB_OFF[1:] in data_command:
-
                         #print command and timestamp
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-
                         #turn blue led ON
                         self.c.turn_led_off()
-
-                        self.emit( SIGNAL('update(QString)'), "background-color: white")
+                        #update server UI
+                        self.emit( SIGNAL('update(QString, QString)'), "off", "background-color: white")
 
 def main():
     server = TcpServer()

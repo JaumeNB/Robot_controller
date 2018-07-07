@@ -22,8 +22,14 @@ class Main(QWidget, Ui_Form):
     def change_led_indicator(self, led, text):
         if led == "red":
             self.red_label.setStyleSheet(text)
-        else:
+        elif led == "green"
             self.green_label.setStyleSheet(text)
+        elif led == "blue"
+            self.blue_label.setStyleSheet(text)
+        elif led == "off"
+            self.red_label.setStyleSheet(text)
+            self.green_label.setStyleSheet(text)
+            self.blue_label.setStyleSheet(text)
 
     def update_ultrasonic_lcd(self, text):
         self.ultrasonic_lcd.display(text)
