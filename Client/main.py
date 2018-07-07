@@ -68,6 +68,22 @@ class Main(QWidget, Ui_Form):
         except Exception, e:
             print "Failed to send data", e
 
+    #turn right button pressed
+    @pyqtSignature("")
+    def on_right_btn_pressed(self):
+        try:
+            self.tcp_client.send_data(Commands.CMD_TURN_RIGHT)
+        except Exception, e:
+            print "Failed to send data", e
+
+    #turn left button pressed
+    @pyqtSignature("")
+    def on_left_btn_pressed(self):
+        try:
+            self.tcp_client.send_data(Commands.CMD_TURN_LEFT)
+        except Exception, e:
+            print "Failed to send data", e
+
     #green led button released
     @pyqtSignature("")
     def on_green_btn_pressed(self):
