@@ -1,10 +1,10 @@
 import smbus
 import sys, time, datetime
 from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
-
+from PyQt4.QtCore import *
 
 #CONTROLLER CLASS: INTERACTS WITH HARDWARE
-class Controller():
+class Controller(QThread):
 
     """---------------CLASS ATTRIBUTES---------------------"""
     #COMMANDS
@@ -32,6 +32,7 @@ class Controller():
 
     """---------------CLASS CONSTRUCTOR---------------------"""
     def __init__(self):
+        QThread.__init__(self)
         self.address = 0x18                 #address of the I2C device
     	self.bus=smbus.SMBus(1)             #initialize bus
 

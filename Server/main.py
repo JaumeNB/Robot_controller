@@ -71,13 +71,27 @@ class Main(QWidget, Ui_Form):
             #start thread
             self.workThread.start()
 
+    #START ARDUINO SENSING THREAD
+    def start_controller_thread(self):
+        #create an object arduino that will be executed on a separate thread
+        #to get data from the arduino
+        #using for loop to avoid error raised by starting same thread
+        for i in range(1):
+            #pass the controllet object so it can upload the sensor data to the controller instance
+            #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
+            #using a QThread that will be able to talk to this thread (main one)
+            #through signals and slots
+            self.workThread = Controller()
+            #start thread
+            self.workThread.start()
+
     """---------------CLASS CONSTRUCTOR---------------------"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         #method to setup the UI, defined in server_ui.py
         self.setupUi(self)
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
-        self.c = Controller()
+        self.c = start_controller_thread()
         self.start_arduino_thread()
 
 """----------------------MAIN PROGRAM---------------------------"""
