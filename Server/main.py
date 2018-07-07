@@ -61,8 +61,7 @@ class Main(QWidget, Ui_Form):
     #START TCP SERVER THREAD
     @pyqtSignature("")
     def on_pushButton_pressed(self):
-        self.start_controller_thread()
-
+        pass
 
     """THREAD FUNCTIONS"""
     #START ARDUINO SENSING THREAD
@@ -79,21 +78,6 @@ class Main(QWidget, Ui_Form):
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
             self.connect( self.workThread, QtCore.SIGNAL("update_distance_lcd(QString)"), self.update_distance_lcd )
-            #start thread
-            self.workThread.start()
-
-    #START ARDUINO SENSING THREAD
-    def start_controller_thread(self):
-        #create an object arduino that will be executed on a separate thread
-        #to get data from the arduino
-        #using for loop to avoid error raised by starting same thread
-        for i in range(1):
-            #pass the controllet object so it can upload the sensor data to the controller instance
-            #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
-            #using a QThread that will be able to talk to this thread (main one)
-            #through signals and slots
-            self.workThread = Controller_Thread(self.c)
-            #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_orientation_lcd(QString)"), self.update_orientation_lcd )
             #start thread
             self.workThread.start()
@@ -109,8 +93,6 @@ class Main(QWidget, Ui_Form):
         self.c = Controller()
         #start arduino thread
         self.start_arduino_thread()
-        #start controller thread
-        #self.start_controller_thread()
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
