@@ -17,21 +17,37 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="thread_btn">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="start_server_btn">
        <property name="text">
-        <string>See active threads</string>
+        <string>Start TCP Server Thread</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="threads_label">
-       <property name="text">
-        <string>TextLabel</string>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLCDNumber" name="threads_lcd"/>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -89,7 +105,39 @@
         </widget>
        </item>
        <item>
-        <widget class="QLCDNumber" name="ultrasonic_lcd"/>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QLabel" name="orientation_label">
+           <property name="text">
+            <string>Orientation (degrees)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="distance_label">
+           <property name="text">
+            <string>Distance (mm)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLCDNumber" name="orientation_lcd"/>
+         </item>
+         <item>
+          <widget class="QLCDNumber" name="distance_lcd"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -101,16 +149,16 @@
       <number>45</number>
      </property>
      <item>
-      <widget class="QPushButton" name="start_server_btn">
+      <widget class="QPushButton" name="arduino_btn">
        <property name="text">
-        <string>Start TCP Server Thread</string>
+        <string>Start-up Arduino</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="arduino_btn">
+      <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>Start Arduino Thread</string>
+        <string>Autonomous mode</string>
        </property>
       </widget>
      </item>

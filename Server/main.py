@@ -19,7 +19,10 @@ class Main(QWidget, Ui_Form):
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
         self.c = Controller()
 
-    def change_led_indicator(self, led, text):
+
+    """---------------SLOT FUNCTIONS---------------------"""
+    #UPDATE UI LED INDICATOR
+    def update_led_indicator(self, led, text):
         if led == "red":
             self.red_label.setStyleSheet(text)
             self.green_label.setStyleSheet("background-color: white")
@@ -37,9 +40,9 @@ class Main(QWidget, Ui_Form):
             self.green_label.setStyleSheet(text)
             self.blue_label.setStyleSheet(text)
 
+    #UPDATE ULTRASONIC SENSOR LCD SCREEN
     def update_ultrasonic_lcd(self, text):
-        self.ultrasonic_lcd.display(text)
-
+        self.distance_lcd.display(text)
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     #START TCP SERVER THREAD
@@ -52,7 +55,7 @@ class Main(QWidget, Ui_Form):
             #the robot that are defined in the controller
             self.workThread = TcpServer(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.change_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.update_led_indicator )
             #start thread
             self.workThread.start()
 
@@ -69,27 +72,10 @@ class Main(QWidget, Ui_Form):
             #through signals and slots
             self.workThread = Arduino(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.change_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.update_led_indicator )
             self.connect( self.workThread, QtCore.SIGNAL("update_lcd(QString)"), self.update_ultrasonic_lcd )
             #start thread
             self.workThread.start()
-
-    #SHOW NUMBER OF THREADS ACTIVE AND DESCRIPTION
-    @pyqtSignature("")
-    def on_thread_btn_pressed(self):
-        #get thread description
-        threads = threading.enumerate()
-        #process the thread description to show only thread name
-        threads_string = []
-        for thread in threads:
-            string_thread = str(thread)
-            thread_separated = string_thread.split('(')
-            threads_string.append(thread_separated[0][1:] + '\n')
-        #show number of active threads
-        self.threads_lcd.display(threading.active_count())
-        #show thread name
-        self.threads_label.setText(''.join(threads_string))
-
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
