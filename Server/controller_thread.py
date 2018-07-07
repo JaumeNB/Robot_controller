@@ -24,8 +24,8 @@ class Controller_Thread(QThread):
                 self.emit( SIGNAL('update_orientation_lcd(QString)'),str(self.c.ULTRASONIC_ORIENTATION))
 
 def Main():
-    controller_thread = Controller_Thread()
-    controller_thread.run()
+    ard = Controller_Thread()
+    ard.run()
     print 'Exiting'
 
 if __name__ == '__main__':
