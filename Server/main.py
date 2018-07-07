@@ -22,9 +22,15 @@ class Main(QWidget, Ui_Form):
     def change_led_indicator(self, led, text):
         if led == "red":
             self.red_label.setStyleSheet(text)
+            self.green_label.setStyleSheet("background-color: white")
+            self.blue_label.setStyleSheet("background-color: white")
         elif led == "green":
+            self.red_label.setStyleSheet("background-color: white")
             self.green_label.setStyleSheet(text)
+            self.blue_label.setStyleSheet("background-color: white")
         elif led == "blue":
+            self.red_label.setStyleSheet("background-color: white")
+            self.green_label.setStyleSheet("background-color: white")
             self.blue_label.setStyleSheet(text)
         elif led == "off":
             self.red_label.setStyleSheet(text)
