@@ -83,9 +83,6 @@ class Ui_Form(object):
         self.distance_lcd.setObjectName(_fromUtf8("distance_lcd"))
         self.horizontalLayout_5.addWidget(self.distance_lcd)
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
-        self.label = QtGui.QLabel(Form)
-        self.label.setObjectName(_fromUtf8("label"))
-        self.verticalLayout_2.addWidget(self.label)
         self.horizontalLayout_3.addLayout(self.verticalLayout_2)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -112,7 +109,6 @@ class Ui_Form(object):
         self.ultrasonic_sensor_label.setText(_translate("Form", "Ultrasonic sensor", None))
         self.orientation_label.setText(_translate("Form", "Orientation (degrees)", None))
         self.distance_label.setText(_translate("Form", "Distance (mm)", None))
-        self.label.setText(_translate("Form", "TextLabel", None))
         self.arduino_btn.setText(_translate("Form", "Start-up Arduino", None))
         self.pushButton.setText(_translate("Form", "Autonomous mode", None))
 
