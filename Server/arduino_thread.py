@@ -7,7 +7,7 @@ from PyQt4.QtCore import *
 #inhering from QThread instead of threading thread (python thread)
 #because this thread needs to modify main thread (UI), and therefore
 #PyQt threads (QThreads) are mandatory to use
-class Arduino(QThread):
+class Arduino_Thread(QThread):
     def __init__(self, c):
         QThread.__init__(self)
         self.ser = serial.Serial("/dev/ttyACM0",9600)  #change ACM number as found from ls /dev/tty/ACM*
@@ -28,7 +28,7 @@ class Arduino(QThread):
                 #assign distance value to controller object
                 self.c.ULTRASONIC_SENSOR = float(read_ser)
                 #emit signal to update UI
-                self.emit( SIGNAL('update_lcd(QString)'),str(self.c.ULTRASONIC_SENSOR))
+                self.emit( SIGNAL('update_distance_lcd(QString)'),str(self.c.ULTRASONIC_SENSOR))
 
 
             except ValueError as e:
@@ -43,7 +43,7 @@ class Arduino(QThread):
                 #turn red led on
                 self.c.turn_red_led_on()
                 #emit signal to update UI
-                self.emit( SIGNAL('update(QString, QString)'), "red", "background-color: red")
+                self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: red")
 
                 while self.c.SAFETY == True:
                     read_ser = self.ser.readline()
@@ -52,7 +52,7 @@ class Arduino(QThread):
                         read_ser = int(read_ser)
                         self.c.ULTRASONIC_SENSOR = float(read_ser)
                         #emit signal to update UI
-                        self.emit( SIGNAL('update_lcd(QString)'),str(self.c.ULTRASONIC_SENSOR))
+                        self.emit( SIGNAL('update_distance_lcd(QString)'),str(self.c.ULTRASONIC_SENSOR))
 
 
                     except ValueError as e:

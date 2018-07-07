@@ -4,10 +4,11 @@ from PyQt4.QtGui import QWidget
 import sys, time, datetime
 import socket
 import threading
-from tcpserver import TcpServer
-from arduino import Arduino
 from server_ui import Ui_Form
 from controller import Controller
+from tcpserver import TcpServer
+from arduino_thread import Arduino_Thread
+from controller_thread import Controller_Thread
 
 #PYQT USER INTERFACE ==> MAIN THREAD
 class Main(QWidget, Ui_Form):
@@ -35,8 +36,12 @@ class Main(QWidget, Ui_Form):
             self.blue_label.setStyleSheet(text)
 
     #UPDATE ULTRASONIC SENSOR LCD SCREEN
-    def update_ultrasonic_lcd(self, text):
+    def update_distance_lcd(self, text):
         self.distance_lcd.display(text)
+
+    #UPDATE ULTRASONIC SENSOR LCD SCREEN
+    def update_orientation_lcd(self, text):
+        self.orientation_lcd.display(text)
 
     """PyQt BUTTON LISTENERS"""
     #START TCP SERVER THREAD
@@ -49,7 +54,7 @@ class Main(QWidget, Ui_Form):
             #the robot that are defined in the controller
             self.workThread = TcpServer(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.update_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
             #start thread
             self.workThread.start()
 
@@ -66,8 +71,8 @@ class Main(QWidget, Ui_Form):
             #through signals and slots
             self.workThread = Arduino(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update(QString, QString)"), self.update_led_indicator )
-            self.connect( self.workThread, QtCore.SIGNAL("update_lcd(QString)"), self.update_ultrasonic_lcd )
+            self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
+            self.connect( self.workThread, QtCore.SIGNAL("update_distance_lcd(QString)"), self.update_distance_lcd )
             #start thread
             self.workThread.start()
 
@@ -81,7 +86,9 @@ class Main(QWidget, Ui_Form):
             #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
             #using a QThread that will be able to talk to this thread (main one)
             #through signals and slots
-            self.workThread = Controller()
+            self.workThread = Controller_Thread(self.c)
+            #connect signal (emit in this workthread) and slot (function add)
+            self.connect( self.workThread, QtCore.SIGNAL("update_orientation_lcd(QString)"), self.update_orientation_lcd )
             #start thread
             self.workThread.start()
 
@@ -90,9 +97,14 @@ class Main(QWidget, Ui_Form):
         QWidget.__init__(self, parent)
         #method to setup the UI, defined in server_ui.py
         self.setupUi(self)
-        #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
-        self.c = self.start_controller_thread()
+        #controller is instantiated here so it can be accessible
+        #for arduino thread, controler thread
+        #and tcpServer thread
+        self.c = Controller()
+        #start arduino thread
         self.start_arduino_thread()
+        #start controller thread
+        self.start_controller_thread()
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
