@@ -132,20 +132,20 @@ class TcpServer(QThread):
                     #TURN RIGHT
                     elif Commands.CMD_TURN_RIGHT[1:] in data_command:
                         #log the info
-                        print data_command + " " + str(self.c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        print data_command + " " + str(self.c.WHEELS_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
                         #turn to the right the direction
                         self.c.turn_right()
                         #update the UI
-                        self.emit( SIGNAL('update_led_label(QString, QString)'), str(self.c.CURRENT_DIRECTION))
+                        self.emit( SIGNAL('update_led_label(QString, QString)'), str(self.c.WHEELS_DIRECTION))
 
                     #TURN LEFT
                     elif Commands.CMD_TURN_LEFT[1:] in data_command:
                         #log the info
-                        print data_command + " " + str(self.c.CURRENT_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        print data_command + " " + str(self.c.WHEELS_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
                         #turn to the right the direction
                         self.c.turn_left()
                         #update the UI
-                        self.emit( SIGNAL('update_led_label(QString, QString)'), str(self.c.CURRENT_DIRECTION))
+                        self.emit( SIGNAL('update_led_label(QString, QString)'), str(self.c.WHEELS_DIRECTION))
 
                     #STOP
                     elif Commands.CMD_STOP[1:] in data_command:
