@@ -12,15 +12,18 @@ from controller import Controller
 #PYQT USER INTERFACE ==> MAIN THREAD
 class Main(QWidget, Ui_Form):
 
+    """---------------CLASS CONSTRUCTOR---------------------"""
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         #method to setup the UI, defined in server_ui.py
         self.setupUi(self)
         #controller is instantiated here so it can be accessible for arduino thread and tcpServer thread
         self.c = Controller()
+        start_arduino_thread()
 
+    """---------------INSTANCE METHODS---------------------"""
 
-    """---------------SLOT FUNCTIONS---------------------"""
+    """SLOT FUNCTIONS"""
     #UPDATE UI LED INDICATOR
     def update_led_indicator(self, led, text):
         if led == "red":
@@ -44,7 +47,7 @@ class Main(QWidget, Ui_Form):
     def update_ultrasonic_lcd(self, text):
         self.distance_lcd.display(text)
 
-    """---------------PyQt BUTTON LISTENERS---------------------"""
+    """PyQt BUTTON LISTENERS"""
     #START TCP SERVER THREAD
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
@@ -59,9 +62,9 @@ class Main(QWidget, Ui_Form):
             #start thread
             self.workThread.start()
 
+    """THREAD FUNCTIONS"""
     #START ARDUINO SENSING THREAD
-    @pyqtSignature("")
-    def on_arduino_btn_pressed(self):
+    def start_arduino_thread(self):
         #create an object arduino that will be executed on a separate thread
         #to get data from the arduino
         #using for loop to avoid error raised by starting same thread
@@ -77,6 +80,7 @@ class Main(QWidget, Ui_Form):
             #start thread
             self.workThread.start()
 
+"""----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     dlg = Main()

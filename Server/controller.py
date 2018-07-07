@@ -2,11 +2,11 @@ import smbus
 import sys, time, datetime
 from PyQt4.QtCore import QObject, pyqtSignal, pyqtSlot
 
-"""----------------------CLASS CONTROLLER---------------------------"""
 
+#CONTROLLER CLASS: INTERACTS WITH HARDWARE
 class Controller():
 
-    """CLASS ATTRIBUTES"""
+    """---------------CLASS ATTRIBUTES---------------------"""
     #COMMANDS
     SERVO_1 = 0                         #SERVO 1
     SERVO_2 = 1                         #SERVO 2
@@ -21,21 +21,25 @@ class Controller():
     GREEN_LED = 11                      #GREEN LED
     CMD_SONIC = 12                      #ULTRASONIC SENSOR
     #ACTUATORS STATUS
-    CURRENT_DIRECTION = 90               #TILT OF DIRECTION ON BOTH WHEELS
+    WHEELS_DIRECTION = 90              #WHEELS ORIENTATION
+    ULTRASONIC_ORIENTATION = 90         #ULTRASONIC SENSOR ORIENTATION
     #SENSOR STATUS
-    ULTRASONIC_SENSOR = 100
+    ULTRASONIC_SENSOR = 100 and         #ULTRASONIC SENSOR VALUE: DISTANCE
     #ROBOT STATUS
-    SAFETY = False
+    SAFETY = False                      #SAFETY ALARM
     #CONSTANTS
     SONIC_MAX_HIGH_BYTE = 50
 
-    """CLASS CONSTRUCTOR"""
+    """---------------CLASS CONSTRUCTOR---------------------"""
     def __init__(self):
         self.address = 0x18                 #address of the I2C device
     	self.bus=smbus.SMBus(1)             #initialize bus
 
-    """INSTANCE METHODS"""
-    def writeBlock(self,command,data):  #writes data in blocks up to 16 bytes per block
+    """---------------INSTANCE METHODS---------------------"""
+
+    """I2C BUS COMMUNICATION"""
+    #WRITES DATA TO I2C BUS TO CONTROL ACTUATORS
+    def writeBlock(self,command,data):
         try:
             #data sent to address, first byte of data is a command. Other bytes are transformed for correct data processing
             self.bus.write_i2c_block_data(self.address,command,[data>>8,data&0xff])
@@ -43,19 +47,10 @@ class Controller():
         except Exception,e:
 	    print Exception,"I2C Error :",e
 
-    def readBlock(self,command):  #reads data in blocks up to 16 bytes per block
-        try:
-            for i in range(0,10,1):
-			self.bus.write_i2c_block_data(self.address,command,[data>>8,data&0xff])
-			result = float(self.bus.read_i2c_block_data(self.address,command,1))
-            return result
-
-	    time.sleep(0.001)
-        except Exception,e:
-	    print Exception,"I2C Error :",e
-
+    """HARDWARE OPERATIONS"""
     #FORWARD
     def forward(self):
+        #only can go forward if safety alarm is false
         if self.SAFETY == False:
             #set the direction in which motors will spin
             self.writeBlock(self.MOTOR_LEFT_DIR,0)
@@ -65,37 +60,41 @@ class Controller():
                 self.writeBlock(self.MOTOR_LEFT,i)
                 self.writeBlock(self.MOTOR_RIGHT,i)
                 time.sleep(0.005)
+        #if safety alarm is triggered, no forward allowed
         else:
             print ("You can't go forward, object may cause collision")
 
-
     #STOP
     def stop(self, safety = False):
+        #if stop due to safety alarm, log info
         if safety:
             print "SAFETY STOP at " + datetime.datetime.now().strftime("%H:%M:%S")
+        #stop motors
         self.writeBlock(self.MOTOR_LEFT,0)
         self.writeBlock(self.MOTOR_RIGHT,0)
 
-    #TURNS DIRECTION TO THE RIGHT
+    #WHEEL ORIENTATION TO THE RIGHT
     def turn_right(self):
         #check if reached limit
-        if self.CURRENT_DIRECTION > 60:
+        if self.WHEELS_DIRECTION > 50:
             #increase direction tilt towards right
-            self.CURRENT_DIRECTION -= 10
+            self.WHEELS_DIRECTION -= 10
             #set the direction in which motors will spin
-            self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
+            self.writeBlock(self.SERVO_1,self.numMap(self.WHEELS_DIRECTION,0,180,500,2500))
         else:
+            #log info if limit reached
             print ("You reach the direction limit, change direction towards left")
 
-    #TURNS DIRECTION TO THE LEFT
+    #WHEEL ORIENTATION TO THE LEFT
     def turn_left(self):
         #check if reached limit
-        if self.CURRENT_DIRECTION < 140:
+        if self.WHEELS_DIRECTION < 130:
             #increase direction tilt towards right
-            self.CURRENT_DIRECTION += 10
+            self.WHEELS_DIRECTION += 10
             #set the direction in which motors will spin
-            self.writeBlock(self.SERVO_1,self.numMap(self.CURRENT_DIRECTION,0,180,500,2500))
+            self.writeBlock(self.SERVO_1,self.numMap(self.WHEELS_DIRECTION,0,180,500,2500))
         else:
+            #log info if limit reached
             print ("You reach the direction limit, change direction towards right")
 
     #TURNS LED OFF
@@ -133,11 +132,6 @@ class Controller():
         self.writeBlock(self.BLUE_LED, 0)
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
-
-    def getSonic(self):
-    		SonicEchoTime = self.readBlock(self.CMD_SONIC)
-    		distance = SonicEchoTime * 17.0 / 1000.0
-    		return distance
 
     """STATIC METHODS"""
     @staticmethod
@@ -194,7 +188,6 @@ def rotate_servo(controller, servo):
 
 
 """----------------------MAIN PROGRAM---------------------------"""
-
 if __name__ == '__main__':
 
     #Create an instance of the class controller
