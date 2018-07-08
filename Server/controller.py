@@ -104,12 +104,10 @@ class Controller():
             #turn orientation towards right
             self.ULTRASONIC_ORIENTATION -= 10
             #set the direction in which motors will spin
-            self.writeBlock(self.SERVO_3,self.numMap(self.ULTRASONIC_ORIENTATION,0,180,500,2500))
+            self.writeBlock(self.SERVO_2,self.numMap(self.ULTRASONIC_ORIENTATION,0,180,500,2500))
         else:
             #log info if limit reached
             print ("You reach the ultrasonic orientation limit, change towards left")
-
-
 
     #TURNS LED OFF
     def turn_led_off(self):

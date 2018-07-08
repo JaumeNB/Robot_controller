@@ -104,7 +104,7 @@ class Main(QWidget, Ui_Form):
     @pyqtSignature("")
     def on_ultrasonic_right_btn_pressed(self):
         try:
-            self.tcp_client.send_data(Commands.CMD_TURN_RIGHT)
+            self.tcp_client.send_data(Commands.CMD_ULTRASONIC_TURN_RIGHT)
         except Exception, e:
             print "Failed to send data", e
 
