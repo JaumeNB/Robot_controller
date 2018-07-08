@@ -42,6 +42,8 @@ class Arduino_Thread(QThread):
                 self.c.stop(self.c.SAFETY)
                 #turn red led on
                 self.c.turn_red_led_on()
+                #trigger buzzer
+                self.c.buzzer_on()
                 #emit signal to update UI
                 self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: red")
 
@@ -60,7 +62,10 @@ class Arduino_Thread(QThread):
 
                     if read_ser >= 30:
                         self.c.SAFETY = False
+                        #turn off leds
                         self.c.turn_led_off()
+                        #turn off buzzer
+                        self.c.buzzer_off()
                         #emit signal to main thread (UI) that will trigger a function
                         #that will change the red led dashboard label
                         self.emit( SIGNAL('update(QString, QString)'), "red", "background-color: white")

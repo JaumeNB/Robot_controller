@@ -133,6 +133,16 @@ class Controller():
         #turn OFF green led
         self.writeBlock(self.GREEN_LED, 1)
 
+    #TURNS BUZZER ON
+    def buzzer_on(self):
+        #buzzer on
+        self.writeBlock(self.BUZZER, 2000)
+
+    #TURNS BUZZER OFF
+    def buzzer_off(self):
+        #buzzer on
+        self.writeBlock(self.BUZZER, 0)
+
     """STATIC METHODS"""
     @staticmethod
     #MAPS VALUE FROM ONE RANGE TO ANOTHER RANGE
