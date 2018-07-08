@@ -36,12 +36,16 @@ class Main(QWidget, Ui_Form):
             self.blue_label.setStyleSheet(text)
 
     #UPDATE ULTRASONIC SENSOR LCD SCREEN
-    def update_distance_lcd(self, text):
-        self.distance_lcd.display(text)
+    def update_ultrasonic_distance_lcd(self, text):
+        self.ultrasonic_distance_lcd.display(text)
 
-    #UPDATE ULTRASONIC SENSOR LCD SCREEN
-    def update_orientation_lcd(self, text):
-        self.orientation_lcd.display(text)
+    #UPDATE ULTRASONIC ORIENTATION LCD SCREEN
+    def update_ultrasonic_orientation_lcd(self, text):
+        self.ultrasonic_orientation_lcd.display(text)
+
+    #UPDATE CAR ORIENTATION LCD SCREEN
+    def update_wheel_orientation_lcd(self, text):
+        self.wheel_orientation_lcd.display(text)
 
     """PyQt BUTTON LISTENERS"""
     #START TCP SERVER THREAD
@@ -55,7 +59,8 @@ class Main(QWidget, Ui_Form):
             self.workThread = TcpServer(self.c)
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
-            self.connect( self.workThread, QtCore.SIGNAL("update_orientation_lcd(QString)"), self.update_orientation_lcd )
+            self.connect( self.workThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
+            self.connect( self.workThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
             #start thread
             self.workThread.start()
 
@@ -78,7 +83,7 @@ class Main(QWidget, Ui_Form):
             self.workThread = Arduino_Thread(self.c)
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
-            self.connect( self.workThread, QtCore.SIGNAL("update_distance_lcd(QString)"), self.update_distance_lcd )
+            self.connect( self.workThread, QtCore.SIGNAL("update_ultrasonic_distance_lcd(QString)"), self.update_ultrasonic_distance_lcd )
 
             #start thread
             self.workThread.start()
