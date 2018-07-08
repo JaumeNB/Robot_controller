@@ -108,6 +108,14 @@ class Main(QWidget, Ui_Form):
         except Exception, e:
             print "Failed to send data", e
 
+    #turn right ultrasonic sensor pressed
+    @pyqtSignature("")
+    def on_ultrasonic_left_btn_pressed(self):
+        try:
+            self.tcp_client.send_data(Commands.CMD_ULTRASONIC_TURN_LEFT)
+        except Exception, e:
+            print "Failed to send data", e
+
     """--------------------KEYBOARD COMMANDS----------------------"""
     #PRESS A KEY
     def keyPressEvent(self,event):

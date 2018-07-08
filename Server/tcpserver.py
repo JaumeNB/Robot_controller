@@ -164,6 +164,15 @@ class TcpServer(QThread):
                         #update the UI
                         self.emit( SIGNAL('update_ultrasonic_orientation_lcd(QString)'), str(self.c.ULTRASONIC_ORIENTATION))
 
+                    #ULTRASONIC TURN RIGHT
+                    elif Commands.CMD_ULTRASONIC_TURN_RIGHT[1:] in data_command:
+                        #log the info
+                        print data_command + " " + str(self.c.ULTRASONIC_ORIENTATION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        #turn to the right the direction
+                        self.c.ultrasonic_left()
+                        #update the UI
+                        self.emit( SIGNAL('update_ultrasonic_orientation_lcd(QString)'), str(self.c.ULTRASONIC_ORIENTATION))
+
                     #RED LED
                     elif Commands.CMD_RGB_R[1:] in data_command:
                         #print command and timestamp

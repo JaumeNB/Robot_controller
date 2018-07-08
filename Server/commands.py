@@ -12,6 +12,7 @@ class Commands:
     CMD_RGB_OFF = ">RGB Off"
 
     CMD_ULTRASONIC_TURN_RIGHT = ">Ultrasonic turn right"
+    CMD_ULTRASONIC_TURN_LEFT = ">Ultrasonic turn left"
 
     def __init__(self):
         pass

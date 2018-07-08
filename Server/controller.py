@@ -109,6 +109,18 @@ class Controller():
             #log info if limit reached
             print ("You reach the ultrasonic orientation limit, change towards left")
 
+    #ULTRASONIC SENSOR ORIENTATION TO THE LEFT
+    def ultrasonic_left(self):
+        #check if reached limit
+        if self.ULTRASONIC_ORIENTATION < 130:
+            #turn orientation towards right
+            self.ULTRASONIC_ORIENTATION += 10
+            #set the direction in which motors will spin
+            self.writeBlock(self.SERVO_2,self.numMap(self.ULTRASONIC_ORIENTATION,0,180,500,2500))
+        else:
+            #log info if limit reached
+            print ("You reach the ultrasonic orientation limit, change towards right")
+
     #TURNS LED OFF
     def turn_led_off(self):
         #turn OFF red led
