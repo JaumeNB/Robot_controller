@@ -21,7 +21,7 @@ class Controller():
     GREEN_LED = 11                      #GREEN LED
     CMD_SONIC = 12                      #ULTRASONIC SENSOR
     #ACTUATORS STATUS
-    WHEELS_DIRECTION = 90               #WHEELS ORIENTATION
+    WHEELS_ORIENTATION = 90             #WHEELS ORIENTATION
     ULTRASONIC_ORIENTATION = 90         #ULTRASONIC SENSOR ORIENTATION
     #SENSOR STATUS
     ULTRASONIC_SENSOR = 100             #ULTRASONIC SENSOR VALUE: DISTANCE
@@ -76,11 +76,11 @@ class Controller():
     #WHEEL ORIENTATION TO THE RIGHT
     def turn_right(self):
         #check if reached limit
-        if self.WHEELS_DIRECTION > 50:
+        if self.WHEELS_ORIENTATION > 50:
             #increase direction tilt towards right
-            self.WHEELS_DIRECTION -= 10
+            self.WHEELS_ORIENTATION -= 10
             #set the direction in which motors will spin
-            self.writeBlock(self.SERVO_1,self.numMap(self.WHEELS_DIRECTION,0,180,500,2500))
+            self.writeBlock(self.SERVO_1,self.numMap(self.WHEELS_ORIENTATION,0,180,500,2500))
         else:
             #log info if limit reached
             print ("You reach the direction limit, change direction towards left")
@@ -88,14 +88,28 @@ class Controller():
     #WHEEL ORIENTATION TO THE LEFT
     def turn_left(self):
         #check if reached limit
-        if self.WHEELS_DIRECTION < 130:
+        if self.WHEELS_ORIENTATION < 130:
             #increase direction tilt towards right
-            self.WHEELS_DIRECTION += 10
+            self.WHEELS_ORIENTATION += 10
             #set the direction in which motors will spin
-            self.writeBlock(self.SERVO_1,self.numMap(self.WHEELS_DIRECTION,0,180,500,2500))
+            self.writeBlock(self.SERVO_1,self.numMap(self.WHEELS_ORIENTATION,0,180,500,2500))
         else:
             #log info if limit reached
             print ("You reach the direction limit, change direction towards right")
+
+    #ULTRASONIC SENSOR ORIENTATION TO THE RIGHT
+    def ultrasonic_right(self):
+        #check if reached limit
+        if self.ULTRASONIC_ORIENTATION > 50:
+            #turn orientation towards right
+            self.ULTRASONIC_ORIENTATION -= 10
+            #set the direction in which motors will spin
+            self.writeBlock(self.SERVO_2,self.numMap(self.ULTRASONIC_ORIENTATION,0,180,500,2500))
+        else:
+            #log info if limit reached
+            print ("You reach the ultrasonic orientation limit, change towards left")
+
+
 
     #TURNS LED OFF
     def turn_led_off(self):

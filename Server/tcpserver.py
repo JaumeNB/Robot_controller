@@ -132,20 +132,20 @@ class TcpServer(QThread):
                     #TURN RIGHT
                     elif Commands.CMD_TURN_RIGHT[1:] in data_command:
                         #log the info
-                        print data_command + " " + str(self.c.WHEELS_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        print data_command + " " + str(self.c.WHEELS_ORIENTATION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
                         #turn to the right the direction
                         self.c.turn_right()
                         #update the UI
-                        self.emit( SIGNAL('update_orientation_lcd(QString)'), str(self.c.WHEELS_DIRECTION))
+                        self.emit( SIGNAL('update_orientation_lcd(QString)'), str(self.c.WHEELS_ORIENTATION))
 
                     #TURN LEFT
                     elif Commands.CMD_TURN_LEFT[1:] in data_command:
                         #log the info
-                        print data_command + " " + str(self.c.WHEELS_DIRECTION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        print data_command + " " + str(self.c.WHEELS_ORIENTATION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
                         #turn to the right the direction
                         self.c.turn_left()
                         #update the UI
-                        self.emit( SIGNAL('update_orientation_lcd(QString)'), str(self.c.WHEELS_DIRECTION))
+                        self.emit( SIGNAL('update_orientation_lcd(QString)'), str(self.c.WHEELS_ORIENTATION))
 
                     #STOP
                     elif Commands.CMD_STOP[1:] in data_command:
@@ -154,6 +154,15 @@ class TcpServer(QThread):
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
                         #stop
                         self.c.stop()
+
+                    #ULTRASONIC TURN RIGHT
+                    elif Commands.CMD_ULTRASONIC_TURN_RIGHT[1:] in data_command:
+                        #log the info
+                        print data_command + " " + str(self.c.ULTRASONIC_ORIENTATION) + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        #turn to the right the direction
+                        self.c.ultrasonic_right()
+                        #update the UI
+                        self.emit( SIGNAL('update_orientation_lcd(QString)'), str(self.c.ULTRASONIC_ORIENTATION))
 
                     #RED LED
                     elif Commands.CMD_RGB_R[1:] in data_command:
