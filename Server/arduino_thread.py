@@ -68,7 +68,7 @@ class Arduino_Thread(QThread):
                         self.c.buzzer_off()
                         #emit signal to main thread (UI) that will trigger a function
                         #that will change the red led dashboard label
-                        self.emit( SIGNAL('update(QString, QString)'), "red", "background-color: white")
+                        self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: white")
                         print "No danger of collision"
 
 def Main():
