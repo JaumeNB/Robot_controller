@@ -63,23 +63,24 @@ class Main(QWidget, Ui_Form):
         for i in range(1):
             #pass controller object as tcp server receives commands to execute functions that will interact with
             #the robot that are defined in the controller
-            self.TCPThread = TcpServer(self.c)
+            self.ServerThread = TcpServer(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
-            self.connect( self.workThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
-            self.connect( self.workThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
+            self.connect( self.ServerThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
+            self.connect( self.ServerThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
+            self.connect( self.ServerThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
             #start thread
-            self.TCPThread.start()
+            self.ServerThread.start()
             self.tcp_thread_active = True
 
     #START AUTONOMOUS MODE
     @pyqtSignature("")
     def on_auto_btn_pressed(self):
 
+        print "server thread is running? ", self.ServerThread.isRunning()
         if self.tcp_thread_active == True:
             print "Stop TCP Server Thread..."
-            self.TCPThread.stopTCPServer()
-            self.TCPThread.terminate()
+            self.ServerThread.stopTCPServer()
+            self.ServerThread.terminate()
             self.tcp_thread_active = False
 
         for i in range(1):
@@ -99,13 +100,13 @@ class Main(QWidget, Ui_Form):
             #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
             #using a QThread that will be able to talk to this thread (main one)
             #through signals and slots
-            self.workThread = Arduino_Thread(self.c)
+            self.ArduinoThread = Arduino_Thread(self.c)
             #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
-            self.connect( self.workThread, QtCore.SIGNAL("update_ultrasonic_distance_lcd(QString)"), self.update_ultrasonic_distance_lcd )
+            self.connect( self.ArduinoThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
+            self.connect( self.ArduinoThread, QtCore.SIGNAL("update_ultrasonic_distance_lcd(QString)"), self.update_ultrasonic_distance_lcd )
 
             #start thread
-            self.workThread.start()
+            self.ArduinoThread.start()
 
     """---------------CLASS CONSTRUCTOR---------------------"""
     def __init__(self, parent=None):
