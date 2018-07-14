@@ -53,7 +53,7 @@ class Main(QWidget, Ui_Form):
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
 
-        if self.auto_thread_active = True:
+        if self.auto_thread_active == True:
             print "Stop Auto Thread..."
             self.AutoThread.terminate()
             self.tcp_thread_active = False
