@@ -72,7 +72,7 @@ class Main(QWidget, Ui_Form):
         self.c.turn_led_off()
 
         print "Stop TCP Server Thread..."
-        TcpServer.stopTCPServer()
+        self.workThread.stopTCPServer()
         self.workThread.terminate()
 
     """THREAD FUNCTIONS"""
