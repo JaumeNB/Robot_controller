@@ -28,6 +28,7 @@ class TcpServer(QThread):
         self.buf_size = buf_size
         #controller object
         self.c = c
+        self.finish_connection = False
 
     def stopTCPServer(self):
         pass
@@ -37,6 +38,7 @@ class TcpServer(QThread):
 			print "Client close Error",e
         self.sock.shutdown(2)
         self.sock.close()
+        self.finish_connection = True
 
     def __del__(self):
         self.wait()
@@ -59,7 +61,7 @@ class TcpServer(QThread):
         print('Starting socket server (host {}, port {})'.format(self.host, self.port))
 
         #loop to wait for connection
-        while True:
+        while True and self.finish_connection == False:
 
             #wait for connection
             print("Wating for connection ... ")
@@ -76,7 +78,7 @@ class TcpServer(QThread):
 				print "sock closed! Error: ",e
 
             #if connection successful, enter second loop where data exchange is done
-            while True:
+            while True and self.finish_connection == False:
                 #receive data
                 try:
                     data = self.connection.recv(self.buf_size).decode('utf-8')
