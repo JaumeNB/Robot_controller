@@ -14,9 +14,13 @@ class Auto_Thread(QThread):
 
     def run(self):
 
-        while True:
+        for i in range(2):
 
-            pass
+            self.c.turn_blue_led_on()
+            time.sleep(1)
+            self.c.turn_blue_led_on()
+            time.sleep(1)
+
 
         """
         #Safety prevention for collision

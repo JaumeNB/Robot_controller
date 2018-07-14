@@ -53,10 +53,10 @@ class Main(QWidget, Ui_Form):
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
 
-        if self.auto_thread_active == True:
+        print "auto thread is running? ", self.AutoThread.isRunning()
+        if self.AutoThread.isRunning() == True:
             print "Stop Auto Thread..."
-            self.AutoThread.terminate()
-            self.tcp_thread_active = False
+            self.AutoThread.quit()
 
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
         #using for loop to avoid error raised by starting same thread
@@ -118,9 +118,6 @@ class Main(QWidget, Ui_Form):
         self.c = Controller()
         #start arduino thread
         self.start_arduino_thread()
-
-        self.tcp_thread_active = False
-        self.auto_thread_active = False
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
