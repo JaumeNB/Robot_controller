@@ -29,6 +29,15 @@ class TcpServer(QThread):
         #controller object
         self.c = c
 
+    def stopTCPServer(self):
+        pass
+        try:
+			self.connection.close()
+        except Exception ,  e:
+			print "Client close Error",e
+        self.sock.shutdown(2)
+        self.sock.close()
+
     def __del__(self):
         self.wait()
 
@@ -184,15 +193,6 @@ class TcpServer(QThread):
                         #update server UI
                         self.emit( SIGNAL('update_led_label(QString, QString)'), "off", "background-color: white")
 
-
-        def stopTCPServer(self):
-            pass
-            try:
-    			self.connection.close()
-            except Exception ,  e:
-    			print "Client close Error",e
-            self.sock.shutdown(2)
-            self.sock.close()
 
 def main():
     server = TcpServer()
