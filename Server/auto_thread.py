@@ -20,7 +20,7 @@ class Auto_Thread(QThread):
                 self.c.forward()
                 self.status = "forward"
 
-            if self.c.SAFETY and self.status = "forward":
+            if self.c.SAFETY and self.status == "forward":
                 self.c.stop(self.c.SAFETY)
                 break
 
