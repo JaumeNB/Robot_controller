@@ -9,6 +9,7 @@ from controller import Controller
 from tcpserver import TcpServer
 from arduino_thread import Arduino_Thread
 from controller_thread import Controller_Thread
+from auto_thread import Auto_Thread
 
 #PYQT USER INTERFACE ==> MAIN THREAD
 class Main(QWidget, Ui_Form):
