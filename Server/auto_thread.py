@@ -14,9 +14,7 @@ class Auto_Thread(QThread):
     def run(self):
 
         while True:
-            self.c.turn_green_led_on()
-            time.sleep(1)
-            self.c.turn_led_off()
+            self.c.forward()
 
 def Main():
     ard = Arduino()
