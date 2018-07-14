@@ -40,7 +40,6 @@ class TcpServer(QThread):
             print "Client close Error",e
         self.sock.shutdown(2)
         self.sock.close()
-        break
 
     def run(self):
         """ Accept and handle an incoming connection. """
