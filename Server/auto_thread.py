@@ -7,6 +7,7 @@ class Auto_Thread(QThread):
     def __init__(self, c):
         QThread.__init__(self)
         self.c = c
+        self.status = stop
 
     def __del__(self):
         self.wait()
@@ -14,15 +15,18 @@ class Auto_Thread(QThread):
     def run(self):
 
         while True:
-            self.c.forward()
 
-            if self.c.SAFETY:
-                self.c.stop()
+            if self.status == "stop"
+                self.c.forward()
+                self.status = "forward"
+
+            if self.c.SAFETY and self.status = "forward":
+                self.c.stop(self.c.SAFETY)
                 break
 
 def Main():
-    ard = Arduino()
-    ard.run()
+    auto = Auto_Thread()
+    auto.run()
     print 'Exiting'
 
 if __name__ == '__main__':

@@ -52,34 +52,41 @@ class Main(QWidget, Ui_Form):
     #START TCP SERVER THREAD
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
-        self.tcpserver_active = True
+
+        if self.auto_thread_active = True:
+            print "Stop Auto Thread..."
+            self.AutoThread.terminate()
+            self.tcp_thread_active = False
+
         #this will start a tcpserver object in a different thread (main thread is gor GUI)
         #using for loop to avoid error raised by starting same thread
         for i in range(1):
             #pass controller object as tcp server receives commands to execute functions that will interact with
             #the robot that are defined in the controller
-            self.workThread = TcpServer(self.c)
+            self.TCPThread = TcpServer(self.c)
             #connect signal (emit in this workthread) and slot (function add)
             self.connect( self.workThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
             self.connect( self.workThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
             self.connect( self.workThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
             #start thread
-            self.workThread.start()
+            self.TCPThread.start()
+            self.tcp_thread_active = True
 
     #START AUTONOMOUS MODE
     @pyqtSignature("")
     def on_auto_btn_pressed(self):
 
-        if self.tcpserver_active == True:
+        if self.tcp_thread_active == True:
             print "Stop TCP Server Thread..."
-            self.workThread.stopTCPServer()
-            self.workThread.terminate()
-            self.tcpserver_active = False
+            self.TCPThread.stopTCPServer()
+            self.TCPThread.terminate()
+            self.tcp_thread_active = False
 
         for i in range(1):
-            self.workThread = Auto_Thread(self.c)
+            self.AutoThread = Auto_Thread(self.c)
             #start thread
-            self.workThread.start()
+            self.AutoThread.start()
+            self.auto_thread_active = True
 
     """THREAD FUNCTIONS"""
     #START ARDUINO SENSING THREAD
@@ -112,7 +119,8 @@ class Main(QWidget, Ui_Form):
         #start arduino thread
         self.start_arduino_thread()
 
-        self.tcpserver_active = False
+        self.tcp_thread_active = False
+        self.auto_thread_active = False
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
