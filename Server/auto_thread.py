@@ -7,7 +7,7 @@ class Auto_Thread(QThread):
     def __init__(self, c):
         QThread.__init__(self)
         self.c = c
-        self.status = stop
+        self.status = "stop"
 
     def __del__(self):
         self.wait()
