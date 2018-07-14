@@ -34,7 +34,7 @@ class Main(QWidget, Ui_Form):
     def on_disconnect_btn_pressed(self):
         try:
             self.tcp_client.send_data(Commands.CMD_CLOSE)
-
+            self.tcp_client.disconnect()
             print "Client diconnected!"
         except Exception, e:
             print "Disconnection failed", e
