@@ -77,11 +77,10 @@ class Main(QWidget, Ui_Form):
     def on_auto_btn_pressed(self):
 
         print "server thread is running? ", self.ServerThread.isRunning()
-        if self.tcp_thread_active == True:
+        if self.ServerThread.isRunning() == True:
             print "Stop TCP Server Thread..."
             self.ServerThread.stopTCPServer()
-            self.ServerThread.terminate()
-            self.tcp_thread_active = False
+            self.ServerThread.quit()
 
         for i in range(1):
             self.AutoThread = Auto_Thread(self.c)
