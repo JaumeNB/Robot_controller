@@ -33,14 +33,14 @@ class TcpServer(QThread):
         self.wait()
 
     def close(self):
-        """ Close the server socket. """
-        if self.connection:
-            print ("Found a connection, closing it")
+        """ Close the connection socket. """
+        try:
             self.connection.close()
-        if self.sock:
-            print('Closing server socket (host {}, port {})'.format(self.host, self.port))
-            self.sock.close()
-            self.sock = None
+        except Exception, e:
+            print "Client close Error",e
+        self.sock.shutdown(2)
+        self.sock.close()
+        break
 
     def run(self):
         """ Accept and handle an incoming connection. """
@@ -68,48 +68,36 @@ class TcpServer(QThread):
                 #the server and client and the address of the client
                 #The connection is actually a different socket on another port (assigned by the kernel)
                 self.connection, self.client_address = self.sock.accept()
-
                 #print client connected
                 print('Client {} connected'.format(self.client_address))
-
             except Exception, e:
-
 				print "sock closed! Error: ",e
-
-				try:
-					self.connection.close()
-
-				except Exception, e:
-					print "Client close Error",e
-
-				self.sock.shutdown(2)
-				self.sock.close()
-				break
+				self.close()
 
             #if connection successful, enter second loop where data exchange is done
             while True:
-
                 #receive data
                 try:
                     data = self.connection.recv(self.buf_size).decode('utf-8')
-
+                #close if exeception
                 except Exception, e:
                     print e
-                    self.connection.close()
-                    break
-
+                    self.close()
+                #if not data, continue receiving data
                 if not data:
                     break
-
                 #split data by ">" to get commands
                 data_array = data.split(">")
-
                 #act depending on command received
                 for data_command in data_array:
-
                     if data_command == "":
-
                         continue
+
+                    #CLOSE CONNECTION
+                    if Commands.CMD_CLOSE[1:] in data_command:
+                        print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
+                        #move forward
+                        self.close()
 
                     #GO BACKWARDS
                     if Commands.CMD_FORWARD[1:] in data_command:

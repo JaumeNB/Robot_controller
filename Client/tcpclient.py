@@ -10,8 +10,13 @@ class TcpClient():
         self.buf_size = buf_size
         self.address = (self.host, self.port)
 
-    def connect_to_server(self):
+    def connect(self):
         self.sock.connect(self.address)
+        print ('connected')
+
+    def disconnect(self):
+        self.sock.shutdown(2)
+        self.sock.close()
 
     def send_data(self, data):
         try:

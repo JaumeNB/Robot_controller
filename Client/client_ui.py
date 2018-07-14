@@ -37,6 +37,9 @@ class Ui_Form(object):
         self.connect_btn = QtGui.QPushButton(Form)
         self.connect_btn.setObjectName(_fromUtf8("connect_btn"))
         self.horizontalLayout_7.addWidget(self.connect_btn)
+        self.disconnect_btn = QtGui.QPushButton(Form)
+        self.disconnect_btn.setObjectName(_fromUtf8("disconnect_btn"))
+        self.horizontalLayout_7.addWidget(self.disconnect_btn)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_7.addItem(spacerItem1)
         self.verticalLayout_2.addLayout(self.horizontalLayout_7)
@@ -121,7 +124,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "TCP Client", None))
-        self.connect_btn.setText(_translate("Form", "Start TCP Client", None))
+        self.connect_btn.setText(_translate("Form", "Connect", None))
+        self.disconnect_btn.setText(_translate("Form", "Disconnect", None))
         self.red_btn.setText(_translate("Form", "Red LED", None))
         self.green_btn.setText(_translate("Form", "Green Led", None))
         self.blue_btn.setText(_translate("Form", "Blue LED", None))
