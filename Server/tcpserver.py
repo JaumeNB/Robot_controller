@@ -38,7 +38,6 @@ class TcpServer(QThread):
             self.connection.close()
         except Exception, e:
             print "Client close Error",e
-        self.sock.shutdown(2)
         self.sock.close()
 
     def run(self):
@@ -80,7 +79,7 @@ class TcpServer(QThread):
                     data = self.connection.recv(self.buf_size).decode('utf-8')
                 #close if exeception
                 except Exception, e:
-                    print e
+                    print "error", e
                     self.close()
                 #if not data, continue receiving data
                 if not data:
