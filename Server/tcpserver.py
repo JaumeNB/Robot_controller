@@ -32,19 +32,12 @@ class TcpServer(QThread):
     def __del__(self):
         self.wait()
 
-    def close(self):
-        """ Close the connection socket. """
-        try:
-            self.connection.close()
-        except Exception, e:
-            print "Client close Error",e
-        self.sock.close()
-
     def run(self):
         """ Accept and handle an incoming connection. """
         try:
             #associate the socket with the server address and port
             self.sock.bind((self.host, self.port))
+
         except socket.error as e:
             print "Bind Error : ", e
 
@@ -68,9 +61,9 @@ class TcpServer(QThread):
                 self.connection, self.client_address = self.sock.accept()
                 #print client connected
                 print('Client {} connected'.format(self.client_address))
+
             except Exception, e:
 				print "sock closed! Error: ",e
-				self.close()
 
             #if connection successful, enter second loop where data exchange is done
             while True:
@@ -80,7 +73,7 @@ class TcpServer(QThread):
                 #close if exeception
                 except Exception, e:
                     print "error", e
-                    self.close()
+
                 #if not data, continue receiving data
                 if not data:
                     print('no data')

@@ -14,7 +14,7 @@ class TcpClient():
         self.sock.connect(self.address)
 
     def disconnect(self):
-        self.sock.shutdown(1)
+        self.sock.close()
 
     def send_data(self, data):
         try:
