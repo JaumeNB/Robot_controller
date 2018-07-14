@@ -16,6 +16,10 @@ class Auto_Thread(QThread):
         while True:
             self.c.forward()
 
+            if self.c.SAFETY:
+                self.c.stop()
+                break
+
 def Main():
     ard = Arduino()
     ard.run()
