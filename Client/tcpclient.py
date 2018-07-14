@@ -12,7 +12,6 @@ class TcpClient():
 
     def connect(self):
         self.sock.connect(self.address)
-        print ('connected')
 
     def disconnect(self):
         self.sock.shutdown(2)

@@ -84,6 +84,7 @@ class TcpServer(QThread):
                     self.close()
                 #if not data, continue receiving data
                 if not data:
+                    print('no data')
                     break
                 #split data by ">" to get commands
                 data_array = data.split(">")
