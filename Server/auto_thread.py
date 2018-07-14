@@ -16,6 +16,9 @@ class Auto_Thread(QThread):
 
         while True:
 
+            pass
+
+        """
         #Safety prevention for collision
         if read_ser < 30 and self.c.SAFETY == False:
             #safety stop triggered, safety boolean = true
@@ -52,6 +55,7 @@ class Auto_Thread(QThread):
                     #that will change the red led dashboard label
                     self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: white")
                     print "No danger of collision"
+        """
 
 def Main():
     auto = Auto_Thread()
