@@ -77,7 +77,7 @@ class Main(QWidget, Ui_Form):
             self.tcpserver_active = False
 
         for i in range(1):
-            self.workThread = Auto_thread(self.c)
+            self.workThread = Auto_Thread(self.c)
             #start thread
             self.workThread.start()
 
