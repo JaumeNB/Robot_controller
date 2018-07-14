@@ -16,7 +16,7 @@ class Auto_Thread(QThread):
 
         while True:
 
-            if self.status == "stop"
+            if self.status == "stop":
                 self.c.forward()
                 self.status = "forward"
 
