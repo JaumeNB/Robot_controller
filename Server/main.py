@@ -76,12 +76,6 @@ class Main(QWidget, Ui_Form):
     @pyqtSignature("")
     def on_auto_btn_pressed(self):
 
-        print "server thread is running? ", self.ServerThread.isRunning()
-        if self.ServerThread.isRunning() == True:
-            print "Stop TCP Server Thread..."
-            self.ServerThread.stopTCPServer()
-            self.ServerThread.quit()
-
         for i in range(1):
             self.AutoThread = Auto_Thread(self.c)
             #start thread
