@@ -32,6 +32,7 @@ class TcpServer(QThread):
     def __del__(self):
         self.wait()
 
+
     def run(self):
         """ Accept and handle an incoming connection. """
         try:
@@ -188,6 +189,16 @@ class TcpServer(QThread):
                         self.c.turn_led_off()
                         #update server UI
                         self.emit( SIGNAL('update_led_label(QString, QString)'), "off", "background-color: white")
+
+
+        def stopTCPServer(self):
+            pass
+            try:
+    			self.connection.close()
+            except Exception ,  e:
+    			print "Client close Error",e
+            self.sock.shutdown(2)
+            self.sock.close()
 
 def main():
     server = TcpServer()

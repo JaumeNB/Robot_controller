@@ -28,18 +28,6 @@ class Main(QWidget, Ui_Form):
         except Exception, e:
             print "Connect to server Failed!", e
 
-
-    #disconnect button pressed
-    @pyqtSignature("")
-    def on_disconnect_btn_pressed(self):
-        try:
-            self.tcp_client.send_data(Commands.CMD_CLOSE)
-            self.tcp_client.disconnect()
-            print "Client diconnected!"
-        except Exception, e:
-            print "Disconnection failed", e
-
-
     #forward button pressed
     @pyqtSignature("")
     def on_forward_btn_pressed(self):

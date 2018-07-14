@@ -66,8 +66,10 @@ class Main(QWidget, Ui_Form):
 
     #START TCP SERVER THREAD
     @pyqtSignature("")
-    def on_pushButton_pressed(self):
-        pass
+    def on_auto_btn_pressed(self):
+        self.c.turn_green_led_on()
+        time.sleep(1)
+        self.c.turn_led_off()
 
     """THREAD FUNCTIONS"""
     #START ARDUINO SENSING THREAD

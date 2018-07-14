@@ -50,7 +50,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="auto_btn">
        <property name="text">
         <string>Autonomous mode</string>
        </property>
