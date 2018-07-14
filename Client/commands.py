@@ -14,7 +14,5 @@ class Commands:
     CMD_ULTRASONIC_TURN_RIGHT = ">Ultrasonic turn right"
     CMD_ULTRASONIC_TURN_LEFT = ">Ultrasonic turn left"
 
-    CMD_CLOSE = ">close"
-
     def __init__(self):
         pass

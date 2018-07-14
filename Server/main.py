@@ -64,12 +64,16 @@ class Main(QWidget, Ui_Form):
             #start thread
             self.workThread.start()
 
-    #START TCP SERVER THREAD
+    #START AUTONOMOUS MODE
     @pyqtSignature("")
     def on_auto_btn_pressed(self):
         self.c.turn_green_led_on()
         time.sleep(1)
         self.c.turn_led_off()
+
+        print "Stop TCP Server Thread..."
+        TcpServer.stopTCPServer()
+        self.workThread.terminate()
 
     """THREAD FUNCTIONS"""
     #START ARDUINO SENSING THREAD

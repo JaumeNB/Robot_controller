@@ -86,12 +86,6 @@ class TcpServer(QThread):
                     if data_command == "":
                         continue
 
-                    #CLOSE CONNECTION
-                    if Commands.CMD_CLOSE[1:] in data_command:
-                        print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
-                        #close connection
-                        self.connection.close()
-
                     #GO BACKWARDS
                     if Commands.CMD_FORWARD[1:] in data_command:
                         print data_command + " at " + datetime.datetime.now().strftime("%H:%M:%S")
