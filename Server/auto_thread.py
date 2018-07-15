@@ -30,6 +30,9 @@ class Auto_Thread(QThread):
                     self.c.STATUS = 'STOP'
                     #while safety stop triggered
 
+                else:
+                    pass
+
     def finish_thread(self):
         self.c.stop()
         self.thread_to_stop = True
