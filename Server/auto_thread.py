@@ -16,11 +16,18 @@ class Auto_Thread(QThread):
 
         #while thread allowed to work
         while self.thread_to_stop == False:
+
             self.c.forward()
             self.c.STATUS = 'FORWARD'
 
-            while self.c.SAFETY == False:
-                print ("running")
+            if self.c.SAFETY == True:
+
+                self.c.stop()
+                self.c.STATUS = 'STOP'
+
+                while self.c.SAFETY == True:
+
+                    
 
     def finish_thread(self):
         self.c.stop()
