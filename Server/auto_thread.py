@@ -27,8 +27,6 @@ class Auto_Thread(QThread):
                 #if obstacle found
                 if self.c.SAFETY:
                     self.c.stop()
-                    self.c.turn_red_led_on()
-                    self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: red")
                     self.c.STATUS = 'STOP'
                     #while safety stop triggered
                     while self.c.SAFETY:
