@@ -20,14 +20,14 @@ class Auto_Thread(QThread):
             self.c.forward()
             self.c.STATUS = 'FORWARD'
 
-            while self.c.STATUS == 'FORWARD':
+            if self.c.SAFETY == True:
 
-                if self.c.SAFETY == True:
-                    self.c.stop()
-                    self.c.STATUS = 'STOP'
+                self.c.stop()
+                self.c.STATUS = 'STOP'
 
-                    while self.c.SAFETY == True:
-                        print('safety')
+                while self.c.SAFETY == True:
+
+                    print('safety')
 
         self.c.stop()
 
