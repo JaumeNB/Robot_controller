@@ -33,10 +33,6 @@ class Arduino_Thread(QThread):
                 if read_ser < 30:
                     #safety stop triggered
                     self.c.SAFETY = True
-                    #turn red led on
-                    self.c.turn_red_led_on()
-                    #emit signal to update UI
-                    self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: red")
                     print "safety stop"
 
                 else:
