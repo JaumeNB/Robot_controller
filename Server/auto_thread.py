@@ -27,7 +27,7 @@ class Auto_Thread(QThread):
 
                 while self.c.SAFETY == True:
 
-                    
+                    print('safety')
 
     def finish_thread(self):
         self.c.stop()
