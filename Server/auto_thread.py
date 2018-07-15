@@ -21,15 +21,7 @@ class Auto_Thread(QThread):
             self.c.forward()
             self.c.STATUS = 'FORWARD'
 
-            time.sleep(2)
-
-            self.c.stop()
-            self.c.STATUS = 'STOP'
-
-            time.sleep(2)
-
-
-            """#while moving forward
+            #while moving forward
             while self.c.STATUS == 'FORWARD':
 
                 #if obstacle found
@@ -37,10 +29,6 @@ class Auto_Thread(QThread):
                     self.c.stop()
                     self.c.STATUS = 'STOP'
                     #while safety stop triggered
-                    while self.c.SAFETY:
-                        pass
-                else:
-                    pass"""
 
     def finish_thread(self):
         self.c.stop()

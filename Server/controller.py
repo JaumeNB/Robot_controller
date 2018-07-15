@@ -63,7 +63,7 @@ class Controller():
                 time.sleep(0.005)
         #if safety alarm is triggered, no forward allowed
         else:
-            print ("You can't go forward, object may cause collision")
+            print "Can't go forward at" + datetime.datetime.now().strftime("%H:%M:%S")
 
     #STOP
     def stop(self):
