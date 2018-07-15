@@ -71,7 +71,7 @@ class Main(QWidget, Ui_Form):
     """PyQt BUTTON LISTENERS MANAGING THREADS"""
     #START TCP SERVER THREAD
     @pyqtSignature("")
-    def on_start_server_btn_pressed(self):
+    def on_server_start_btn_pressed(self):
         #pass controller object as tcp server receives commands to execute functions that will interact with
         #the robot that are defined in the controller
         self.ServerThread = TcpServer(self.c)
