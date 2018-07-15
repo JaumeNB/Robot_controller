@@ -12,11 +12,10 @@ from commands import Commands
 
 class Main(QWidget, Ui_Form):
 
-    tcp_client = TcpClient()
-
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         self.setupUi(self)
+        self.tcp_client = TcpClient()
 
     """---------------PyQt BUTTON LISTENERS---------------------"""
     #connect button pressed
@@ -27,6 +26,15 @@ class Main(QWidget, Ui_Form):
             print "Client connected!"
         except Exception, e:
             print "Connect to server Failed!", e
+
+    #disconnect button pressed
+    @pyqtSignature("")
+    def on_disconnect_btn_pressed(self):
+        try:
+            self.tcp_client.disconnect()
+            print "Client disconnected!"
+        except Exception, e:
+            print "Disconnect failed!", e
 
     #forward button pressed
     @pyqtSignature("")

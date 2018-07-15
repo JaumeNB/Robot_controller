@@ -48,58 +48,73 @@ class Main(QWidget, Ui_Form):
     def update_wheel_orientation_lcd(self, text):
         self.wheel_orientation_lcd.display(text)
 
-    """PyQt BUTTON LISTENERS"""
+    #SERVER STARTED NOTIFICATION AND UI UPDATE
+    def server_started(self):
+        self.controller_label.setStyleSheet("background-color: green")
+        QtGui.QMessageBox.information(self, "Started!", "Server thread started")
+
+    #SERVER FINISHED NOTIFICATINO AND UI UPDATE
+    def server_finished(self):
+        self.controller_label.setStyleSheet("background-color: white")
+        QtGui.QMessageBox.information(self, "Finished!", "Server thread finished")
+
+    #AUTONOMOUS MODE STARTED NOTIFICATION AND UI UPDATE
+    def auto_started(self):
+        self.auto_label.setStyleSheet("background-color: green")
+        QtGui.QMessageBox.information(self, "Started!", "Autonomous mode thread started")
+
+    #AUTONOMOUS MODE FINISHED NOTIFICATINO AND UI UPDATE
+    def auto_finished(self):
+        self.auto_label.setStyleSheet("background-color: white")
+        QtGui.QMessageBox.information(self, "Finished!", "Autonomous mode thread finished")
+
+    """PyQt BUTTON LISTENERS MANAGING THREADS"""
     #START TCP SERVER THREAD
     @pyqtSignature("")
     def on_start_server_btn_pressed(self):
-
-        print "auto thread is running? ", self.AutoThread.isRunning()
-        if self.AutoThread.isRunning() == True:
-            print "Stop Auto Thread..."
-            self.AutoThread.quit()
-
-        #this will start a tcpserver object in a different thread (main thread is gor GUI)
-        #using for loop to avoid error raised by starting same thread
-        for i in range(1):
-            #pass controller object as tcp server receives commands to execute functions that will interact with
-            #the robot that are defined in the controller
-            self.ServerThread = TcpServer(self.c)
-            #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.ServerThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
-            self.connect( self.ServerThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
-            self.connect( self.ServerThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
-            #start thread
-            self.ServerThread.start()
-            self.tcp_thread_active = True
+        #pass controller object as tcp server receives commands to execute functions that will interact with
+        #the robot that are defined in the controller
+        self.ServerThread = TcpServer(self.c)
+        #connect signal (emit in this workthread) and slot (function add)
+        self.connect( self.ServerThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
+        self.connect( self.ServerThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
+        self.connect( self.ServerThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
+        self.connect(self.ServerThread, QtCore.SIGNAL("started()"), self.server_started)
+        self.connect(self.ServerThread, QtCore.SIGNAL("finished()"), self.server_finished)
+        #start thread
+        self.ServerThread.start()
 
     #START AUTONOMOUS MODE
     @pyqtSignature("")
-    def on_auto_btn_pressed(self):
+    def on_auto_on_btn_pressed(self):
 
-        for i in range(1):
-            self.AutoThread = Auto_Thread(self.c)
-            #start thread
-            self.AutoThread.start()
-            self.auto_thread_active = True
+        self.AutoThread = Auto_Thread(self.c)
+        self.connect(self.AutoThread, QtCore.SIGNAL("started()"), self.auto_started)
+        self.connect(self.AutoThread, QtCore.SIGNAL("finished()"), self.auto_finished)
+        #start thread
+        self.AutoThread.start()
 
-    """THREAD FUNCTIONS"""
+    #START AUTONOMOUS MODE
+    @pyqtSignature("")
+    def on_auto_off_btn_pressed(self):
+        self.AutoThread.finish_thread()
+
+
+    """THREAD FUNCTIONS AUTOMATICALLY TRIGGERED"""
     #START ARDUINO SENSING THREAD
     def start_arduino_thread(self):
-        #create an object arduino that will be executed on a separate thread
-        #to get data from the arduino
-        #using for loop to avoid error raised by starting same thread
-        for i in range(1):
-            #pass the controllet object so it can upload the sensor data to the controller instance
-            #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
-            #using a QThread that will be able to talk to this thread (main one)
-            #through signals and slots
-            self.ArduinoThread = Arduino_Thread(self.c)
-            #connect signal (emit in this workthread) and slot (function add)
-            self.connect( self.ArduinoThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
-            self.connect( self.ArduinoThread, QtCore.SIGNAL("update_ultrasonic_distance_lcd(QString)"), self.update_ultrasonic_distance_lcd )
 
-            #start thread
-            self.ArduinoThread.start()
+        #pass the controllet object so it can upload the sensor data to the controller instance
+        #pass the Main object, inheriting from Ui_Form, to be able to upload sensor values in PyQt
+        #using a QThread that will be able to talk to this thread (main one)
+        #through signals and slots
+        self.ArduinoThread = Arduino_Thread(self.c)
+        #connect signal (emit in this workthread) and slot (function add)
+        self.connect( self.ArduinoThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
+        self.connect( self.ArduinoThread, QtCore.SIGNAL("update_ultrasonic_distance_lcd(QString)"), self.update_ultrasonic_distance_lcd )
+
+        #start thread
+        self.ArduinoThread.start()
 
     """---------------CLASS CONSTRUCTOR---------------------"""
     def __init__(self, parent=None):

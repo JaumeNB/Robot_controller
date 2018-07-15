@@ -7,20 +7,20 @@ class Auto_Thread(QThread):
     def __init__(self, c):
         QThread.__init__(self)
         self.c = c
-        self.status = "stop"
+        self.thread_to_stop = False
 
     def __del__(self):
         self.wait()
 
     def run(self):
-
-        for i in range(2):
-
+        while self.thread_to_stop == False:
             self.c.turn_blue_led_on()
             time.sleep(1)
-            self.c.turn_blue_led_on()
+            self.c.turn_led_off()
             time.sleep(1)
 
+    def finish_thread(self):
+        self.thread_to_stop = True
 
         """
         #Safety prevention for collision

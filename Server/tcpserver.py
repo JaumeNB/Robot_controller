@@ -8,7 +8,7 @@ from PyQt4.QtCore import *
 #inherits from threading to be able to be executed on extra thread
 class TcpServer(QThread):
 
-    def __init__(self, c, host = '0.0.0.0', port = 12345, buf_size = 1024):
+    def __init__(self, c):
         QThread.__init__(self)
         """ Initialize the server with a host and port to listen to. """
         # Create a TCP/IP socket
@@ -16,19 +16,18 @@ class TcpServer(QThread):
         #In most cases, you will want to use AF_INET for IPv4 internet protocols
         #SOCK_STREAM is used for a TCP communication
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #setsockopt() is used to specify options on the socket.
-        #Here, we set the option SO_REUSEADDR, which indicates that the system can reuse this socket
-        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         #if host is 127.0.0.1, limits connections to clients running on the local machine.
         #you can use 0.0.0.0, and it will be accessible from other machines on your local network.
-        self.host = host
+        self.host = '0.0.0.0'
         #port that server will be listening to
-        self.port = port
+        self.port = 12345
         #buffer size
-        self.buf_size = buf_size
+        self.buf_size = 1024
         #controller object
         self.c = c
-        self.finish_connection = False
+
+    def __del__(self):
+        self.wait()
 
     def stopTCPServer(self):
         pass
@@ -38,14 +37,13 @@ class TcpServer(QThread):
 			print "Client close Error",e
         self.sock.shutdown(2)
         self.sock.close()
-        self.finish_connection = True
-
-    def __del__(self):
-        self.wait()
-
 
     def run(self):
         """ Accept and handle an incoming connection. """
+        #setsockopt() is used to specify options on the socket.
+        #Here, we set the option SO_REUSEADDR, which indicates that the system can reuse this socket
+        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
         try:
             #associate the socket with the server address and port
             self.sock.bind((self.host, self.port))
@@ -61,7 +59,7 @@ class TcpServer(QThread):
         print('Starting socket server (host {}, port {})'.format(self.host, self.port))
 
         #loop to wait for connection
-        while True and self.finish_connection == False:
+        while True:
 
             #wait for connection
             print("Wating for connection ... ")
@@ -78,7 +76,7 @@ class TcpServer(QThread):
 				print "sock closed! Error: ",e
 
             #if connection successful, enter second loop where data exchange is done
-            while True and self.finish_connection == False:
+            while True:
                 #receive data
                 try:
                     data = self.connection.recv(self.buf_size).decode('utf-8')
@@ -194,7 +192,8 @@ class TcpServer(QThread):
                         self.c.turn_led_off()
                         #update server UI
                         self.emit( SIGNAL('update_led_label(QString, QString)'), "off", "background-color: white")
-
+                self.connection.close()
+                break
 
 def main():
     server = TcpServer()
