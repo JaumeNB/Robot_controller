@@ -192,8 +192,8 @@ class TcpServer(QThread):
                         self.c.turn_led_off()
                         #update server UI
                         self.emit( SIGNAL('update_led_label(QString, QString)'), "off", "background-color: white")
-                self.connection.close()
-                break
+            self.connection.close()
+            break
 
 def main():
     server = TcpServer()
