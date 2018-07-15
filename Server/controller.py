@@ -66,7 +66,7 @@ class Controller():
             print ("You can't go forward, object may cause collision")
 
     #STOP
-    def stop(self, safety = False):
+    def stop(self, safety = self.SAFETY):
         #if stop due to safety alarm, log info
         if safety:
             print "SAFETY STOP at " + datetime.datetime.now().strftime("%H:%M:%S")

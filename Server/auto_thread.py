@@ -22,7 +22,12 @@ class Auto_Thread(QThread):
             self.c.STATUS = 'FORWARD'
 
             time.sleep(2)
-            
+
+            self.c.stop()
+            self.c.STATUS = 'STOP'
+
+            time.sleep(2)
+
 
             """#while moving forward
             while self.c.STATUS == 'FORWARD':
