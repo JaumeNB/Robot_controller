@@ -18,10 +18,9 @@ class Auto_Thread(QThread):
         while self.thread_to_stop == False:
             self.c.forward()
             self.c.STATUS = 'FORWARD'
-            time.sleep(2)
-            self.c.stop()
-            self.c.STATUS = 'STOP'
-            time.sleep(2)
+
+            while self.c.SAFETY == False:
+                print ("running")
 
     def finish_thread(self):
         self.c.stop()
