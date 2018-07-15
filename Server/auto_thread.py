@@ -22,7 +22,7 @@ class Auto_Thread(QThread):
             self.c.STATUS = 'FORWARD'
 
             #while moving forward
-            while self.c.STATUS = 'FORWARD':
+            while self.c.STATUS == 'FORWARD':
 
                 #if obstacle found
                 if self.c.SAFETY:
