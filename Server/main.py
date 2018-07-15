@@ -14,6 +14,22 @@ from auto_thread import Auto_Thread
 #PYQT USER INTERFACE ==> MAIN THREAD
 class Main(QWidget, Ui_Form):
 
+    """---------------CLASS CONSTRUCTOR---------------------"""
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+        #method to setup the UI, defined in server_ui.py
+        self.setupUi(self)
+        #controller is instantiated here so it can be accessible
+        #for arduino thread, controler thread
+        #and tcpServer thread
+        self.c = Controller()
+        #start arduino thread
+        self.start_arduino_thread()
+        #auto thread status
+        self.auto_status = False
+        #server thread status
+        self.server_status = False
+
     """---------------INSTANCE METHODS---------------------"""
 
     """SLOT FUNCTIONS"""
@@ -125,22 +141,6 @@ class Main(QWidget, Ui_Form):
 
         #start thread
         self.ArduinoThread.start()
-
-    """---------------CLASS CONSTRUCTOR---------------------"""
-    def __init__(self, parent=None):
-        QWidget.__init__(self, parent)
-        #method to setup the UI, defined in server_ui.py
-        self.setupUi(self)
-        #controller is instantiated here so it can be accessible
-        #for arduino thread, controler thread
-        #and tcpServer thread
-        self.c = Controller()
-        #start arduino thread
-        self.start_arduino_thread()
-        #auto thread status
-        self.auto_status = False
-        #server thread status
-        self.server_status = False
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
