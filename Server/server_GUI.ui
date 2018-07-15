@@ -55,18 +55,22 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="auto_on_btn">
-         <property name="text">
-          <string>ON</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="auto_off_btn">
-         <property name="text">
-          <string>OFF</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QPushButton" name="auto_on_btn">
+           <property name="text">
+            <string>ON</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="auto_off_btn">
+           <property name="text">
+            <string>OFF</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
@@ -147,6 +151,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
           <widget class="QLabel" name="red_label">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>60</height>
+            </size>
+           </property>
            <property name="text">
             <string>RED</string>
            </property>
@@ -157,6 +167,12 @@
          </item>
          <item>
           <widget class="QLabel" name="green_label">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>60</height>
+            </size>
+           </property>
            <property name="text">
             <string>GREEN</string>
            </property>
@@ -167,6 +183,12 @@
          </item>
          <item>
           <widget class="QLabel" name="blue_label">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>60</height>
+            </size>
+           </property>
            <property name="text">
             <string>BLUE</string>
            </property>
@@ -208,7 +230,14 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLCDNumber" name="wheel_orientation_lcd"/>
+          <widget class="QLCDNumber" name="wheel_orientation_lcd">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>60</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -253,10 +282,24 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QLCDNumber" name="ultrasonic_orientation_lcd"/>
+          <widget class="QLCDNumber" name="ultrasonic_orientation_lcd">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>60</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLCDNumber" name="ultrasonic_distance_lcd"/>
+          <widget class="QLCDNumber" name="ultrasonic_distance_lcd">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>60</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
