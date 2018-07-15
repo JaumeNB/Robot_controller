@@ -52,47 +52,57 @@ class Main(QWidget, Ui_Form):
     def server_started(self):
         self.controller_label.setStyleSheet("background-color: green")
         QtGui.QMessageBox.information(self, "Started!", "Server thread started")
+        self.server_status = True
 
     #SERVER FINISHED NOTIFICATINO AND UI UPDATE
     def server_finished(self):
         self.controller_label.setStyleSheet("background-color: white")
         QtGui.QMessageBox.information(self, "Finished!", "Server thread finished")
+        self.server_status = False
 
     #AUTONOMOUS MODE STARTED NOTIFICATION AND UI UPDATE
     def auto_started(self):
         self.auto_label.setStyleSheet("background-color: green")
         QtGui.QMessageBox.information(self, "Started!", "Autonomous mode thread started")
+        self.auto_status = True
 
     #AUTONOMOUS MODE FINISHED NOTIFICATINO AND UI UPDATE
     def auto_finished(self):
         self.auto_label.setStyleSheet("background-color: white")
         QtGui.QMessageBox.information(self, "Finished!", "Autonomous mode thread finished")
+        self.auto_status = False
 
     """PyQt BUTTON LISTENERS MANAGING THREADS"""
     #START TCP SERVER THREAD
     @pyqtSignature("")
     def on_server_start_btn_pressed(self):
-        #pass controller object as tcp server receives commands to execute functions that will interact with
-        #the robot that are defined in the controller
-        self.ServerThread = TcpServer(self.c)
-        #connect signal (emit in this workthread) and slot (function add)
-        self.connect( self.ServerThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
-        self.connect( self.ServerThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
-        self.connect( self.ServerThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
-        self.connect(self.ServerThread, QtCore.SIGNAL("started()"), self.server_started)
-        self.connect(self.ServerThread, QtCore.SIGNAL("finished()"), self.server_finished)
-        #start thread
-        self.ServerThread.start()
+        if not auto_status:
+            #pass controller object as tcp server receives commands to execute functions that will interact with
+            #the robot that are defined in the controller
+            self.ServerThread = TcpServer(self.c)
+            #connect signal (emit in this workthread) and slot (function add)
+            self.connect( self.ServerThread, QtCore.SIGNAL("update_led_label(QString, QString)"), self.update_led_indicator )
+            self.connect( self.ServerThread, QtCore.SIGNAL("update_ultrasonic_orientation_lcd(QString)"), self.update_ultrasonic_orientation_lcd )
+            self.connect( self.ServerThread, QtCore.SIGNAL("update_wheel_orientation_lcd(QString)"), self.update_wheel_orientation_lcd )
+            self.connect(self.ServerThread, QtCore.SIGNAL("started()"), self.server_started)
+            self.connect(self.ServerThread, QtCore.SIGNAL("finished()"), self.server_finished)
+            #start thread
+            self.ServerThread.start()
+        else:
+            QtGui.QMessageBox.information(self, "Unauthorized!", "Please terminate autonomous thread before turning on controller mode")
 
     #START AUTONOMOUS MODE
     @pyqtSignature("")
     def on_auto_on_btn_pressed(self):
+        if not server_status:
+            self.AutoThread = Auto_Thread(self.c)
+            self.connect(self.AutoThread, QtCore.SIGNAL("started()"), self.auto_started)
+            self.connect(self.AutoThread, QtCore.SIGNAL("finished()"), self.auto_finished)
+            #start thread
+            self.AutoThread.start()
+        else:
+            QtGui.QMessageBox.information(self, "Unauthorized!", "Please disconnect client before turning on autonomous mode")
 
-        self.AutoThread = Auto_Thread(self.c)
-        self.connect(self.AutoThread, QtCore.SIGNAL("started()"), self.auto_started)
-        self.connect(self.AutoThread, QtCore.SIGNAL("finished()"), self.auto_finished)
-        #start thread
-        self.AutoThread.start()
 
     #START AUTONOMOUS MODE
     @pyqtSignature("")
@@ -127,6 +137,10 @@ class Main(QWidget, Ui_Form):
         self.c = Controller()
         #start arduino thread
         self.start_arduino_thread()
+        #auto thread status
+        self.auto_status = False
+        #server thread status
+        self.server_status = False
 
 """----------------------MAIN PROGRAM---------------------------"""
 if __name__ == "__main__":
