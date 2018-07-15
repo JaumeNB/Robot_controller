@@ -30,6 +30,25 @@ class Arduino_Thread(QThread):
                 #emit signal to update UI
                 self.emit( SIGNAL('update_ultrasonic_distance_lcd(QString)'),str(self.c.ULTRASONIC_SENSOR))
 
+                if read_ser < 30:
+                    #safety stop triggered
+                    self.c.SAFETY = True
+                    #turn red led on
+                    self.c.turn_red_led_on()
+                    #emit signal to update UI
+                    self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: red")
+                    print "safety stop"
+
+                else:
+                    #safety stop deactivated
+                    self.c.SAFETY = False
+                    #turn off leds
+                    self.c.turn_led_off()
+                    #emit signal to main thread (UI) that will trigger a function
+                    #that will change the red led dashboard label
+                    self.emit( SIGNAL('update_led_label(QString, QString)'), "red", "background-color: white")
+                    print "No danger of collision"
+
             except ValueError as e:
                 print "error: " + read_ser
 

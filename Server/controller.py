@@ -27,6 +27,7 @@ class Controller():
     ULTRASONIC_SENSOR = 100             #ULTRASONIC SENSOR VALUE: DISTANCE
     #ROBOT STATUS
     SAFETY = False                      #SAFETY ALARM
+    STATUS = 'STOP'                     #ROBOT STATUS
     #CONSTANTS
     SONIC_MAX_HIGH_BYTE = 50
 
