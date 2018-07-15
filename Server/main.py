@@ -92,7 +92,7 @@ class Main(QWidget, Ui_Form):
     #START TCP SERVER THREAD
     @pyqtSignature("")
     def on_server_start_btn_pressed(self):
-        if not auto_status:
+        if not self.auto_status:
             #pass controller object as tcp server receives commands to execute functions that will interact with
             #the robot that are defined in the controller
             self.ServerThread = TcpServer(self.c)
@@ -110,7 +110,7 @@ class Main(QWidget, Ui_Form):
     #START AUTONOMOUS MODE
     @pyqtSignature("")
     def on_auto_on_btn_pressed(self):
-        if not server_status:
+        if not self.server_status:
             self.AutoThread = Auto_Thread(self.c)
             self.connect(self.AutoThread, QtCore.SIGNAL("started()"), self.auto_started)
             self.connect(self.AutoThread, QtCore.SIGNAL("finished()"), self.auto_finished)
